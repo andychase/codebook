@@ -1,4 +1,4 @@
-    Codebook: Information for programmers
+    Introducing Codebook
     Andy Chase (andychase.me)
     June 17 2015
 
@@ -17,6 +17,7 @@ Collections should stand on their own and provide structure and context to links
     [link/guide]
     title: The definitive guide to form-based website authentication
     url: stackoverflow.com/a/477578/3479853
+    icon: ss-signpost
     author: Jens Roland
     editor: Jeff Atwood (codehorror)
     cat: web/security/basics
@@ -28,11 +29,15 @@ Here's some sites that I use to gather fantastic thought-provoking programming a
 
     [link/resource]
     title: StackOverflow Highest Voted Questions
+    icon: ss-list
     url: https://stackoverflow.com/questions?sort=votes
+    
+    I visit this 
 
 These resources are very interesting in getting a basis for what is popular and getting
 a sense for what you should know as a software engineer.
 
     [link/resource]
     title: Reddit /r/programming Top Scoring Links of All Time
+    icon: ss-list
     url: https://www.reddit.com/r/programming/top/?sort=top&t=all

@@ -1,6 +1,0 @@
-id,name,parent_id
-1,web,
-2,security,1
-3,os,
-4,gaming,
-5,programmers,
