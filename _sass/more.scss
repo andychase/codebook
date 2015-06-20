@@ -8,20 +8,23 @@
   border-radius: 3px;
   background-color: #eef;
   min-height: 35pt;
-  a {
+  a.link_url {
     font-size: 14pt;
     font-weight: bold;
   }
-  .domain {
-    margin-left: 10px;
+  .more_link_data {
     font-size: 8pt;
-    color: #888;
-    display: inline-block;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    vertical-align: middle;
-    max-width: 19em;
+  }
+  .domain {
+    #margin-left: 10px;
+    #font-size: 8pt;
+    #color: #888;
+    #display: inline-block;
+    #overflow: hidden;
+    #white-space: nowrap;
+    #text-overflow: ellipsis;
+    #vertical-align: middle;
+    #max-width: 19em;
   }
   .icon {
     position: absolute;

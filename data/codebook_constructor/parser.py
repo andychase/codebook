@@ -15,7 +15,10 @@ def url_handler(url):
     if not url.startswith("http"):
         url = "http://" + url
     parsed = urlparse(url)
-    return www_remover(parsed.netloc), parsed.geturl()
+    output_url = parsed.geturl()
+    domain = www_remover(parsed.netloc)
+    domain_link = "{}://{}".format(parsed.scheme, domain)
+    return domain, domain_link, output_url
 
 
 def normalize_whitespace(source):
@@ -36,7 +39,12 @@ def process(contents):
     for i, block in enumerate(str(normalize_whitespace(contents)).split("\n\n")):
         indented = block.startswith(" " * 4)
         first_line = block.split("\n")[0] if len(block.split("\n")) > 0 else False
-        has_type_block = first_line and first_line.lstrip().startswith("[") and first_line.rstrip().endswith("]")
+        has_type_block = \
+            first_line and \
+            len(first_line) > 4 and \
+            first_line[4] == "[" and \
+            first_line.lstrip().startswith("[") and \
+            first_line.rstrip().endswith("]")
         type_block = None
         if has_type_block:
             type_block = first_line.split("[", 1)[1].rsplit("]", 1)[0]
@@ -52,8 +60,9 @@ def process(contents):
             stripped_lines = [l[4:] for l in block.split("\n")]
             yaml_block = "\n".join(stripped_lines[1:])
             yaml_data = yaml.load(yaml_block)
-            domain, url = url_handler(yaml_data['url'])
+            domain, domain_link, url = url_handler(yaml_data['url'])
             yaml_data['domain'] = domain
+            yaml_data['domain_link'] = domain_link
             yaml_data['url'] = url
             yaml_data['type'] = type_block
             yaml_data['date'] = pytz.timezone('US/Pacific').localize(parse(yaml_data['date']))

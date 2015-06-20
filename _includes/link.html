@@ -1,16 +1,17 @@
 <div class="link_block">
-<div class="icon {{ site.resource_type_to_icon_map[link.type] }}"></div>
-<a href="{{ link.url }}">{{ link.title }}</a><span class="domain">({{ link.domain }})</span>
-<div class="more_link_data">
-    {% if link.date %}
-    <span class="date">{{ link.date | date: "%Y" }},</span>
-    {% endif %}
-    {% if link.found_on %}<span class="found_on">
-        from <a href="{{ link.found_on.url }}">{{ link.found_on.name }}</a>
-    </span>
-    {% endif %}
-    {% if link.authors %}
-    <span class="authors">
+    <div class="icon {{ site.resource_type_to_icon_map[link.type] }}"></div>
+    <a class="link_url" href="{{ link.url }}">
+        {{ link.title }}
+    </a>
+
+    <div class="more_link_data">
+        <span class="domain">
+        <a href="{{ link.domain_link }}">{{ link.domain }}</a>,
+        </span>
+        {% if link.date %}
+        <span class="date">{{ link.date | date: "%Y" }},</span>
+        {% endif %}
+        <span class="authors">
         {% if link.authors.size > 1 %}
             by {{link.authors[0]}}
         {% endif %}
@@ -18,11 +19,18 @@
             and {{link.authors[1]}}
         {% endif %}
     </span>
-    {% endif %}
-</div>
+        {% if link.found_on %}
+        <span class="found_on">
+        found on <a class="found_on_url" href="{{ link.found_on.url }}">{{ link.found_on.name }}</a>
+        </span>
+        {% endif %}
+        {% if link.authors %}
 
-<div class="description">
-    {{ link.description | markdownify }}
-</div>
+        {% endif %}
+    </div>
+
+    <div class="description">
+        {{ link.description | markdownify }}
+    </div>
 
 </div>
