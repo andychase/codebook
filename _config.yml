@@ -10,3 +10,7 @@ markdown: kramdown
 # For the icons next to links
 resource_type_to_icon_map:
   guide: ss-signpost
+permalink: pretty
+collections:
+  topics:
+    output: true
