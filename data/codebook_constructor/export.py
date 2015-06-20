@@ -24,10 +24,6 @@ link_block = lambda i: """
 {% include link.html %}
 """.replace("~~~~~", str(i))
 
-type_icon_map = {
-    "guide": "ss-signpost"
-}
-
 output_dir = os.path.abspath(os.path.join(os.path.dirname(os.path.realpath(__file__)), "..", "..", "_posts"))
 
 
@@ -49,8 +45,6 @@ def output(parser_output):
             )
 
         elif resource:
-            resource['icon'] = type_icon_map[resource['type']]
-
             link_data.append(resource)
             current_link_data_index = len(link_data) - 1
             output_blocks.append(link_block(current_link_data_index))

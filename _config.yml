@@ -1,10 +1,12 @@
-# Site settings
 title: "Codebook: Software Development Resources"
 email: codebook@andychase.me
-description: Write an awesome description for your new site here.
-baseurl: "" # the subpath of your site, e.g. /blog/
+description: Software Development Resources
+baseurl: ""
 url: "https://codebook.snc.io"
 twitter_username: techstoreclub
 github_username:  techstoreclub
-# Build settings
+
 markdown: kramdown
+# For the icons next to links
+resource_type_to_icon_map:
+  guide: ss-signpost
