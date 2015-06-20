@@ -1,0 +1,16 @@
+<div class="link_block">
+<div class="icon {{ link.icon }}"></div>
+<a href="{{ link.url }}">{{ link.title }}</a><span class="domain">({{ link.domain }})</span>
+<div class="more_link_data">
+    {% if link.date %}
+    <span class="date">{{ link.date | date: "%b %d %y" }}</span>
+    {% endif %}{% if link.found_on %}
+    <span class="found_on">
+        from → <a href="{{ link.found_on.url }}">{{ link.found_on.name }}</a>
+    </span>
+    {% endif %}
+</div>
+
+{{ link.description | markdownify }}
+
+</div>

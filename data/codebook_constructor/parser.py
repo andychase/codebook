@@ -10,8 +10,6 @@ www_remover = lambda _, r=re.compile("^www\."): r.sub("", _)
 
 Info = namedtuple("Info", "title date authors")
 
-Resource = namedtuple("Resource", "title type domain url description")
-
 
 def url_handler(url):
     if not url.startswith("http"):
@@ -54,8 +52,12 @@ def process(contents):
             stripped_lines = [l[4:] for l in block.split("\n")]
             yaml_block = "\n".join(stripped_lines[1:])
             yaml_data = yaml.load(yaml_block)
-            d = lambda key: yaml_data.get(key)
             domain, url = url_handler(yaml_data['url'])
-            yield None, Resource(d("title"), type_block, domain, url, d("description")), None
+            yaml_data['domain'] = domain
+            yaml_data['url'] = url
+            yaml_data['type'] = type_block
+            yaml_data['date'] = pytz.timezone('US/Pacific').localize(parse(yaml_data['date']))
+
+            yield None, yaml_data, None
         else:
             yield None, None, block

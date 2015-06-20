@@ -1,25 +1,28 @@
-from itertools import chain
 import os
 import slugify
+import yaml
 
-title_block = """---
-layout: post
-title:  "{title}"
-date:   {date}
-author: {authors}
-categories: collections
----
-"""
 
-link_block = """
-<div class="link_block" markdown="1">
-<div class="icon {icon}"></div>
-<a href="{url}">{title}</a><span class="domain">({domain})</span>
+def title_block_output(title, links):
+    return "---\n{}\n---".format(
+        yaml.safe_dump(
+            {
+                "layout": "post",
+                "title": title.title,
+                "date": title.date,
+                "author": ", ".join(title.authors),
+                "categories": "collections",
+                "resources": links
+            },
+            default_flow_style=False
+        )
+    )
 
-{description}
 
-</div>
-"""
+link_block = lambda i: """
+{% assign link = page.resources[~~~~~] %}
+{% include link.html %}
+""".replace("~~~~~", str(i))
 
 type_icon_map = {
     "guide": "ss-signpost"
@@ -28,37 +31,35 @@ type_icon_map = {
 output_dir = os.path.abspath(os.path.join(os.path.dirname(os.path.realpath(__file__)), "..", "..", "_posts"))
 
 
-def get_first_and_return_full(iterator):
-    value = next(iterator)
-    return value, chain([value], iterator)
-
-
 def output(parser_output):
-    first_output, parser_output = get_first_and_return_full(parser_output)
-    info, _, _ = first_output
-    collection_title = "{YEAR}-{MONTH}-{DAY}-{title}.md".format(
-        YEAR=info.date.year,
-        MONTH=info.date.month,
-        DAY=info.date.day,
-        title=slugify.slugify(info.title)
-    )
-    with open(os.path.join(output_dir, collection_title), 'w') as f:
-        for (title, resource, text_block) in parser_output:
-            if title:
-                f.write(
-                    title_block.format(
-                        title=title.title,
-                        date=title.date.isoformat(),
-                        authors=", ".join(title.authors))
-                )
-            elif resource:
-                f.write(link_block.format(
-                    title=resource.title,
-                    icon=type_icon_map[resource.type],
-                    domain=resource.domain,
-                    url=resource.url,
-                    description=resource.description
-                ))
-            elif text_block:
-                f.write(text_block)
-            f.write("\n\n")
+    collection_title = ""
+    title_data = None
+
+    output_blocks = []
+    link_data = []
+
+    for (possible_title_data, resource, text_block) in parser_output:
+        if possible_title_data:
+            title_data = possible_title_data
+            collection_title = "{YEAR}-{MONTH}-{DAY}-{title}.md".format(
+                YEAR=title_data.date.year,
+                MONTH=title_data.date.month,
+                DAY=title_data.date.day,
+                title=slugify.slugify(title_data.title)
+            )
+
+        elif resource:
+            resource['icon'] = type_icon_map[resource['type']]
+
+            link_data.append(resource)
+            current_link_data_index = len(link_data) - 1
+            output_blocks.append(link_block(current_link_data_index))
+
+        elif text_block:
+            output_blocks.append(text_block)
+
+    if collection_title and title_data:
+        with open(os.path.join(output_dir, collection_title), 'w') as f:
+            f.write("\n\n".join([title_block_output(title_data, link_data)] + output_blocks))
+    else:
+        raise Exception("Title data not included in parser stream")
