@@ -1,14 +1,18 @@
 #!/usr/local/bin/python3
 import sys
 
-from export import output
-from parser import process
+import export_posts
+import export_topics
+import parser
 
 
 def main(filenames):
     for file in filenames:
         with open(file, 'r') as f:
-            output(process(f.read()))
+            page_output = list(parser.process(f.read()))
+
+        export_posts.output(page_output)
+        export_topics.output(page_output)
 
 
 if __name__ == "__main__":
