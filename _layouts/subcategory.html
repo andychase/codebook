@@ -6,7 +6,10 @@
   <body>
 
     {% include header.html %}
-    {% include category_nav.html %}
+
+    {% if page.subcategories %}
+        {% include category_nav.html %}
+    {% endif %}
 
     <div class="page-content">
       <div class="wrapper">

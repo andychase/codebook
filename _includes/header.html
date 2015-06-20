@@ -4,18 +4,18 @@
             <a class="site-title " href="{{ site.baseurl }}/">{{ site.title }}</a>
         <nav class="site-nav">
             <ul>
-                <li class="{% if page.onindex or page.categories.first == 'collections' %}active{% endif %}">
+                <li class="{% if page.nav_active == 'index' or page.categories.first == 'collections' %}active{% endif %}">
                     <a class="page-link" href="/">Collections</a>
                 </li>
                 {% for topic in site.topics %}
-                {% if topic.title and topic.level == 1 %}
-                <li class="{% if page.title == topic.title %} active{% endif %}">
+                {% if topic.title and topic.level != 2 %}
+                <li class="{% if page.nav_active contains topic.title %} active{% endif %}">
                     <a class="page-link" href="{{ topic.url | prepend: site.baseurl }}">{{ topic.title | capitalize }}</a>
                 </li>
                 {% endif %}
                 {% endfor %}
 
-                <li class="nav-right {% if page.onabout %}active{% endif %}">
+                <li class="nav-right {% if page.nav_active == 'about' %}active{% endif %}">
                     <a class="page-link" href="/about/">About</a>
                 </li>
             </ul>

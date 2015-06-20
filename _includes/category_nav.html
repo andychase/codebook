@@ -1,18 +1,15 @@
 <div class="site-header-nav">
-<div class="wrapper">
-<nav class="site-nav">
-    <ul>
-        <li class="{% if page.onindex %}active{% endif %}">
-            <a class="page-link" href="/">Collections</a>
-        </li>
-        {% for topic in site.topics %}
-        {% if topic.title %}
-        <li class="{% if page.title == topic.title %} active{% endif %}">
-            <a class="page-link" href="{{ topic.url | prepend: site.baseurl }}">{{ topic.title | capitalize }}</a>
-        </li>
-        {% endif %}
-        {% endfor %}
-    </ul>
-</nav>
-</div>
+    <div class="wrapper">
+        <div class="site-nav">
+            <ul>
+                {% for topic in page.subcategories %}
+                <li class="{% if page.nav_active contains topic %}active{% endif %}">
+                    <a class="page-link" href="{{ topic }}/">
+                        {{ topic | capitalize }}
+                    </a>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
 </div>

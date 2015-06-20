@@ -1,6 +1,6 @@
 ---
 layout: default
-onabout: true
+nav_active: about
 ---
 
 *About*
