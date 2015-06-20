@@ -1,5 +1,5 @@
 import sys
-from data.codebook_constructor.construct_pages import main
+from construct_pages import main
 
 
 if __name__ == "__main__":

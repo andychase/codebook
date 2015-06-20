@@ -1,8 +1,8 @@
 #!/usr/local/bin/python3
 import sys
 
-from data.codebook_constructor.export import output
-from data.codebook_constructor.parser import process
+from export import output
+from parser import process
 
 
 def main(filenames):
