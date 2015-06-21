@@ -14,7 +14,7 @@ def metadata_block_output(level, current, subcategories, parents, all_topics):
     path = parents + (current,)
     categories = list(build_category_listing(all_topics, path))
     if any(subcategories):
-        categories.append(subcategories)
+        categories.append([path + (c,) for c in subcategories])
     resources = get_leaf_node(all_topics, path).resources
 
     return "---\n{}\n---".format(
@@ -49,7 +49,7 @@ def get_leaf_node(topics, path):
 
 def build_category_listing(topics, path_parts):
     for depth in range(1, len(path_parts)):
-        yield get_siblings_at(topics, path_parts[:depth])
+        yield [path_parts[:depth] + (t,) for t in get_siblings_at(topics, path_parts[:depth])]
 
 
 def export_topics(all_topics, current_topics, parents=(), level=1):

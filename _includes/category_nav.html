@@ -4,9 +4,9 @@
         <div class="site-nav">
             <ul>
                 {% for topic in category %}
-                <li class="{% if page.nav_active contains topic %}active{% endif %}">
-                    <a class="page-link" href="{{ topic }}/">
-                        {{ topic | capitalize }}
+                <li class="{% if page.nav_active contains topic.last %}active{% endif %}">
+                    <a class="page-link" href="/topics/{{ topic | join: '/' }}/">
+                        {{ topic.last | capitalize }}
                     </a>
                 </li>
                 {% endfor %}
