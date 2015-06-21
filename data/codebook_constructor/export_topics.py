@@ -1,4 +1,5 @@
 import os
+import slugify
 import yaml
 from collections import namedtuple, defaultdict
 
@@ -6,6 +7,13 @@ TopicNode = namedtuple("TopicNode", "subtopics resources")
 new_topic_tree = lambda: defaultdict(lambda: TopicNode(new_topic_tree(), []))
 
 output_dir = os.path.abspath(os.path.join(os.path.dirname(os.path.realpath(__file__)), "..", "..", "_topics"))
+
+collection_title = lambda title_data: "/collections/{YEAR}/{MONTH:02d}/{DAY:02d}/{title}/".format(
+    YEAR=title_data.date.year,
+    MONTH=title_data.date.month,
+    DAY=title_data.date.day,
+    title=slugify.slugify(title_data.title)
+)
 
 
 def metadata_block_output(level, current, subcategories, parents, all_topics):
@@ -59,15 +67,21 @@ def export_topics(all_topics, current_topics, parents=(), level=1):
         with open(os.path.join(output_dir, file_name), 'w') as f:
             f.write(metadata_block_output(level, topic_name, list(node.subtopics.keys()), parents, all_topics))
 
-        export_topics(all_topics, node.subtopics, parents + (topic_name,), level=level+1)
+        export_topics(all_topics, node.subtopics, parents + (topic_name,), level=level + 1)
 
 
 def output(parser_output):
     topics = new_topic_tree()
+    title = None
 
-    for (_, resource, _) in parser_output:
+    for (title_block, resource, _) in parser_output:
+        if title_block:
+            title = title_block
         if resource:
             topic_parts = tuple(resource["topic"].strip("/").split("/"))
+            if title:
+                resource['collection_link'] = collection_title(title)
+                resource['collection_title'] = title.title
 
             leaf = get_leaf_node(topics, topic_parts)
             leaf.resources.append(resource)

@@ -18,19 +18,22 @@
         {% if link.authors.size == 2 %}
             and {{link.authors[1]}}
         {% endif %}
-    </span>
+        </span>
         {% if link.found_on %}
         <span class="found_on">
         found on <a class="found_on_url" href="{{ link.found_on.url }}">{{ link.found_on.name }}</a>
         </span>
         {% endif %}
-        {% if link.authors %}
-
+        {% if link.collection_link %}
+        <span>from → <a href="{{ link.collection_link }}">{{ link.collection_title }}</a>
+        </span>
         {% endif %}
     </div>
 
+    {% unless hide_description %}
     <div class="description">
         {{ link.description | markdownify }}
     </div>
+    {% endunless %}
 
 </div>

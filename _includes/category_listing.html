@@ -1,3 +1,5 @@
 <li>
-	<a href="{{resource.url}}">{{resource.title}}</a>
+	{% assign link = resource %}
+    {% assign hide_description = true %}
+    {% include link.html %}
 </li>
