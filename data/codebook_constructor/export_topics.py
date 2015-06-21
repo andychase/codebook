@@ -7,6 +7,8 @@ TopicNode = namedtuple("TopicNode", "subtopics resources")
 new_topic_tree = lambda: defaultdict(lambda: TopicNode(new_topic_tree(), []))
 
 output_dir = os.path.abspath(os.path.join(os.path.dirname(os.path.realpath(__file__)), "..", "..", "_topics"))
+if not os.path.isdir(output_dir):
+    os.mkdir(output_dir)
 
 collection_title = lambda title_data: "/collections/{YEAR}/{MONTH:02d}/{DAY:02d}/{title}/".format(
     YEAR=title_data.date.year,
