@@ -5,8 +5,17 @@
 
 
 
-// Our variables
-$base-font-family: Helvetica, Arial, sans-serif;
+@font-face {
+  font-family: NuvoWeb-Medi;
+  src: url("https://codebook-fonts.s3-us-west-2.amazonaws.com/NuvoWeb-Medi.eot");
+}
+
+@font-face {
+  font-family: NuvoWeb-Medi;
+  src: url("https://codebook-fonts.s3-us-west-2.amazonaws.com/NuvoWeb-Medi.woff") format("woff");
+}
+
+$base-font-family: NuvoWeb-Medi, Helvetica, Arial, sans-serif;
 $base-font-size:   16px;
 $small-font-size:  $base-font-size * 0.875;
 $base-line-height: 1.5;
@@ -22,7 +31,7 @@ $grey-color-light: lighten($grey-color, 40%);
 $grey-color-dark:  darken($grey-color, 25%);
 
 // Width of the content area
-$content-width:    640px;
+$content-width:    595px;
 
 $on-palm:          600px;
 $on-laptop:        800px;
