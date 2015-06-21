@@ -7,14 +7,15 @@
 
     {% include header.html %}
 
-    {% include category_nav.html %}
+    {% include navbar.html %}
 
     <div class="page-content">
       <div class="wrapper">
           {{ content }}
 
           {% for resource in page.resources %}
-          {% include category_listing.html %}
+            {% assign link = resource %}
+            {% include link.html %}
           {% endfor %}
       </div>
     </div>
