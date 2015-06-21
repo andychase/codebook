@@ -8,7 +8,7 @@
                     <a class="page-link" href="/">Collections</a>
                 </li>
                 {% for topic in site.topics %}
-                {% if topic.title and topic.level != 2 %}
+                {% if topic.title and topic.level == 1 %}
                 <li class="{% if page.nav_active contains topic.title %} active{% endif %}">
                     <a class="page-link" href="{{ topic.url | prepend: site.baseurl }}">{{ topic.title | capitalize }}</a>
                 </li>

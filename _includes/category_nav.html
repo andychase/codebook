@@ -1,8 +1,9 @@
+{% for category in page.categories %}
 <div class="site-header-nav">
     <div class="wrapper">
         <div class="site-nav">
             <ul>
-                {% for topic in page.subcategories %}
+                {% for topic in category %}
                 <li class="{% if page.nav_active contains topic %}active{% endif %}">
                     <a class="page-link" href="{{ topic }}/">
                         {{ topic | capitalize }}
@@ -13,3 +14,4 @@
         </div>
     </div>
 </div>
+{% endfor %}
