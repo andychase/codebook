@@ -25,6 +25,8 @@ link_block = lambda i: """
 """.replace("~~~~~", str(i))
 
 output_dir = os.path.abspath(os.path.join(os.path.dirname(os.path.realpath(__file__)), "..", "..", "_posts"))
+if not os.path.isdir(output_dir):
+    os.mkdir(output_dir)
 
 
 def output(parser_output):
