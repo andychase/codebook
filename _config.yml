@@ -10,6 +10,9 @@ markdown: kramdown
 # For the icons next to links
 resource_type_to_icon_map:
   guide: ss-signpost
+  opinion: ss-chat
+  "yes": ss-check
+  "no": ss-delete
 permalink: pretty
 collections:
   topics:

@@ -1,5 +1,18 @@
 <div class="link_block">
-    <div class="icon {{ site.resource_type_to_icon_map[link.type] }}"></div>
+    {% if link.commentary %}
+    <div class="commentary">
+        <span>
+        {{ link.commentary }}
+        </span>
+    </div>
+    {% endif %}
+
+    <div class="icon">
+        <span class="{{ site.resource_type_to_icon_map[link.type] }}"></span>
+        {% if link.opinion %}
+        <span class="opinion {{ site.resource_type_to_icon_map[link.opinion] }}"></span>
+        {% endif %}
+    </div>
     <a class="link_url" href="{{ link.url }}">
         {{ link.title }}
     </a>

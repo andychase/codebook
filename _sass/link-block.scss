@@ -8,6 +8,28 @@
   border-radius: 3px;
   background-color: #eef;
   min-height: 35pt;
+  .commentary {
+    display: block;
+    position: absolute;
+    width: 160px;
+    top: 0;
+    right: -178px;
+    text-align: left;
+    color: lighten($grey-color-dark, 10%);
+    padding-left: 10px;
+    height: 100%;
+    @include media-query($on-laptop) {
+      display: auto;
+      position: relative;
+      left: auto;
+      right: auto;
+      width: auto;
+      margin-left: auto;
+      margin-top: inherit;
+      padding: 0;
+      margin: 0;
+    }
+  }
   a.link_url {
     font-size: 14pt;
     font-weight: bold;
@@ -20,6 +42,23 @@
     left: 14px;
     top: 23px;
     font-size: 18pt;
+    width: 24px;
+    .ss-chat {
+      display: block;
+      -webkit-transform: matrix(-1, 0, 0, 1, 0, 0);
+      -moz-transform: matrix(-1, 0, 0, 1, 0, 0);
+      -o-transform: matrix(-1, 0, 0, 1, 0, 0);
+      transform: matrix(-1, 0, 0, 1, 0, 0);
+    }
+    .opinion {
+      position: absolute;
+      top: 7px;
+      left: 0;
+      color: white;
+      font-size: 10pt;
+      width: 100%;
+      text-align: center;
+    }
   }
   p {
     margin: 0;
