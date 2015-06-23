@@ -32,7 +32,9 @@
 
     {% unless hide_description %}
     <div class="description">
+        {% if link.description %}
         {{ link.description | markdownify }}
+        {% endif %}
     </div>
     {% endunless %}
 

@@ -1,27 +1,41 @@
 <!DOCTYPE html>
 <html>
 
-  {% include head.html %}
+{% include head.html %}
 
-  <body>
+<body>
 
-    {% include header.html %}
+{% include header.html %}
 
-    {% include navbar.html %}
+{% include navbar.html %}
+{% assign hide_description = true %}
+{% assign current_section = "" %}
+{% assign current_subsection = "" %}
 
-    <div class="page-content">
-      <div class="wrapper">
-          {{ content }}
+<div class="page-content topic-view">
+    <div class="wrapper">
+        {{ content }}
 
-          {% for resource in page.resources %}
+        {% for resource in page.resources %}
+
+            {% if resource.section and resource.section != current_section %}
+            <h1>{{ resource.section }}</h1>
+            {% assign current_section = resource.section %}
+            {% endif %}
+
+            {% if resource.subsection and resource.subsection != current_subsection %}
+            <h2>{{ resource.subsection }}</h2>
+            {% assign current_subsection = resource.subsection %}
+            {% endif %}
+
             {% assign link = resource %}
             {% include link.html %}
-          {% endfor %}
-      </div>
+        {% endfor %}
     </div>
+</div>
 
-    {% include footer.html %}
+{% include footer.html %}
 
-  </body>
+</body>
 
 </html>

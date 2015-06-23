@@ -1,0 +1,23 @@
+
+.topic-view {
+  h1 {
+    display: block;
+    position: absolute;
+    width: 11%;
+    margin-left: -12%;
+    margin-top: -1%;
+    text-align: right;
+  }
+  h2 {
+    padding-right: 3px;
+    text-align: center;
+    margin-top: 12pt;
+    font-size: 14pt;
+    color: grey;
+  }
+
+  ul {
+    margin: 0;
+    list-style: none;
+  }
+}
