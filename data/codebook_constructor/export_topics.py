@@ -31,7 +31,7 @@ def metadata_block_output(level, current, subcategories, parents, all_topics):
         yaml.safe_dump(
             {
                 "title": current,
-                "layout": "subcategory",
+                "layout": "topic",
                 "permalink": permalink,
                 "level": level,
                 "nav_active": path,

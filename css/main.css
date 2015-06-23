@@ -1,10 +1,10 @@
 @charset "UTF-8";
 @font-face {
   font-family: NuvoWeb-Medi;
-  src: url("https://codebook-fonts.s3-us-west-2.amazonaws.com/NuvoWeb-Medi.eot"); }
+  src: url("https://d12gd74eaa9d1v.cloudfront.net/NuvoWeb-Medi.eot"); }
 @font-face {
-  font-family: NuvoWeb-Medi;
-  src: url("https://codebook-fonts.s3-us-west-2.amazonaws.com/NuvoWeb-Medi.woff") format("woff"); }
+  font-family: GoodNews;
+  src: url("https://d12gd74eaa9d1v.cloudfront.net/GoodWeb-News.woff") format("woff"); }
 /**
  * Reset some basic elements
  */
@@ -18,7 +18,7 @@ dl, dd, ol, ul, figure {
  * Basic styling
  */
 body {
-  font-family: NuvoWeb-Medi, Helvetica, Arial, sans-serif;
+  font-family: GoodNews, Helvetica, Arial, sans-serif;
   font-size: 16px;
   line-height: 1.5;
   font-weight: 300;
@@ -119,16 +119,16 @@ pre {
  * Wrapper
  */
 .wrapper {
-  max-width: -webkit-calc(595px - (30px * 2));
-  max-width: calc(595px - (30px * 2));
+  max-width: -webkit-calc(555px - (30px * 2));
+  max-width: calc(555px - (30px * 2));
   margin-right: auto;
   margin-left: auto;
   padding-right: 30px;
   padding-left: 30px; }
-  @media screen and (max-width: 800px) {
+  @media screen and (max-width: 850px) {
     .wrapper {
-      max-width: -webkit-calc(595px - (30px));
-      max-width: calc(595px - (30px));
+      max-width: -webkit-calc(555px - (30px));
+      max-width: calc(555px - (30px));
       padding-right: 15px;
       padding-left: 15px; } }
 
@@ -248,7 +248,7 @@ pre {
   font-size: 42px;
   letter-spacing: -1px;
   line-height: 1; }
-  @media screen and (max-width: 800px) {
+  @media screen and (max-width: 850px) {
     .post-title {
       font-size: 36px; } }
 
@@ -256,17 +256,17 @@ pre {
   margin-bottom: 30px; }
   .post-content h2 {
     font-size: 32px; }
-    @media screen and (max-width: 800px) {
+    @media screen and (max-width: 850px) {
       .post-content h2 {
         font-size: 28px; } }
   .post-content h3 {
     font-size: 26px; }
-    @media screen and (max-width: 800px) {
+    @media screen and (max-width: 850px) {
       .post-content h3 {
         font-size: 22px; } }
   .post-content h4 {
     font-size: 20px; }
-    @media screen and (max-width: 800px) {
+    @media screen and (max-width: 850px) {
       .post-content h4 {
         font-size: 18px; } }
 
@@ -410,7 +410,7 @@ pre {
     color: #099; }
 
 .link_block {
-  padding: 20px 55px 20px 55px;
+  padding: 20px 25px 20px 55px;
   margin: 20px 0px 20px 0;
   position: relative;
   font-size: 15px;
@@ -418,6 +418,27 @@ pre {
   border-radius: 3px;
   background-color: #eef;
   min-height: 35pt; }
+  .link_block .commentary {
+    display: block;
+    position: absolute;
+    width: 160px;
+    top: 0;
+    right: -178px;
+    text-align: left;
+    color: #5c5c5c;
+    padding-left: 10px;
+    height: 100%; }
+    @media screen and (max-width: 850px) {
+      .link_block .commentary {
+        display: auto;
+        position: relative;
+        left: auto;
+        right: auto;
+        width: auto;
+        margin-left: auto;
+        margin-top: inherit;
+        padding: 0;
+        margin: 0; } }
   .link_block a.link_url {
     font-size: 14pt;
     font-weight: bold; }
@@ -427,12 +448,49 @@ pre {
     position: absolute;
     left: 14px;
     top: 23px;
-    font-size: 18pt; }
+    font-size: 18pt;
+    width: 24px; }
+    .link_block .icon .ss-chat {
+      display: block;
+      -webkit-transform: matrix(-1, 0, 0, 1, 0, 0);
+      -moz-transform: matrix(-1, 0, 0, 1, 0, 0);
+      -o-transform: matrix(-1, 0, 0, 1, 0, 0);
+      transform: matrix(-1, 0, 0, 1, 0, 0); }
+    .link_block .icon .opinion {
+      position: absolute;
+      top: 7px;
+      left: 0;
+      color: white;
+      font-size: 10pt;
+      width: 100%;
+      text-align: center; }
   .link_block p {
     margin: 0;
     padding: 0; }
   .link_block .description {
     margin-top: 10px; }
+
+.topic-view h1 {
+  display: block;
+  position: absolute;
+  width: 18%;
+  margin-left: -19%;
+  margin-top: -9pt;
+  text-align: right; }
+  @media screen and (max-width: 850px) {
+    .topic-view h1 {
+      display: auto;
+      position: relative;
+      width: auto;
+      margin-left: auto;
+      margin-top: inherit;
+      text-align: left; } }
+.topic-view h2 {
+  padding-right: 3px;
+  text-align: center;
+  margin-top: 12pt;
+  font-size: 14pt;
+  color: #424242; }
 
 /*
 * Symbolset
