@@ -3,8 +3,10 @@ email: codebook@andychase.me
 description: Software Development Resources
 baseurl: ""
 url: "https://codebook.snc.io"
-twitter_username: techstoreclub
-github_username:  techstoreclub
+footer: |
+  * [<span class="t">Tech</span><span class="s">Store</span><span class="c">Club</span>](https://techstore.club)
+  * [About](/about)[Terms](/about/terms)[Privacy](/about/privacy)
+  * [(CC BY 4.0)](https://creativecommons.org/licenses/by/4.0/)
 
 markdown: kramdown
 # For the icons next to links
