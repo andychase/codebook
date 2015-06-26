@@ -1,0 +1,15 @@
+<div class="site-header-nav">
+    <div class="wrapper">
+        <div class="site-nav">
+            <ul>
+                {% for category in site.infos %}
+                <li class="{% if page.nav_active contains category.title %}active{% endif %}">
+                    <a class="page-link" href="{{ category.permalink }}">
+                        {{ category.title }}
+                    </a>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>

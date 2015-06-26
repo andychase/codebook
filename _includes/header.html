@@ -15,7 +15,7 @@
                 {% endif %}
                 {% endfor %}
 
-                <li class="nav-right {% if page.nav_active == 'about' %}active{% endif %}">
+                <li class="nav-right {% if page.nav_active.first == 'about' %}active{% endif %}">
                     <a class="page-link" href="/about/">About</a>
                 </li>
             </ul>

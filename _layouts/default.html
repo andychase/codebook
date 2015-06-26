@@ -6,6 +6,9 @@
   <body>
 
     {% include header.html %}
+    {% if page.nav_active.first == 'about' %}
+    {% include about_navbar.html %}
+    {% endif %}
 
     <div class="page-content">
       <div class="wrapper">

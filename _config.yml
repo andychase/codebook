@@ -17,3 +17,5 @@ permalink: pretty
 collections:
   topics:
     output: true
+  infos:
+    output: true
