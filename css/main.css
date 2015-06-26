@@ -271,6 +271,35 @@ pre {
         font-size: 18px; } }
 
 /**
+ * Site footer
+ */
+.site-footer {
+  padding: 30px 0;
+  text-align: center; }
+  .site-footer li, .site-footer a {
+    color: #bababa;
+    font-size: 10pt; }
+  .site-footer a:visited {
+    color: #bababa; }
+  .site-footer ul {
+    list-style: none; }
+    .site-footer ul li {
+      display: inline;
+      padding-left: 10px; }
+      .site-footer ul li:first-child {
+        padding-left: 0; }
+  .site-footer .t, .site-footer .t:visited {
+    color: #EBC181; }
+  .site-footer .s, .site-footer .s:visited {
+    color: #91A7BA; }
+  .site-footer .c, .site-footer .c:visited {
+    color: #bababa; }
+
+.footer-heading {
+  font-size: 18px;
+  margin-bottom: 15px; }
+
+/**
  * Syntax highlighting styles
  */
 .highlight {
