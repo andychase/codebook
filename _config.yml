@@ -13,6 +13,7 @@ markdown: kramdown
 resource_type_to_icon_map:
   guide: ss-signpost
   opinion: ss-chat
+  data: ss-barchart
   "yes": ss-check
   "no": ss-delete
 permalink: pretty
