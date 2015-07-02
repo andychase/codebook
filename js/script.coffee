@@ -22,6 +22,8 @@ getDateString = () -> new Date().toUTCString()
 getSectionTitle = () -> getDateString() + "-" + getGoogleAnalyticsId()
 
 settings = (text) ->
+  action: "edit"
+  format: "json"
   pageid: 9
   section: "new"
   sectiontitle: getSectionTitle()
