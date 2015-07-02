@@ -5,7 +5,7 @@ baseurl: ""
 url: "https://codebook.snc.io"
 footer: |
   * [<span class="t">Tech</span><span class="s">Store</span><span class="c">Club</span>](https://techstore.club)
-  * [About](/about)[Terms](/about/terms)[Privacy](/about/privacy)
+  * [About](/about)[Terms](/about/terms)[Privacy](/about/privacy)[Source](//github.com/techstoreclub/codebook)
   * [(CC BY 4.0)](https://creativecommons.org/licenses/by/4.0/)
 
 markdown: kramdown
@@ -13,6 +13,7 @@ markdown: kramdown
 resource_type_to_icon_map:
   guide: ss-signpost
   opinion: ss-chat
+  info: ss-info
   data: ss-barchart
   "yes": ss-check
   "no": ss-delete
