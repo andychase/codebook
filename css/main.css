@@ -505,7 +505,7 @@ pre {
   position: absolute;
   width: 18%;
   margin-left: -19%;
-  margin-top: -9pt;
+  margin-top: 0;
   text-align: right; }
   @media screen and (max-width: 850px) {
     .topic-view h1 {
@@ -521,6 +521,10 @@ pre {
   margin-top: 12pt;
   font-size: 14pt;
   color: #424242; }
+
+.section_separator {
+  display: block;
+  height: 20px; }
 
 .fill {
   display: block;
