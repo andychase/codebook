@@ -11,7 +11,7 @@ def main(arguments):
     page_data = []
     for arg in arguments:
         if os.path.isdir(arg):
-            arg = [os.path.join(arg, f) for f in os.listdir(arg)]
+            arg = [os.path.join(arg, f) for f in os.listdir(arg) if not f.startswith(".")]
         else:
             arg = [arg]
 
