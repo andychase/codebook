@@ -1,16 +1,14 @@
-	How many title tracks are placed third?
+	Exploring SQL: How many title tracks are placed third?
 	Andy Chase
 	July 01 2015
 
-I was listening to [Florance + The Machine]()'s newest album when I noticed that a lot of music albums place their title track third on the album. Is this really the case I wonder? Well, having some abilities in Data Science I decided to see if I could get a chart out how many albums have title tracks and where they land.
+I was listening to [Florance + The Machine](http://pitchfork.com/reviews/albums/20605-how-big-how-blue-how-beautiful/)'s newest album when I noticed that a lot of music albums place their title track third on the album. Is this really the case I wonder? Well, having some abilities in Data Science I decided to see if I could get a chart out how many albums have title tracks and where they land.
 
 # 1. Getting the data
 
 First in order to answer this question I'm going to need some data to work with.
 
 Music Brainz is a "MusicBrainz is a community-maintained open source encyclopedia of music information" ([About](https://musicbrainz.org/doc/About)). Since their data is open and freely avaliable it seems like a good source.
-
-
 
     [data]
     title: MusicBrainz Database / Download
@@ -20,8 +18,7 @@ Music Brainz is a "MusicBrainz is a community-maintained open source encyclopedi
         - Stefan Kestenholz (https://about.me/stefankestenholz) (https://wiki.musicbrainz.org/User:Keschte/OfficialBio)
         - Pavan Chander (https://wiki.musicbrainz.org/About/Team)
         - Other MusicBrainz Contributors
-    topic: data/music
-    section: Metadata
+    topic: music/metadata
     commentary: >
         Has all the music metadata you need
     description: >
@@ -45,7 +42,7 @@ So the goal here is now to ask the questions I have about title tracks to the da
     date: June 15 2000
     authors:
         - W3Schools/Refsnes Data
-    topic: data/databases/basic
+    topic: databases/sql
     section: Sql
     subsection: What is SQL and what are the basic commands to know?
     commentary: >
