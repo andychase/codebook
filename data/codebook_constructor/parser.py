@@ -35,6 +35,18 @@ def normalize_whitespace(source):
     return source
 
 
+def handle_author_link(author):
+    if "(" in author:
+        author_name, link = author.split("(", 1)
+        author_name = author_name.strip()
+        link, rest = link.split(")", 1)
+        if any(rest.strip()):
+            rest = " " + handle_author_link("[&]" + rest)
+        return '<a href="{}">{}</a>{}'.format(link, author_name, rest)
+    else:
+        return author
+
+
 def process(contents):
     for i, block in enumerate(str(normalize_whitespace(contents)).split("\n\n")):
         indented = block.startswith(" " * 4)
@@ -61,6 +73,8 @@ def process(contents):
             yaml_block = "\n".join(stripped_lines[1:])
             yaml_data = yaml.load(yaml_block)
             domain, domain_link, url = url_handler(yaml_data['url'])
+            if 'authors' in yaml_data:
+                yaml_data['authors'] = list(map(handle_author_link, yaml_data['authors']))
             yaml_data['domain'] = domain
             yaml_data['domain_link'] = domain_link
             yaml_data['url'] = url

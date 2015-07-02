@@ -497,7 +497,8 @@ pre {
     margin: 0;
     padding: 0; }
   .link_block .description {
-    margin-top: 10px; }
+    margin-top: 10px;
+    font-size: 8pt; }
 
 .topic-view h1 {
   display: block;
@@ -520,6 +521,10 @@ pre {
   margin-top: 12pt;
   font-size: 14pt;
   color: #424242; }
+
+.fill {
+  display: block;
+  width: 95%; }
 
 /*
 * Symbolset
