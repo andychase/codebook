@@ -1,6 +1,6 @@
-import os
 import slugify
 import yaml
+import file_output_util
 
 
 def title_block_output(title, links):
@@ -23,10 +23,6 @@ link_block = lambda i: """
 {% assign link = page.resources[~~~~~] %}
 {% include link.html %}
 """.replace("~~~~~", str(i))
-
-output_dir = os.path.abspath(os.path.join(os.path.dirname(os.path.realpath(__file__)), "..", "site", "_posts"))
-if not os.path.isdir(output_dir):
-    os.mkdir(output_dir)
 
 
 def output(parser_output):
@@ -55,7 +51,8 @@ def output(parser_output):
             output_blocks.append(text_block)
 
     if collection_title and title_data:
-        with open(os.path.join(output_dir, collection_title), 'w') as f:
-            f.write("\n\n".join([title_block_output(title_data, link_data)] + output_blocks))
+        file_output = "\n\n".join([title_block_output(title_data, link_data)] + output_blocks)
+        file_output_util.post_file_export(file_output, collection_title)
+
     else:
         raise Exception("Title data not included in parser stream")

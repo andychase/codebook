@@ -1,14 +1,11 @@
-import os
 import slugify
 import yaml
 from collections import namedtuple, defaultdict
+import file_output_util
 
 TopicNode = namedtuple("TopicNode", "subtopics resources")
 new_topic_tree = lambda: defaultdict(lambda: TopicNode(new_topic_tree(), []))
 
-output_dir = os.path.abspath(os.path.join(os.path.dirname(os.path.realpath(__file__)), "..", "site", "_topics"))
-if not os.path.isdir(output_dir):
-    os.mkdir(output_dir)
 
 collection_title = lambda title_data: "/collections/{YEAR}/{MONTH:02d}/{DAY:02d}/{title}/".format(
     YEAR=title_data.date.year,
@@ -66,8 +63,8 @@ def export_topics(all_topics, current_topics, parents=(), level=1):
     for topic_name, node in current_topics.items():
         file_name = "_".join(parents + (topic_name,)) + ".md"
 
-        with open(os.path.join(output_dir, file_name), 'w') as f:
-            f.write(metadata_block_output(level, topic_name, list(node.subtopics.keys()), parents, all_topics))
+        file_output = metadata_block_output(level, topic_name, list(node.subtopics.keys()), parents, all_topics)
+        file_output_util.topic_file_export(file_output, file_name)
 
         export_topics(all_topics, node.subtopics, parents + (topic_name,), level=level + 1)
 
