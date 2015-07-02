@@ -2,7 +2,7 @@
     {% if link.commentary %}
     <div class="commentary">
         <span>
-        {{ link.commentary }}
+        {{ link.commentary | markdownify }}
         </span>
     </div>
     {% endif %}
@@ -25,11 +25,18 @@
         <span class="date">{{ link.date | date: "%Y" }},</span>
         {% endif %}
         <span class="authors">
-        {% if link.authors.size > 1 %}
-            by {{link.authors[0]}}
+        {% if link.authors.size == 1 %}
+            by {{link.authors[0] }}
         {% endif %}
         {% if link.authors.size == 2 %}
-            and {{link.authors[1]}}
+            by {{link.authors[0] }} and {{link.authors[1] }}
+        {% endif %}
+        {% if link.authors.size > 2 %}
+            by {{link.authors[0] }},
+            {% for i in (1..link.authors.size-1 %}
+            {{link.authors[i]}},
+            {% endfor %}
+            and {{link.authors[-1] }}
         {% endif %}
         </span>
         {% if link.found_on %}
