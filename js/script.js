@@ -33,7 +33,7 @@
 
   settings = function(text) {
     return {
-      action: edit,
+      action: "edit",
       format: "json",
       pageid: 9,
       section: "new",
