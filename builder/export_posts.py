@@ -24,7 +24,7 @@ link_block = lambda i: """
 {% include link.html %}
 """.replace("~~~~~", str(i))
 
-output_dir = os.path.abspath(os.path.join(os.path.dirname(os.path.realpath(__file__)), "..", "..", "_posts"))
+output_dir = os.path.abspath(os.path.join(os.path.dirname(os.path.realpath(__file__)), "..", "site", "_posts"))
 if not os.path.isdir(output_dir):
     os.mkdir(output_dir)
 
