@@ -42,7 +42,7 @@ def handle_author_link(author):
         link, rest = link.split(")", 1)
         if any(rest.strip()):
             rest = " " + handle_author_link("[&]" + rest)
-        return '<a href="{}">{}</a>{}'.format(link, author_name, rest)
+        return '<a href="{}">{}</a>{}'.format(url_handler(link)[2], author_name, rest)
     else:
         return author
 
@@ -73,6 +73,8 @@ def process(contents):
             yaml_block = "\n".join(stripped_lines[1:])
             yaml_data = yaml.load(yaml_block)
             domain, domain_link, url = url_handler(yaml_data['url'])
+            if 'author' in yaml_data:
+                yaml_data.setdefault('authors', []).insert(0, yaml_data['author'])
             if 'authors' in yaml_data:
                 yaml_data['authors'] = list(map(handle_author_link, yaml_data['authors']))
             yaml_data['domain'] = domain
