@@ -493,7 +493,7 @@ pre {
       font-size: 10pt;
       width: 100%;
       text-align: center; }
-  .link_block p {
+  .link_block p:last-child {
     margin: 0;
     padding: 0; }
   .link_block .description {
