@@ -56,7 +56,7 @@ the following principles (the “Principles”):
     personal information (whether by subpoena or otherwise), then
     provided we have collected and retained an email address for you,
     Tech Store Club will use reasonable means to notify you promptly of
-    that event, unless prohibited by law or TSC is otherwise advised\
+    that event, unless prohibited by law or TSC is otherwise advised
      not to notify you on the advice of legal counsel.
 
 Personal Information TSC Collects
@@ -89,7 +89,7 @@ which option you choose.
     personal information to process your donation. When you donate money
     as part of one of TSC’s fundraising campaigns, your name will be
     published on our “supporters page” unless you request otherwise. If
-    you sign up to receive updates from Tech Store Club\
+    you sign up to receive updates from Tech Store Club
      when you provide your donation, we will use your personal
     information to send you communications about Tech Store Club news
     and campaigns.
@@ -100,12 +100,12 @@ Participating in Our Community
 Registered Users. When you register to obtain a user account on any of
 the Services (any such person, a “Registered User”),
 you may be asked to provide personal information to create your account
-and establish a password and profile. We encourage you to\
+and establish a password and profile. We encourage you to
  use an alias or nickname if you are not comfortable providing your
 legal name. The name or nickname you provide in connection with your
 account may be used to attribute you in connection with any content you
 submit to any Service. We also use that personal information to
-establish and maintain your account, to provide you with the features\
+establish and maintain your account, to provide you with the features
  we provide Registered Users, and to email you regarding changes to this
 policy or other applicable policies. If you sign up to receive updates
 from Tech Store Club when you create your account, we will use your
@@ -140,7 +140,7 @@ If Tech Store Club is required to provide a third party with your
 personal information (whether by subpoena or otherwise), then provided
 we have collected and retained an email address for you, Creative
 Commons will use reasonable means to notify you promptly of that event,
-unless prohibited by law or TSC is otherwise advised not to\
+unless prohibited by law or TSC is otherwise advised not to
  notify you on the advice of legal counsel.
 
 Security of Personal Information Collected via the Services
@@ -185,7 +185,7 @@ If Tech Store Club is required to provide a third party with your non
 personal browsing information or to log in on behalf of a 
 user (whether by subpoena or otherwise), then TSC will use
 reasonable means to notify you promptly of that event, unless TSC is
-prohibited by law from doing so or is otherwise advised not to notify\
+prohibited by law from doing so or is otherwise advised not to notify
  you on the advice of legal counsel.
 
 Any other non-personal information that we collect which is not
@@ -207,7 +207,7 @@ Children
 --------
 
 The Services are not directed at children under the age of 13.
-Consistent with the federal Children’s Online Privacy\
+Consistent with the federal Children’s Online Privacy
  Protection Act of 1998 (COPPA), we will never knowingly request
 personal information from anyone under the age of 13 without requiring
 parental consent. Our Master Terms of Use specifically prohibit anyone
@@ -240,7 +240,7 @@ We may occasionally update this Privacy Policy. When we do, we will also
 revise the Effective Date below. We encourage you to periodically review
 this Privacy Policy to stay informed about how we are protecting the
 personal information we collect. Your continued use of the Services
-constitutes your agreement to this Privacy Policy and any\
+constitutes your agreement to this Privacy Policy and any
  updates.
 
 Using this Privacy Policy for Your Own Purposes
@@ -254,7 +254,7 @@ under the [Creative Commons CC0 Public Domain
 Dedication](https://creativecommons.org/publicdomain/zero/1.0/). You are
 free to use and adapt this Privacy Policy and any applicable
 Supplemental Privacy Policy Terms for your own purposes. However, please
-keep in mind that this Privacy Policy may not be completely\
+keep in mind that this Privacy Policy may not be completely
  suitable for your situation. Tech Store Club and Creative Commons strongly encourages you
 to seek the advice of your own attorney before repurposing this Privacy
 Policy on your own site.
