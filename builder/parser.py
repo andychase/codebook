@@ -25,6 +25,17 @@ def strip_indentation(lines):
             yield line
 
 
+def extract_summary_info(block_text_lines_list, tz=lambda date: pytz.timezone('US/Pacific').localize(date)):
+    """
+    >>> extract_summary_info(['wow', 'john smith','aug 12 2015'], lambda _:_)
+    Info(title='wow', date=datetime.datetime(2015, 8, 12, 0, 0), authors=['john smith'], summary='')
+    """
+    title, authors, date = block_text_lines_list[0], block_text_lines_list[1:-1], block_text_lines_list[-1]
+    date = parse(date)
+    date = tz(date)
+    return Info(title, date, authors, summary="")
+
+
 def url_handler(url):
     if not url.startswith("http"):
         url = "http://" + url
@@ -89,41 +100,51 @@ def process_first_line(block):
 
 
 def process(contents):
-    last_block_link_block = ""
+    last_block_link_block = []
     blocks = []
 
-    def add_to_block(info=None, link_data=None, text_block=None):
+    def add_block(info=None, link_data=None, text_block=None):
         blocks.append((info, link_data, text_block))
+
+    def process_last_block_link():
+        link_data_text = "".join(last_block_link_block)
+        add_block(link_data=process_link_block(link_data_text))
+        # Reset the last_block_link_block
+        last_block_link_block.clear()
 
     for i, block in enumerate(str(normalize_whitespace(contents)).split("\n\n")):
         indented = block.startswith(" " * 4)
-        has_type_block, type_value = process_first_line(block)
-
         if indented:
-            stripped_lines = list(strip_indentation(block))
+            block_text_lines_list = list(strip_indentation(block))
+            block_text = "\n".join(block_text_lines_list)
+            has_type_block, type_value = process_first_line(block)
+
             if has_type_block and any(last_block_link_block):
-                add_to_block(link_data=process_link_block(last_block_link_block))
-                last_block_link_block = ""
+                # This block is a link block adjacent to another link block
+                # Process last_block_link before continuing
+                process_last_block_link()
+
             if i == 0:
-                title, authors, date = stripped_lines[0], stripped_lines[1:-1], stripped_lines[-1]
-                date = pytz.timezone('US/Pacific').localize(parse(date))
-                add_to_block(info=Info(title, date, authors, ""))
+                # First block is post info/metadata
+                add_block(info=extract_summary_info(block_text_lines_list))
             elif i == 1:
-                blocks[-1][0] = blocks[-1][0].copy(summary=stripped_lines)
+                # Second block (if included, i.e. indented) is post summary
+                blocks[-1][0] = blocks[-1][0].copy(summary=block_text)
             elif has_type_block:
+                # Is a link block
                 type_value_data = ["type: {}".format(type_value)]
-                yaml_block = "\n".join(type_value_data + stripped_lines[1:])
-                last_block_link_block += yaml_block
+                link_block_text = "\n".join(type_value_data + block_text_lines_list[1:])
+                last_block_link_block.append(link_block_text)
             elif any(last_block_link_block):
-                yaml_block = "\n".join(stripped_lines)
-                last_block_link_block += "\n\n\n" + yaml_block
+                # Continuation of last link block data
+                last_block_link_block.append("\n\n\n" + block_text)
             else:
-                add_to_block(text_block=block)
+                # Must be just a normal markdown code block
+                add_block(text_block=block)
         else:
+            # Non-indented blocks are just passed along
             if any(last_block_link_block):
-                # Clear our last_block_link_block queue
-                add_to_block(link_data=process_link_block(last_block_link_block))
-                last_block_link_block = ""
-            add_to_block(text_block=block)
+                process_last_block_link()
+            add_block(text_block=block)
 
     return blocks
