@@ -11,6 +11,20 @@ www_remover = lambda _, r=re.compile("^www\."): r.sub("", _)
 Info = namedtuple("Info", "title date authors summary")
 
 
+def strip_indentation(lines):
+    """
+    >>> list(strip_indentation('''    a
+    ... b
+    ... c'''))
+    ['a', 'b', 'c']
+    """
+    for line in lines.split('\n'):
+        if line.startswith(" " * 4):
+            yield line.split(" " * 4, 1)[1]
+        else:
+            yield line
+
+
 def url_handler(url):
     if not url.startswith("http"):
         url = "http://" + url
@@ -86,7 +100,7 @@ def process(contents):
         has_type_block, type_value = process_first_line(block)
 
         if indented:
-            stripped_lines = [l[4:] for l in block.split("\n")]
+            stripped_lines = list(strip_indentation(block))
             if has_type_block and any(last_block_link_block):
                 add_to_block(link_data=process_link_block(last_block_link_block))
                 last_block_link_block = ""
