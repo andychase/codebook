@@ -3,8 +3,8 @@ import yaml
 from collections import namedtuple, defaultdict
 import file_output_util
 
-TopicNode = namedtuple("TopicNode", "subtopics resources")
-new_topic_tree = lambda: defaultdict(lambda: TopicNode(new_topic_tree(), []))
+TopicNode = namedtuple("TopicNode", "subtopics resources set")
+new_topic_tree = lambda: defaultdict(lambda: TopicNode(new_topic_tree(), [], set()))
 
 
 collection_title = lambda title_data: "/collections/{YEAR}/{MONTH:02d}/{DAY:02d}/{title}/".format(
@@ -83,6 +83,8 @@ def output(parser_output):
                 resource['collection_title'] = title.title
 
             leaf = get_leaf_node(topics, topic_parts)
-            leaf.resources.append(resource)
+            if resource['url'] not in leaf.set:
+                leaf.set.add(resource['url'])
+                leaf.resources.append(resource)
 
     export_topics(topics, topics)
