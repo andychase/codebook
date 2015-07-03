@@ -8,7 +8,7 @@ from dateutil.parser import parse
 
 www_remover = lambda _, r=re.compile("^www\."): r.sub("", _)
 
-Info = namedtuple("Info", "title date authors")
+Info = namedtuple("Info", "title date authors summary")
 
 
 def url_handler(url):
@@ -47,42 +47,72 @@ def handle_author_link(author):
         return author
 
 
+def process_link_block(block_text, type_value):
+    link_data = yaml.load(block_text)
+    domain, domain_link, url = url_handler(link_data['url'])
+    if 'author' in link_data:
+        link_data.setdefault('authors', []).insert(0, link_data['author'])
+    if 'authors' in link_data:
+        link_data['authors'] = list(map(handle_author_link, link_data['authors']))
+    link_data['domain'] = domain
+    link_data['domain_link'] = domain_link
+    link_data['url'] = url
+    link_data['type'] = type_value
+    link_data['date'] = pytz.timezone('US/Pacific').localize(parse(link_data['date']))
+    return link_data
+
+
+def process_first_line(block):
+    first_line = block.split("\n")[0] if len(block.split("\n")) > 0 else False
+    has_type_block = \
+        first_line and \
+        len(first_line) > 4 and \
+        first_line[4] == "[" and \
+        first_line.lstrip().startswith("[") and \
+        first_line.rstrip().endswith("]")
+    if has_type_block:
+        return has_type_block, first_line.split("[", 1)[1].rsplit("]", 1)[0]
+    return has_type_block, ""
+
+
 def process(contents):
+    last_block_link_block = ""
+    last_type_value = ""
+    blocks = []
+
+    def add_to_block(info=None, link_data=None, text_block=None):
+        blocks.append((info, link_data, text_block))
+
     for i, block in enumerate(str(normalize_whitespace(contents)).split("\n\n")):
         indented = block.startswith(" " * 4)
-        first_line = block.split("\n")[0] if len(block.split("\n")) > 0 else False
-        has_type_block = \
-            first_line and \
-            len(first_line) > 4 and \
-            first_line[4] == "[" and \
-            first_line.lstrip().startswith("[") and \
-            first_line.rstrip().endswith("]")
-        type_block = None
-        if has_type_block:
-            type_block = first_line.split("[", 1)[1].rsplit("]", 1)[0]
+        has_type_block, type_value = process_first_line(block)
+        if type_value:
+            last_type_value = type_value
 
-        if indented and i == 0:
+        if indented:
             stripped_lines = [l[4:] for l in block.split("\n")]
-            title, authors, date = stripped_lines[0], stripped_lines[1:-1], stripped_lines[-1]
-            date = pytz.timezone('US/Pacific').localize(parse(date))
-
-            yield Info(title, date, authors), None, None
-
-        elif indented and has_type_block:
-            stripped_lines = [l[4:] for l in block.split("\n")]
-            yaml_block = "\n".join(stripped_lines[1:])
-            yaml_data = yaml.load(yaml_block)
-            domain, domain_link, url = url_handler(yaml_data['url'])
-            if 'author' in yaml_data:
-                yaml_data.setdefault('authors', []).insert(0, yaml_data['author'])
-            if 'authors' in yaml_data:
-                yaml_data['authors'] = list(map(handle_author_link, yaml_data['authors']))
-            yaml_data['domain'] = domain
-            yaml_data['domain_link'] = domain_link
-            yaml_data['url'] = url
-            yaml_data['type'] = type_block
-            yaml_data['date'] = pytz.timezone('US/Pacific').localize(parse(yaml_data['date']))
-
-            yield None, yaml_data, None
+            if has_type_block and any(last_block_link_block):
+                add_to_block(link_data=process_link_block(last_block_link_block, last_type_value))
+                last_block_link_block = ""
+            if i == 0:
+                title, authors, date = stripped_lines[0], stripped_lines[1:-1], stripped_lines[-1]
+                date = pytz.timezone('US/Pacific').localize(parse(date))
+                add_to_block(info=Info(title, date, authors, ""))
+            elif i == 1:
+                blocks[-1][0] = blocks[-1][0].copy(summary=stripped_lines)
+            elif has_type_block:
+                yaml_block = "\n".join(stripped_lines[1:])
+                last_block_link_block += yaml_block
+            elif any(last_block_link_block):
+                yaml_block = "\n".join(stripped_lines)
+                last_block_link_block += "\n\n\n" + yaml_block
+            else:
+                add_to_block(text_block=block)
         else:
-            yield None, None, block
+            if any(last_block_link_block):
+                # Clear our last_block_link_block queue
+                add_to_block(link_data=process_link_block(last_block_link_block, last_type_value))
+                last_block_link_block = ""
+            add_to_block(text_block=block)
+
+    return blocks
