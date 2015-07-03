@@ -47,7 +47,7 @@ def handle_author_link(author):
         return author
 
 
-def process_link_block(block_text, type_value):
+def process_link_block(block_text):
     link_data = yaml.load(block_text)
     domain, domain_link, url = url_handler(link_data['url'])
     if 'author' in link_data:
@@ -57,7 +57,6 @@ def process_link_block(block_text, type_value):
     link_data['domain'] = domain
     link_data['domain_link'] = domain_link
     link_data['url'] = url
-    link_data['type'] = type_value
     link_data['date'] = pytz.timezone('US/Pacific').localize(parse(link_data['date']))
     return link_data
 
@@ -77,7 +76,6 @@ def process_first_line(block):
 
 def process(contents):
     last_block_link_block = ""
-    last_type_value = ""
     blocks = []
 
     def add_to_block(info=None, link_data=None, text_block=None):
@@ -86,13 +84,11 @@ def process(contents):
     for i, block in enumerate(str(normalize_whitespace(contents)).split("\n\n")):
         indented = block.startswith(" " * 4)
         has_type_block, type_value = process_first_line(block)
-        if type_value:
-            last_type_value = type_value
 
         if indented:
             stripped_lines = [l[4:] for l in block.split("\n")]
             if has_type_block and any(last_block_link_block):
-                add_to_block(link_data=process_link_block(last_block_link_block, last_type_value))
+                add_to_block(link_data=process_link_block(last_block_link_block))
                 last_block_link_block = ""
             if i == 0:
                 title, authors, date = stripped_lines[0], stripped_lines[1:-1], stripped_lines[-1]
@@ -101,7 +97,8 @@ def process(contents):
             elif i == 1:
                 blocks[-1][0] = blocks[-1][0].copy(summary=stripped_lines)
             elif has_type_block:
-                yaml_block = "\n".join(stripped_lines[1:])
+                type_value_data = ["type: {}".format(type_value)]
+                yaml_block = "\n".join(type_value_data + stripped_lines[1:])
                 last_block_link_block += yaml_block
             elif any(last_block_link_block):
                 yaml_block = "\n".join(stripped_lines)
@@ -111,7 +108,7 @@ def process(contents):
         else:
             if any(last_block_link_block):
                 # Clear our last_block_link_block queue
-                add_to_block(link_data=process_link_block(last_block_link_block, last_type_value))
+                add_to_block(link_data=process_link_block(last_block_link_block))
                 last_block_link_block = ""
             add_to_block(text_block=block)
 
