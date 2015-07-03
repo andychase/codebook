@@ -7,3 +7,10 @@ watch:
 
 clean:
 	rm -fr builder/__pycache__ site/_site site/_topics site/_posts
+
+pub: clean all
+	git clone --no-checkout --branch gh-pages . pub
+	cp -r site/_site/* pub/
+	cd pub && git add . && git commit -m "`date +"pub %B%d_%y"`"
+	git fetch pub gh-pages:gh-pages
+	rm -fr pub
