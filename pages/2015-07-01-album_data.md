@@ -8,7 +8,7 @@ I was listening to [Florance + The Machine](http://pitchfork.com/reviews/albums/
 
 First in order to answer this question I'm going to need some data to work with.
 
-Music Brainz is a "MusicBrainz is a community-maintained open source encyclopedia of music information" ([About](https://musicbrainz.org/doc/About)). Since their data is open and freely avaliable it seems like a good source.
+Music Brainz is a "MusicBrainz is a community-maintained open source encyclopedia of music information" ([About](https://musicbrainz.org/doc/About)). Since their data is open and freely available it seems like a good source.
 
     [data]
     title: MusicBrainz Database / Download
@@ -22,13 +22,18 @@ Music Brainz is a "MusicBrainz is a community-maintained open source encyclopedi
     commentary: >
         Has all the music metadata you need
     description: >
-        MusicBrainz started in 2000 by [Robert Kaye](http://mayhem-chaos.net/) who needed a place to store metadata files for the an unix cd player called Workman. Today MusicBrainz has metadata for 15 million records by almost a million artists worldwide ([Wikipedia Contributors, 2015](https://en.wikipedia.org/wiki/MusicBrainz)) ([MusicBrains: About](https://musicbrainz.org/doc/About/History)).
-        <br><br>
-        MusicBrains has expanded their open data effors into [MetaBrains](https://metabrainz.org/) which also wearhouses data for Music Cover Art, Music Critisim, and Books as well. 
+        MusicBrainz started in 2000 by [Robert Kaye](http://mayhem-chaos.net/) who needed a place to store
+        metadata files for the an unix cd player called Workman. Today MusicBrainz has metadata
+        for 15 million records by almost a million artists worldwide
+        ([Wikipedia Contributors, 2015](https://en.wikipedia.org/wiki/MusicBrainz)) 
+        ([MusicBrains: About](https://musicbrainz.org/doc/About/History)).
+        
+        MusicBrains has expanded their open data effort into [MetaBrains](https://metabrainz.org/)
+        which also warehouses data for Music Cover Art, Music Criticism, and Books as well. 
 
 # 2. Setting up an environment
 
-1. Set up a virtual server on [Digital Ocean](//digitalocean.com/?refcode=d91055f0c205) ([non-ref](//digitalocean.com)) to work on. *Optional:* I like working on another server because a remote server has a lot of bandwidth so I can get the data quickly, and I can feel good about downloading a lot of remote scripts and dependancies without harming my local environment.
+1. Set up a virtual server on [Digital Ocean](//digitalocean.com/?refcode=d91055f0c205) ([non-ref](//digitalocean.com)) to work on. *Optional:* I like working on another server because a remote server has a lot of bandwidth so I can get the data quickly, and I can feel good about downloading a lot of remote scripts and dependencies without harming my local environment.
 2. Followed the MusicBrainz instructions on setting up the database: [MusicBrainz Database Setup](https://bitbucket.org/lalinsky/mbslave).
 
 # 3. Ask my question
@@ -46,9 +51,10 @@ So the goal here is now to ask the questions I have about title tracks to the da
     section: Sql
     subsection: What is SQL and what are the basic commands to know?
     commentary: >
-        Has good introductionary information, but [w3fools](//w3fools.com) recommends that you don't stop at introduction tutorials.
+        Has good introductory information, but [w3fools](//w3fools.com)
+        recommends that you don't stop at introduction tutorials.
     description: >
-        W3Schools is a website aimed at educating people of the very basics of web technlogy.
+        W3Schools is a website aimed at educating people of the very basics of web technology.
 
 First I have to study the [MusicBrainz Schema Diagram](https://musicbrainz.org/doc/MusicBrainz_Database/Schema) to figure out what kind of queries I have to write in order to figure out how to answer my question.
 
@@ -78,7 +84,7 @@ LEFT JOIN musicbrainz.release_group
   count  
 ---------
  970,467
- {% endhighlight %}
+{% endhighlight %}
 
 That's better.
 
