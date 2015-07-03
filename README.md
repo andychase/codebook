@@ -1,11 +1,4 @@
----
-layout: default
-permalink: /about/
-nav_active:
-- about
-- About Codebook
-title: About Codebook
----
+# Codebook
 
 Codebook is a [new kind of blog][intro]. It contains *collections*, posts with a bunch of links
 in them, that are organized topically. Our goal is to create one of the most comprehensive
