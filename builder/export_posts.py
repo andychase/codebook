@@ -20,9 +20,9 @@ def title_block_output(title, links):
 
 
 link_block = lambda i: """
-{% assign link = page.resources[~~~~~] %}
+{% assign link = page.resources[~~] %}
 {% include link.html %}
-""".replace("~~~~~", str(i))
+""".replace("~~", str(i))
 
 
 def output(parser_output):
