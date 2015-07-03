@@ -63,7 +63,7 @@ Open a [pull request][codebook-pull] or [open an issue][codebook-issue] to help 
 [wiki]: https://wiki.snc.io/
 [sug-collection]: https://wiki.snc.io/wiki/CollectionSuggestion
 [ccby4]: https://creativecommons.org/licenses/by/4.0/
-[mit]: https://github.com/techstoreclub/codebook/tree/master/builder/LICENSE.md
+[mit]: https://github.com/techstoreclub/codebook/tree/master/builder/LICENSE.txt
 [jekyll]: http://jekyllrb.com/
 [repo]: https://github.com/techstoreclub/codebook
 [snapshot]: https://github.com/techstoreclub/codebook/archive/master.zip
