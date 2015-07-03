@@ -1,7 +1,7 @@
 (function() {
   var api_key, getDateString, getGoogleAnalyticsId, getSectionTitle, settings, url;
 
-  api_key = "891c04bb5d3fea14d398fa7d4abd7ae55594f9b8+\\";
+  api_key = "+\\";
 
   url = "https://wiki.snc.io/w/api.php";
 
@@ -31,13 +31,13 @@
     return getDateString() + "-" + getGoogleAnalyticsId();
   };
 
-  settings = function(text) {
+  settings = function(type, text) {
     return {
       action: "edit",
       format: "json",
       pageid: 9,
       section: "new",
-      sectiontitle: getSectionTitle(),
+      sectiontitle: type + "-" + getSectionTitle(),
       text: text,
       summary: "Input from website",
       bot: "",
@@ -45,8 +45,8 @@
     };
   };
 
-  window.post_suggestion = function(suggestion_text) {
-    return $.post(url, settings(suggestion_text));
+  window.post_suggestion = function(type, text) {
+    return $.post(url, settings(type, text));
   };
 
 }).call(this);

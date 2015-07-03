@@ -94,7 +94,61 @@
 
     <div class="page-content">
       <div class="wrapper">
-        <p><em>About</em></p>
+        <p>Codebook is a <a href="https://codebook.snc.io/collections/2015/06/17/introducing-codebook/">new kind of blog</a>. It contains <em>collections</em>, posts with a bunch of links
+in them, that are organized topically. Our goal is to create one of the most comprehensive
+and up-to-date organization of software development resources on the web.</p>
+
+<p>It is run by <a href="https://techstore.club">Tech Store Club</a> and a community of volunteers.</p>
+
+<h2 id="contact">Contact</h2>
+
+<ul>
+  <li>You can talk to us by <a href="https://github.com/techstoreclub/charter/issues">opening an issue on Github</a>,</li>
+  <li>Or by hoping on to <a href="https://webchat.freenode.net/?channels=techstoreclub&amp;uio=d4">freenode/#techstoreclub</a>.
+Note that we’ll get your message but we’re not always around, please wait up to a few hours for a response.</li>
+</ul>
+
+<h2 id="contribute-writing">Contribute Writing</h2>
+
+<ul>
+  <li>You can add to Codebook by using the “suggest link”, “rate link”, or “suggest topic” widgets around the site.
+Those go to our <a href="https://wiki.snc.io/">wiki</a>.</li>
+  <li>If you are interested in writing for us, awesome! Here’s <a href="https://wiki.snc.io/wiki/HowToWriteACollection">how to write a Codebook collection</a>,
+and here’s where to <a href="https://wiki.snc.io/wiki/DraftList">post a Codebook collection draft</a></li>
+  <li>Want to write, but not sure what to write about? Contact us or take a look at <a href="https://wiki.snc.io/wiki/CollectionSuggestion">this suggestion page</a>.</li>
+</ul>
+
+<h2 id="license">License</h2>
+
+<p>Everything on this site is <a href="https://creativecommons.org/licenses/by/4.0/">(CC BY 4.0)</a> which means you can use it for whatever you want as long as you
+attribute us! Additionally, the software under the <code>builder/</code> directory is subject to the <a href="https://github.com/techstoreclub/codebook/tree/master/builder/LICENSE.md">MIT License</a>.</p>
+
+<h2 id="source-code">Source Code</h2>
+
+<h3 id="directories">Directories</h3>
+
+<ul>
+  <li>The <code>pages/</code> directory contains the collection pages for Codebook. These pages are encoded as markdown with link data indented.</li>
+  <li>The <code>builder/</code> directory  contains the Python builder scripts for Codebook. These scripts take the pages in <code>pages/</code> and
+ process them into <code>site/_post</code> pages (with nice looking links) as well as <code>site/_topics</code> pages which make up
+ the category pages for the site.</li>
+  <li>The <code>site/</code> contains the css/js/html assets for the site.
+<a href="http://jekyllrb.com/">Jekyll</a> runs over this and produces the html output for the site under <code>site/_site</code>.</li>
+</ul>
+
+<h3 id="installation">Installation</h3>
+
+<ul>
+  <li>You will need: Python3, Python-Slugify, Jekyll, fswatch, and possibly the unix utility <code>make</code>.</li>
+  <li>First you can <a href="https://github.com/techstoreclub/codebook">clone the repository</a> to get your own copy of the files or download a <a href="https://github.com/techstoreclub/codebook/archive/master.zip">snapshot</a>.</li>
+  <li>Run <code>make</code> in the codebook directory to turn the collections into a static site located in <code>site/_site</code>.</li>
+  <li>You can run <code>make watch</code> to serve the website and have the site regenerate whenever you makes changes under <code>pages/</code>.</li>
+</ul>
+
+<h3 id="contributing-source-code">Contributing Source Code</h3>
+
+<p>Open a <a href="https://github.com/techstoreclub/codebook/pulls">pull request</a> or <a href="https://github.com/techstoreclub/codebook/issues">open an issue</a> to help improve Codebook.</p>
+
 
       </div>
     </div>
