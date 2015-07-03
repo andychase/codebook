@@ -50,7 +50,7 @@
         {% endif %}
     </div>
 
-    {% if link.description and !hide_description %}
+    {% if link.description and hide_description != true %}
     <div class="description">
         {% if link.description %}
         {{ link.description | markdownify }}
