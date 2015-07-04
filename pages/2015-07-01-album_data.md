@@ -36,7 +36,7 @@ Music Brainz is a "MusicBrainz is a community-maintained open source encyclopedi
 1. Set up a virtual server on [Digital Ocean](//digitalocean.com/?refcode=d91055f0c205) ([non-ref](//digitalocean.com)) to work on. *Optional:* I like working on another server because a remote server has a lot of bandwidth so I can get the data quickly, and I can feel good about downloading a lot of remote scripts and dependencies without harming my local environment.
 2. Followed the MusicBrainz instructions on setting up the database: [MusicBrainz Database Setup](https://bitbucket.org/lalinsky/mbslave).
 
-# 3. Ask my question
+# 3. Asking my questions
 
 So the goal here is now to ask the questions I have about title tracks to the database. I'm going to be querying SQL here to do this.
 
@@ -58,7 +58,7 @@ So the goal here is now to ask the questions I have about title tracks to the da
 
 First I have to study the [MusicBrainz Schema Diagram](https://musicbrainz.org/doc/MusicBrainz_Database/Schema) to figure out what kind of queries I have to write in order to figure out how to answer my question.
 
-# How many albums have title tracks?
+## How many albums have title tracks?
 
 In the schema above, I found that the `musicbrainz.medium` table contains the relationship between "releases" (albums releases essentially), and tracks. I need to see how many mediums have associated tracks with the same as that medium.
 
@@ -119,7 +119,7 @@ Out[3]: 0.25785626919823135
 
 `26%`! That's a massive number of albums from lazy artists who can't be bothered to name all their songs without re-using the album name.
 
-# Where are the title tracks placed (are they usually third)?
+## Where are the title tracks placed (are they usually third)?
 
 To answer this question we need to take the results from above (finding tracks that are title tracks) and query over that data, grouping up the most common positions for those tracks and counting them.
 
