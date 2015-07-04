@@ -56,6 +56,7 @@ settings = (type, text) ->
   section: "new"
   sectiontitle: type + ga_to_hash(getGoogleAnalyticsId())
   text: text
+  ct_checkjs: "cb2b2fb6bee3251f032a965d4a36e99b"
   summary: "Input from website"
   bot: ""
   token: api_key
