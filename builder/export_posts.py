@@ -1,6 +1,15 @@
+import re
 import slugify
 import yaml
 import file_output_util
+
+toc_block = """
+* TOC
+{:toc}
+
+## """
+
+section_pusher = re.compile("\n(#+) ")
 
 
 def title_block_output(title, links):
@@ -52,6 +61,12 @@ def output(parser_output):
 
     if collection_title and title_data:
         file_output = "\n\n".join([title_block_output(title_data, link_data)] + output_blocks)
+        file_output = section_pusher.sub("\n\\1# ", file_output)
+
+        if "\n## " in file_output:
+            before_toc, after_toc = file_output.split("\n## ", 1)
+            file_output = before_toc + toc_block + after_toc
+
         file_output_util.post_file_export(file_output, collection_title)
 
     else:
