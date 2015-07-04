@@ -18,7 +18,7 @@ setupFeedbackSubmitter = (tag, feedback_title, message_builder) ->
     success_target.text("Sending...")
     req = $.post url, settings(feedback_title, text), () ->
       success_target.text("Thanks for submitting feedback!")
-      target.addClass("submit_success")
+      target.parent().addClass("submit_success")
 
     req.fail () ->
       submit_target.show()

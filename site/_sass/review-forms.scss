@@ -25,6 +25,10 @@
     resize: vertical;
   }
 
+  &.submit_success:hover {
+    background-color: #EFFFED;
+  }
+
   &:hover {
     min-width: 165px;
     border: 1px solid rgba(0, 0, 0, 0.42);
@@ -32,9 +36,7 @@
     box-shadow: 0px 1px 3px -2px grey;
     background-color: #eef;
     z-index: 1;
-    &.submit_success {
-      background-color: #EFFFED;
-    }
+
     form {
       display: block;
     }
