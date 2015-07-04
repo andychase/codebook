@@ -75,7 +75,17 @@
   <article class="post-content">
     <p>I was listening to <a href="http://pitchfork.com/reviews/albums/20605-how-big-how-blue-how-beautiful/">Florance + The Machine</a>’s newest album when I noticed that a lot of music albums place their title track third on the album. Is this really the case I wonder? Well, having some abilities in Data Science I decided to see if I could get a chart out how many albums have title tracks and where they land.</p>
 
-<h1 id="getting-the-data">1. Getting the data</h1>
+<ul id="markdown-toc">
+  <li><a href="#getting-the-data" id="markdown-toc-getting-the-data">1. Getting the data</a></li>
+  <li><a href="#setting-up-an-environment" id="markdown-toc-setting-up-an-environment">2. Setting up an environment</a></li>
+  <li><a href="#asking-my-questions" id="markdown-toc-asking-my-questions">3. Asking my questions</a>    <ul>
+      <li><a href="#how-many-albums-have-title-tracks" id="markdown-toc-how-many-albums-have-title-tracks">How many albums have title tracks?</a></li>
+      <li><a href="#where-are-the-title-tracks-placed-are-they-usually-third" id="markdown-toc-where-are-the-title-tracks-placed-are-they-usually-third">Where are the title tracks placed (are they usually third)?</a></li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="getting-the-data">1. Getting the data</h2>
 
 <p>First in order to answer this question I’m going to need some data to work with.</p>
 
@@ -140,7 +150,7 @@
         <span class="ss-dislike feedback_icon"></span>
         <textarea name="dislike" placeholder="I don't like the link because..."></textarea>
         <br />
-        <input type="hidden" value="MusicBrainz Database / Download" />
+        <input type="hidden" name="feedback_title" value="MusicBrainz Database / Download" />
         <span class="link_feedback_success"></span>
         <input class="link_feedback_link_button" type="submit" value="Submit" />
     </form>
@@ -149,14 +159,14 @@
 
 </div>
 
-<h1 id="setting-up-an-environment">2. Setting up an environment</h1>
+<h2 id="setting-up-an-environment">2. Setting up an environment</h2>
 
 <ol>
   <li>Set up a virtual server on <a href="//digitalocean.com/?refcode=d91055f0c205">Digital Ocean</a> (<a href="//digitalocean.com">non-ref</a>) to work on. <em>Optional:</em> I like working on another server because a remote server has a lot of bandwidth so I can get the data quickly, and I can feel good about downloading a lot of remote scripts and dependencies without harming my local environment.</li>
   <li>Followed the MusicBrainz instructions on setting up the database: <a href="https://bitbucket.org/lalinsky/mbslave">MusicBrainz Database Setup</a>.</li>
 </ol>
 
-<h1 id="ask-my-question">3. Ask my question</h1>
+<h2 id="asking-my-questions">3. Asking my questions</h2>
 
 <p>So the goal here is now to ask the questions I have about title tracks to the database. I’m going to be querying SQL here to do this.</p>
 
@@ -215,7 +225,7 @@
         <span class="ss-dislike feedback_icon"></span>
         <textarea name="dislike" placeholder="I don't like the link because..."></textarea>
         <br />
-        <input type="hidden" value="SQL Tutorial" />
+        <input type="hidden" name="feedback_title" value="SQL Tutorial" />
         <span class="link_feedback_success"></span>
         <input class="link_feedback_link_button" type="submit" value="Submit" />
     </form>
@@ -226,7 +236,7 @@
 
 <p>First I have to study the <a href="https://musicbrainz.org/doc/MusicBrainz_Database/Schema">MusicBrainz Schema Diagram</a> to figure out what kind of queries I have to write in order to figure out how to answer my question.</p>
 
-<h1 id="how-many-albums-have-title-tracks">How many albums have title tracks?</h1>
+<h3 id="how-many-albums-have-title-tracks">How many albums have title tracks?</h3>
 
 <p>In the schema above, I found that the <code>musicbrainz.medium</code> table contains the relationship between “releases” (albums releases essentially), and tracks. I need to see how many mediums have associated tracks with the same as that medium.</p>
 
@@ -279,7 +289,7 @@
 
 <p><code>26%</code>! That’s a massive number of albums from lazy artists who can’t be bothered to name all their songs without re-using the album name.</p>
 
-<h1 id="where-are-the-title-tracks-placed-are-they-usually-third">Where are the title tracks placed (are they usually third)?</h1>
+<h3 id="where-are-the-title-tracks-placed-are-they-usually-third">Where are the title tracks placed (are they usually third)?</h3>
 
 <p>To answer this question we need to take the results from above (finding tracks that are title tracks) and query over that data, grouping up the most common positions for those tracks and counting them.</p>
 

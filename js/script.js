@@ -30,13 +30,14 @@
   };
 
   setupFeedbackSubmitter(".link_feedback_form", "Link Feedback - ", function(target) {
-    var dislike_target, like_target;
+    var dislike_target, feedback_title_target, like_target;
     like_target = target.children("[name*='like']").first();
     dislike_target = target.children("[name*='dislike']").first();
+    feedback_title_target = target.children("[name*='feedback_title']").first();
     if (like_target.val().trim() === "" && dislike_target.val().trim() === "") {
       return false;
     } else {
-      return "Like: " + (like_target.val()) + "\n\nDislike: " + (dislike_target.val());
+      return (feedback_title_target.val()) + "\n\nLike: " + (like_target.val()) + "\n\nDislike: " + (dislike_target.val());
     }
   });
 
@@ -66,7 +67,6 @@
       section: "new",
       sectiontitle: type + ga_to_hash(getGoogleAnalyticsId()),
       text: text,
-      ct_checkjs: "cb2b2fb6bee3251f032a965d4a36e99b",
       summary: "Input from website",
       bot: "",
       token: api_key
