@@ -29,10 +29,16 @@ setupFeedbackSubmitter = (tag, feedback_title, message_builder) ->
 setupFeedbackSubmitter ".link_feedback_form", "Link Feedback - ", (target) ->
   like_target = target.children("[name*='like']").first()
   dislike_target = target.children("[name*='dislike']").first()
+  feedback_title_target = target.children("[name*='feedback_title']").first()
+
   if (like_target.val().trim() == "" && dislike_target.val().trim() == "")
     false
   else
-    """Like: #{like_target.val()}\n\nDislike: #{dislike_target.val()}"""
+    """#{feedback_title_target.val()}
+
+Like: #{like_target.val()}
+
+Dislike: #{dislike_target.val()}"""
 
 # Submit feedback helpers
 
