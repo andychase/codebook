@@ -159,6 +159,7 @@
 }
 
 .homepage-blocks {
+  display: -webkit-box;
   display: flex;
   width: 100%;
   flex-direction: row;
