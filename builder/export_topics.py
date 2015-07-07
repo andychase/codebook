@@ -74,6 +74,22 @@ def export_topics(all_topics, current_topics, parents=(), level=1):
         export_topics(all_topics, node.subtopics, parents + (topic_name,), level=level + 1)
 
 
+def export_top_links(top_link_data):
+    already_seen = set()
+    unique_top_link_data = []
+    other_top_link_data = []
+    for link in reversed(top_link_data):
+        if link['topic'] not in already_seen:
+            unique_top_link_data.append(link)
+            already_seen.add(link['topic'])
+        else:
+            other_top_link_data.append(link)
+
+    top_link_data = unique_top_link_data + other_top_link_data
+    top_links_export = yaml.safe_dump(top_link_data[:5], default_flow_style=False)
+    file_output_util.top_links_file_export(top_links_export)
+
+
 def output(parser_output):
     topics = new_topic_tree()
     top_link_data = []
@@ -94,6 +110,4 @@ def output(parser_output):
             top_link_data.append(resource)
 
     export_topics(topics, topics)
-
-    top_links_data = yaml.safe_dump(top_link_data[-5:], default_flow_style=False)
-    file_output_util.top_links_file_export(top_links_data)
+    export_top_links(top_link_data)
