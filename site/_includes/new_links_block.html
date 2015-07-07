@@ -1,0 +1,18 @@
+<div class="homepage-block new-links-block">
+    <h1 class="page-heading">New Links</h1>
+    <ul class="post-list">
+        {% for link in site.data.top_links %}
+        <li>
+            <a class="newlinks-topic"
+               href="{{ link.topic | prepend: '/topics/' | prepend: site.baseurl | downcase }}">
+                {{ link.topic }}
+            </a><br>
+
+            <a class="post-link newlinks-link"
+               href="{{ link.url }}">
+                {{link.title }}
+            </a>
+        </li>
+        {% endfor %}
+    </ul>
+</div>

@@ -8,7 +8,7 @@ watch:
         wait
 
 clean:
-	rm -fr builder/__pycache__ site/_site site/_topics site/_posts
+	rm -fr builder/__pycache__ site/_site site/_topics site/_posts site/_data
 
 pub: clean all
 	git clone --no-checkout --branch gh-pages . pub

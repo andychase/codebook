@@ -11,40 +11,9 @@ nav_active: index
 
     <div class="homepage-blocks">
 
-        <div class="homepage-block">
-            <h1 class="page-heading">New Topics</h1>
-            <table class="post-list">
-                {% for post in site.posts %}
-                <tr>
-                    <td><span class="post-meta">{{ post.date | date: "%b %-d, %Y" }}</span></td>
+        {% include new_topics_block.html %}
 
-                    <td>
-                        <a class="post-link"
-                           href="{{ post.title | prepend: '/topics/' | prepend: site.baseurl | downcase }}">
-                            {{post.title }}</a>
-                    </td>
-                </tr>
-                {% endfor %}
-            </table>
-        </div>
+        {% include new_links_block.html %}
 
-        <!--
-        <div class="homepage-block">
-            <h1 class="page-heading">New Links</h1>
-            <table class="post-list">
-                {% for post in site.posts %}
-                <tr>
-                    <td><span class="post-meta">{{ post.date | date: "%b %-d, %Y" }}</span></td>
-
-                    <td>
-                        <a class="post-link"
-                           href="{{ post.title | prepend: '/topics/' | prepend: site.baseurl | downcase }}">
-                            {{post.title }}</a>
-                    </td>
-                </tr>
-                {% endfor %}
-            </table>
-        </div>
-        -->
     </div>
 </div>

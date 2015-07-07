@@ -95,10 +95,6 @@
 .post-list {
   margin-left: 0;
   list-style: none;
-
-  > li {
-    margin-bottom: $spacing-unit;
-  }
 }
 
 .post-meta {
@@ -173,4 +169,20 @@
 
 .homepage-block {
   flex-basis: 230px;
+  flex-grow: 1;
+}
+
+.new-links-block {
+  flex-basis: 260px;
+}
+
+.newlinks-topic {
+  color: grey;
+  &:visited, &:hover, &:hover:visited {
+    color: grey;
+  }
+}
+
+.newlinks-link {
+  margin-left: 20px;
 }

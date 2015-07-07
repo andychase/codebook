@@ -72,6 +72,7 @@ def export_topics(all_topics, current_topics, parents=(), level=1):
 def output(parser_output):
     topics = new_topic_tree()
     title = None
+    top_link_data = []
 
     for (title_block, resource, _) in parser_output:
         if title_block:
@@ -87,4 +88,9 @@ def output(parser_output):
                 leaf.set.add(resource['url'])
                 leaf.resources.append(resource)
 
+            top_link_data.append(resource)
+
     export_topics(topics, topics)
+
+    top_links_data = yaml.safe_dump(top_link_data[-5:], default_flow_style=False)
+    file_output_util.top_links_file_export(top_links_data)

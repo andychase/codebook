@@ -4,8 +4,9 @@ import os
 output_dir = os.path.abspath(os.path.join(os.path.dirname(os.path.realpath(__file__)), "..", "site"))
 topic_output_dir = os.path.join(output_dir, "_topics")
 post_output_dir = os.path.join(output_dir, "_posts")
+top_links_output_dir = os.path.join(output_dir, "_data")
 
-for directory in (topic_output_dir, post_output_dir):
+for directory in (topic_output_dir, post_output_dir, top_links_output_dir):
     if not os.path.isdir(directory):
         os.mkdir(directory)
 
@@ -33,3 +34,7 @@ def post_file_export(file_output, collection_title):
 
 def topic_file_export(file_output, topic_file_name):
     write_file_if_different(os.path.join(topic_output_dir, topic_file_name), file_output)
+
+
+def top_links_file_export(file_output):
+    write_file_if_different(os.path.join(top_links_output_dir, "top_links.yml"), file_output)
