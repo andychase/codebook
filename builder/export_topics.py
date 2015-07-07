@@ -6,7 +6,6 @@ import file_output_util
 TopicNode = namedtuple("TopicNode", "subtopics resources set")
 new_topic_tree = lambda: defaultdict(lambda: TopicNode(new_topic_tree(), [], set()))
 
-
 collection_title = lambda title_data: "/collections/{YEAR}/{MONTH:02d}/{DAY:02d}/{title}/".format(
     YEAR=title_data.date.year,
     MONTH=title_data.date.month,
@@ -54,6 +53,12 @@ def get_leaf_node(topics, path):
         return get_leaf_node(topics[path[0]].subtopics, path[1:])
 
 
+def empty_leaf_node(topics, path):
+    leaf = get_leaf_node(topics, path)
+    leaf.resources.clear()
+    leaf.set.clear()
+
+
 def build_category_listing(topics, path_parts):
     for depth in range(1, len(path_parts)):
         yield [path_parts[:depth] + (t,) for t in get_siblings_at(topics, path_parts[:depth])]
@@ -71,17 +76,15 @@ def export_topics(all_topics, current_topics, parents=(), level=1):
 
 def output(parser_output):
     topics = new_topic_tree()
-    title = None
     top_link_data = []
 
     for (title_block, resource, _) in parser_output:
         if title_block:
-            title = title_block
+            # This block means its a new topic, empty any existing data in that topic
+            empty_leaf_node(topics, tuple(title_block.title.lower().strip("/").split("/")))
+
         if resource:
             topic_parts = tuple(resource["topic"].strip("/").split("/"))
-            if title:
-                resource['collection_link'] = collection_title(title)
-                resource['collection_title'] = title.title
 
             leaf = get_leaf_node(topics, topic_parts)
             if resource['url'] not in leaf.set:
