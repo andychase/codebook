@@ -140,8 +140,8 @@ def process(contents):
                 intro_info = extract_summary_info(block_text_lines_list)
                 topic = intro_info.title.lower()
                 add_block(info=intro_info)
-            elif i == 1:
-                # Second block (if included, i.e. indented) is post summary
+            elif i == 1 and not has_type_block:
+                # Second block (if included, i.e. indented) and not a link block is post summary
                 blocks[-1] = (blocks[-1][0]._replace(summary=block_text), None, None)
             elif has_type_block:
                 # Is a link block
