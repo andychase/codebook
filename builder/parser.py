@@ -142,7 +142,7 @@ def process(contents):
                 add_block(info=intro_info)
             elif i == 1:
                 # Second block (if included, i.e. indented) is post summary
-                blocks[-1][0] = blocks[-1][0].copy(summary=block_text)
+                blocks[-1] = (blocks[-1][0]._replace(summary=block_text), None, None)
             elif has_type_block:
                 # Is a link block
                 type_value_data = ['type: "{}"\ntopic: "{}"\nsection: "{}"\nsubsection: "{}"'.format(
