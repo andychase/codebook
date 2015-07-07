@@ -26,15 +26,18 @@ setupFeedbackSubmitter = (tag, feedback_title, message_builder) ->
 
 # Feedback submitters
 
-setupFeedbackSubmitter ".link_feedback_form", "Link Feedback - ", (target) ->
+setupFeedbackSubmitter ".link_feedback_form", "Link Feedback", (target) ->
   like_target = target.children("[name*='like']").first()
   dislike_target = target.children("[name*='dislike']").first()
   feedback_title_target = target.children("[name*='feedback_title']").first()
+  name_target = target.children("[name*='user_name']").first()
 
   if (like_target.val().trim() == "" && dislike_target.val().trim() == "")
     false
   else
     """#{feedback_title_target.val()}
+
+Name: #{name_target.val()}
 
 Like: #{like_target.val()}
 
@@ -60,9 +63,9 @@ settings = (type, text) ->
   format: "json"
   pageid: 9
   section: "new"
-  sectiontitle: type + ga_to_hash(getGoogleAnalyticsId())
+  sectiontitle: type
   text: text
-  summary: "Input from website"
+  summary: "Input from website (#{ga_to_hash(getGoogleAnalyticsId())})"
   bot: ""
   token: api_key
 

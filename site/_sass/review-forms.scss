@@ -23,6 +23,13 @@
 
   textarea {
     resize: vertical;
+    width: 138px;
+  }
+
+  .feedback-name-field {
+    border: 1px solid #999999;
+    margin-bottom: 5px;
+    width: 140px;
   }
 
   &.submit_success:hover {
