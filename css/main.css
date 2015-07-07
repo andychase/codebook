@@ -155,7 +155,7 @@ pre {
  * Site header
  */
 .site-header {
-  border-top: 5px solid #3aa6ff;
+  border-top: 2px solid #3aa6ff;
   border-bottom: 1px solid #e8e8e8;
   min-height: 56px; }
 
@@ -169,20 +169,18 @@ pre {
   bottom: 0px; }
 
 .site-title {
-  font-size: 26px;
-  line-height: 56px;
-  letter-spacing: -1px;
-  margin-bottom: 0; }
-  .site-title, .site-title:visited {
+  margin-top: 15px;
+  margin-bottom: 10px;
+  text-align: center; }
+  .site-title a, .site-title a.visited {
     color: #424242; }
-
-.site-icon {
-  padding-right: 5px;
-  font-size: 5pt;
-  overflow: hidden;
-  display: inline-block;
-  width: 40pt;
-  height: 13pt; }
+  .site-title .site-title-text, .site-title .site-title-text:visited {
+    font-size: 20px;
+    letter-spacing: -1px; }
+  .site-title .site-icon {
+    width: 20px;
+    padding-right: 5px;
+    vertical-align: initial; }
 
 .site-nav {
   position: relative;
@@ -227,16 +225,14 @@ pre {
 .post-list {
   margin-left: 0;
   list-style: none; }
-  .post-list > li {
-    margin-bottom: 30px; }
 
 .post-meta {
   font-size: 14px;
   color: #828282; }
 
 .post-link {
-  display: block;
-  font-size: 24px; }
+  display: inline-block;
+  font-size: 16px; }
 
 /**
  * Posts
@@ -269,6 +265,33 @@ pre {
     @media screen and (max-width: 850px) {
       .post-content h4 {
         font-size: 18px; } }
+
+.intro-words {
+  text-align: center;
+  font-size: 12pt;
+  color: dark-grey; }
+
+.homepage-blocks {
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between; }
+
+.homepage-block {
+  flex-basis: 230px;
+  flex-grow: 1; }
+
+.new-links-block {
+  flex-basis: 260px; }
+
+.newlinks-topic {
+  color: grey; }
+  .newlinks-topic:visited, .newlinks-topic:hover, .newlinks-topic:hover:visited {
+    color: grey; }
+
+.newlinks-link {
+  margin-left: 20px; }
 
 /**
  * Site footer
