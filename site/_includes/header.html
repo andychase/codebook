@@ -1,7 +1,9 @@
 <header class="site-header">
     <div class="wrapper">
-            <span class="site-icon">0100 0100 0101 0000 1001 1000</span>
-            <a class="site-title " href="{{ site.baseurl }}/">{{ site.title }}</a>
+        <div class="site-title">
+            <img src="/logo.svg" class="site-icon"/>
+            <a href="{{ site.baseurl }}/" class="site-title-text">{{ site.title }}</a>
+        </div>
         <nav class="site-nav">
             <ul>
                 {% for topic in site.topics %}
