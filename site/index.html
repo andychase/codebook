@@ -5,18 +5,46 @@ nav_active: index
 
 <div class="home">
 
-  <h1 class="page-heading">Newest collections</h1>
+    <p class="intro-words">
+        Welcome to Codebook: a collaborative link directory about programming.
+    </p>
 
-  <ul class="post-list">
-    {% for post in site.posts %}
-      <li>
-        <span class="post-meta">{{ post.date | date: "%b %-d, %Y" }}</span>
+    <div class="homepage-blocks">
 
-        <h2>
-          <a class="post-link" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
-        </h2>
-      </li>
-    {% endfor %}
-  </ul>
+        <div class="homepage-block">
+            <h1 class="page-heading">New Topics</h1>
+            <table class="post-list">
+                {% for post in site.posts %}
+                <tr>
+                    <td><span class="post-meta">{{ post.date | date: "%b %-d, %Y" }}</span></td>
 
+                    <td>
+                        <a class="post-link"
+                           href="{{ post.title | prepend: '/topics/' | prepend: site.baseurl | downcase }}">
+                            {{post.title }}</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+
+        <!--
+        <div class="homepage-block">
+            <h1 class="page-heading">New Links</h1>
+            <table class="post-list">
+                {% for post in site.posts %}
+                <tr>
+                    <td><span class="post-meta">{{ post.date | date: "%b %-d, %Y" }}</span></td>
+
+                    <td>
+                        <a class="post-link"
+                           href="{{ post.title | prepend: '/topics/' | prepend: site.baseurl | downcase }}">
+                            {{post.title }}</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+        -->
+    </div>
 </div>

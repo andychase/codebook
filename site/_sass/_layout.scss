@@ -108,8 +108,8 @@
 }
 
 .post-link {
-    display: block;
-    font-size: 24px;
+    display: inline-block;
+    font-size: 16px;
 }
 
 
@@ -157,4 +157,23 @@
             font-size: 18px;
         }
     }
+}
+
+.intro-words {
+  text-align: center;
+  font-size: 12pt;
+  color: dark-grey;
+}
+
+.homepage-blocks {
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+
+}
+
+.homepage-block {
+  flex-basis: 230px;
 }

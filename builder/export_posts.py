@@ -21,7 +21,7 @@ def title_block_output(title, links):
                 "date": title.date,
                 "author": ", ".join(title.authors),
                 "categories": "collections",
-                "resources": links
+                "resources": len(links)
             },
             default_flow_style=False
         )

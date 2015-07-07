@@ -102,6 +102,9 @@ def process_first_line(block):
 def process(contents):
     last_block_link_block = []
     blocks = []
+    topic = ""
+    current_section = ""
+    current_subsection = ""
 
     def add_block(info=None, link_data=None, text_block=None):
         blocks.append((info, link_data, text_block))
@@ -114,6 +117,14 @@ def process(contents):
 
     for i, block in enumerate(str(normalize_whitespace(contents)).split("\n\n")):
         indented = block.startswith(" " * 4)
+        is_section = block.startswith("# ")
+        is_subsection = block.startswith("## ")
+
+        if is_section:
+            current_section = block.lstrip("#").strip()
+        elif is_subsection:
+            current_subsection = block.lstrip("##").strip()
+
         if indented:
             block_text_lines_list = list(strip_indentation(block))
             block_text = "\n".join(block_text_lines_list)
@@ -126,13 +137,21 @@ def process(contents):
 
             if i == 0:
                 # First block is post info/metadata
-                add_block(info=extract_summary_info(block_text_lines_list))
+                intro_info = extract_summary_info(block_text_lines_list)
+                topic = intro_info.title.lower()
+                add_block(info=intro_info)
             elif i == 1:
                 # Second block (if included, i.e. indented) is post summary
                 blocks[-1][0] = blocks[-1][0].copy(summary=block_text)
             elif has_type_block:
                 # Is a link block
-                type_value_data = ["type: {}".format(type_value)]
+                type_value_data = ['type: "{}"\ntopic: "{}"\nsection: "{}"\nsubsection: "{}"'.format(
+                    type_value,
+                    topic,
+                    current_section,
+                    current_subsection
+                )
+                ]
                 link_block_text = "\n".join(type_value_data + block_text_lines_list[1:])
                 last_block_link_block.append(link_block_text)
             elif any(last_block_link_block):

@@ -7,8 +7,8 @@ nav_active:
 title: About Codebook
 ---
 
-Codebook is a [new kind of blog][intro]. It contains *collections*, posts with a bunch of links
-in them, that are organized topically. Our goal is to create one of the most comprehensive
+Codebook is a new kind of blog. It contains posts with a bunch of links
+in them, which are organized topically. The goal is to create one of the most comprehensive
 and up-to-date organization of software development resources on the web.
 
 It is run by [Tech Store Club][tsc] and a community of volunteers.
@@ -54,7 +54,6 @@ attribute us! Additionally, the software under the `builder/` directory is subje
 
 Open a [pull request][codebook-pull] or [open an issue][codebook-issue] to help improve Codebook. 
 
-[intro]: https://codebook.snc.io/collections/2015/06/17/introducing-codebook/
 [tsc]: https://techstore.club
 [github-issue]: https://github.com/techstoreclub/charter/issues
 [freenode-chat]: https://webchat.freenode.net/?channels=techstoreclub&uio=d4

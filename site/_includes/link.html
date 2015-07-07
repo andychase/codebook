@@ -44,13 +44,9 @@
         found on <a class="found_on_url" href="{{ link.found_on.url }}">{{ link.found_on.name }}</a>
         </span>
         {% endif %}
-        {% if link.collection_link %}
-        <span>from →&nbsp;<a href="{{ link.collection_link }}">{{ link.collection_title }}</a>
-        </span>
-        {% endif %}
     </div>
 
-    {% if link.description and hide_description != true %}
+    {% if link.description %}
     <div class="description">
         {% if link.description %}
         {{ link.description | markdownify }}
