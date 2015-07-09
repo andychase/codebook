@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+
+{% include 'includes/head.html' %}
+
+<body>
+
+{% include 'includes/header.html' %}
+
+{% include 'includes/navbar.html' %}
+
+<div class="page-content topic-view">
+    <div class="wrapper">
+        {% for resource in resources %}
+
+            {% if resource.section %}
+            <div class="section_separator"></div>
+            <h1>{{ resource.section }}</h1>
+            {% elif resource.subsection %}
+            <h2>{{ resource.subsection }}</h2>
+            {% elif resource.link %}
+            {% include 'includes/link.html' with link=resource.link %}
+            {% endif %}
+        {% endfor %}
+    </div>
+</div>
+
+{% include 'includes/footer.html' %}
+
+</body>
+
+</html>

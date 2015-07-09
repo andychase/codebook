@@ -1,0 +1,17 @@
+{% for category in page.categories %}
+<div class="site-header-nav">
+    <div class="wrapper">
+        <div class="site-nav">
+            <ul>
+                {% for topic in category %}
+                <li class="{% if topic.last in page.nav_active %}active{% endif %}">
+                    <a class="page-link" href="/topics/{{ topic | join:'/' }}/">
+                        {{ topic.last | title }}
+                    </a>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>
+{% endfor %}
