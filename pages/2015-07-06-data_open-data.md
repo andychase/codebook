@@ -11,7 +11,7 @@
     authors:
         - Stefan Kestenholz (https://about.me/stefankestenholz) (https://wiki.musicbrainz.org/User:Keschte/OfficialBio)
         - Pavan Chander (https://wiki.musicbrainz.org/About/Team)
-        - Other MusicBrainz Contributors
+        - other MusicBrainz Contributors
     commentary: >
         Has all the music metadata you need
     description: >
