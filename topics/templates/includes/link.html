@@ -25,13 +25,15 @@
         <span class="date">{{ link.date | date:"Y" }},</span>
         {% endif %}
         <span class="authors">
-        {% if link.authors.size == 1 %}
+        {% if link.authors|length == 1 %}
             by {{link.authors.0 }}
         {% endif %}
-        {% if link.authors.size == 2 %}
+        {% if link.authors|length == 2 %}
             by {{link.authors.0 }} and {{link.authors.1 }}
         {% endif %}
-
+        {% if link.authors|length > 2 %}
+            by {{link.authors | join:", " }}
+        {% endif %}
         </span>
         {% if link.found_on %}
         <span class="found_on">

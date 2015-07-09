@@ -1,12 +1,13 @@
-{% for category in page.categories %}
+{% for subtopic in topics|slice:"1:" %}
+{%  if subtopic %}
 <div class="site-header-nav">
     <div class="wrapper">
         <div class="site-nav">
             <ul>
-                {% for topic in category %}
-                <li class="{% if topic.last in page.nav_active %}active{% endif %}">
-                    <a class="page-link" href="/topics/{{ topic | join:'/' }}/">
-                        {{ topic.last | title }}
+                {% for topic in subtopic %}
+                <li class="{% if topic.name|lower in nav_active %}active{% endif %}">
+                    <a class="page-link" href="/topics/{{ topic.path | join:"/" | lower }}/">
+                        {{ topic.name | title }}
                     </a>
                 </li>
                 {% endfor %}
@@ -14,4 +15,5 @@
         </div>
     </div>
 </div>
+{%  endif %}
 {% endfor %}

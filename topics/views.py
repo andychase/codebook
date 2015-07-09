@@ -6,7 +6,6 @@ import markdown
 import yaml
 from topics.models import Topic
 from topics.parser import process
-from topics import view_helpers
 
 with open('./topics/config.yml') as f:
     site = yaml.safe_load(f)
@@ -22,15 +21,6 @@ def get_item(dictionary, key):
     return dictionary.get(key)
 
 
-def get_tree():
-    results = Topic.objects.values('name', 'parent')
-    results = results.filter(parent=None)
-    for t in results:
-        t['level'] = 1
-        t['name_lower'] = t['name'].lower()
-    return results
-
-
 def about(request, info_page_title):
     if info_page_title not in ['privacy', 'terms']:
         info_page_title = "about"
@@ -41,7 +31,7 @@ def about(request, info_page_title):
     context = RequestContext(request, {
         'site': site,
         'content': safestring.mark_safe(page_content),
-        'topics': get_tree(),
+        'topics': [Topic.get_tree_top()],
         'title': info_page_title
     })
     return HttpResponse(template.render(context))
@@ -51,7 +41,7 @@ def index(request):
     template = loader.get_template('index.html')
     context = RequestContext(request, {
         'site': site,
-        'topics': get_tree()
+        'topics': [Topic.get_tree_top()]
     })
     return HttpResponse(template.render(context))
 
@@ -70,21 +60,29 @@ def topic_data_to_stream(topic_data):
             if link_block['subsection'] != current_subsection:
                 current_subsection = link_block['subsection']
                 yield {'subsection': current_subsection}
+            link_block['authors'] = [safestring.mark_safe(a) for a in link_block['authors']]
             yield {'link': link_block}
 
 
 def get_topic(request, topic_name):
     topic_name = topic_name[:50]
+    topic_path = tuple(topic_name.strip("/").split("/"))
+    topics = list(Topic.get_topics(topic_path))
+    topic_id = None
+    for topic in topics[-2]:
+        if topic['name'].lower() == topic_path[-1].lower():
+            topic_id = topic['id']
+
     template = loader.get_template('layouts/topic.html')
     try:
-        topic = Topic.objects.get(name__iexact=topic_name)
+        topic = Topic.objects.get(id=topic_id)
     except Topic.DoesNotExist:
         raise Http404("Topic does not exist")
     topic_data = topic_data_to_stream(process(topic.text))
     context = RequestContext(request, {
         'site': site,
-        'topics': get_tree(),
-        'nav_active': [topic_name],
+        'topics': topics,
+        'nav_active': topic_path,
         'resources': topic_data
     })
     return HttpResponse(template.render(context))

@@ -7,10 +7,10 @@
         </div>
         <nav class="site-nav">
             <ul>
-                {% for topic in topics %}
-                {% if topic.name and topic.level == 1 %}
-                <li class="{% if topic.name_lower in nav_active %} active{% endif %}">
-                    <a class="page-link" href="/topics/{{ topic.name_lower }}">{{ topic.name | title }}</a>
+                {% for topic in topics.0 %}
+                {% if topic.name %}
+                <li class="{% if topic.name|lower in nav_active %} active{% endif %}">
+                    <a class="page-link" href="/topics/{{ topic.name|lower }}">{{ topic.name | title }}</a>
                 </li>
                 {% endif %}
                 {% endfor %}
