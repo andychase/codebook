@@ -60,3 +60,5 @@ target/
 .idea/
 .DS_Store
 db.sqlite3
+venv/
+staticfiles/

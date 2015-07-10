@@ -126,4 +126,3 @@ PIPELINE_COMPILERS = (
 
 PIPELINE_CSS_COMPRESSOR = 'pipeline.compressors.NoopCompressor'
 PIPELINE_JS_COMPRESSOR = 'pipeline.compressors.NoopCompressor'
-
