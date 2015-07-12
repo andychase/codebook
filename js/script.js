@@ -29,15 +29,16 @@
     });
   };
 
-  setupFeedbackSubmitter(".link_feedback_form", "Link Feedback - ", function(target) {
-    var dislike_target, feedback_title_target, like_target;
+  setupFeedbackSubmitter(".link_feedback_form", "Link Feedback", function(target) {
+    var dislike_target, feedback_title_target, like_target, name_target;
     like_target = target.children("[name*='like']").first();
     dislike_target = target.children("[name*='dislike']").first();
     feedback_title_target = target.children("[name*='feedback_title']").first();
+    name_target = target.children("[name*='user_name']").first();
     if (like_target.val().trim() === "" && dislike_target.val().trim() === "") {
       return false;
     } else {
-      return (feedback_title_target.val()) + "\n\nLike: " + (like_target.val()) + "\n\nDislike: " + (dislike_target.val());
+      return (feedback_title_target.val()) + "\n\nName: " + (name_target.val()) + "\n\nLike: " + (like_target.val()) + "\n\nDislike: " + (dislike_target.val());
     }
   });
 
@@ -65,9 +66,9 @@
       format: "json",
       pageid: 9,
       section: "new",
-      sectiontitle: type + ga_to_hash(getGoogleAnalyticsId()),
+      sectiontitle: type,
       text: text,
-      summary: "Input from website",
+      summary: "Input from website (" + (ga_to_hash(getGoogleAnalyticsId())) + ")",
       bot: "",
       token: api_key
     };

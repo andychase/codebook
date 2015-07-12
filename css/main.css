@@ -1,8 +1,5 @@
 @charset "UTF-8";
 @font-face {
-  font-family: NuvoWeb-Medi;
-  src: url("https://d12gd74eaa9d1v.cloudfront.net/NuvoWeb-Medi.eot"); }
-@font-face {
   font-family: GoodNews;
   src: url("https://d12gd74eaa9d1v.cloudfront.net/GoodWeb-News.woff") format("woff"); }
 /**
@@ -272,6 +269,7 @@ pre {
   color: dark-grey; }
 
 .homepage-blocks {
+  display: -webkit-box;
   display: flex;
   width: 100%;
   flex-direction: row;
@@ -581,7 +579,12 @@ pre {
     vertical-align: top;
     display: inline-block; }
   .link_feedback_link textarea {
-    resize: vertical; }
+    resize: vertical;
+    width: 138px; }
+  .link_feedback_link .feedback-name-field {
+    border: 1px solid #999999;
+    margin-bottom: 5px;
+    width: 140px; }
   .link_feedback_link.submit_success:hover {
     background-color: #EFFFED; }
   .link_feedback_link:hover {
