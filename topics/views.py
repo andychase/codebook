@@ -1,4 +1,6 @@
-from django.http import HttpResponse, Http404
+from django.contrib.auth import authenticate, login
+from django.http import HttpResponse, Http404, HttpResponseRedirect
+from django.shortcuts import redirect
 from django.template import loader, RequestContext
 from django.template.defaultfilters import register
 from django.utils import safestring
@@ -39,6 +41,28 @@ def about(request, info_page_title):
 
 def index(request):
     template = loader.get_template('index.html')
+    context = RequestContext(request, {
+        'site': site,
+        'topics': [Topic.get_tree_top()]
+    })
+    return HttpResponse(template.render(context))
+
+
+def login_view(request):
+    if request.POST:
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(username=username, password=password)
+        if user is not None:
+            if user.is_active:
+                login(request, user)
+                return redirect('/')
+            else:
+                bad_login = True
+
+            bad_login = True
+
+    template = loader.get_template('login.html')
     context = RequestContext(request, {
         'site': site,
         'topics': [Topic.get_tree_top()]

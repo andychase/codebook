@@ -187,3 +187,11 @@
 .newlinks-link {
   margin-left: 20px;
 }
+
+a.site-login {
+  position: absolute;
+  top: 4pt;
+  right: 19pt;
+  font-size: 11pt;
+  color: desaturate($brand-color, 10%);
+}

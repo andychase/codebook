@@ -5,6 +5,7 @@
             <img src="{% static "logo.svg" %}" class="site-icon"/>
             <a href="{{ site.baseurl }}/" class="site-title-text">{{ site.title }}</a>
         </div>
+        <a href="/login" class="site-login">login</a>
         <nav class="site-nav">
             <ul>
                 {% for topic in topics.0 %}
