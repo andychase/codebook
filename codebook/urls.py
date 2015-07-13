@@ -20,7 +20,5 @@ from codebook import settings
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^$', include('topics.urls')),
-    url(r'^about/', include('topics.urls')),
-    url(r'^topics/', include('topics.urls')),
+    url(r'', include('topics.urls')),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
