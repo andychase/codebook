@@ -29,3 +29,14 @@ STATICFILES_DIRS = (
 )
 
 PIPELINE_COFFEE_SCRIPT_BINARY = "/app/.heroku/node/bin/node ./node_modules/coffee-script/bin/coffee"
+
+# Use cached templates
+if not DEBUG:
+    del TEMPLATES[0]['OPTIONS']['APP_DIRS']
+    TEMPLATES[0]['OPTIONS']['DIRS'] = []
+    TEMPLATES[0]['OPTIONS']['OPTIONS']['loaders'] = [
+        ('django.template.loaders.cached.Loader', [
+            'django.template.loaders.filesystem.Loader',
+            'django.template.loaders.app_directories.Loader',
+        ])
+    ]
