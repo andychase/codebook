@@ -5,19 +5,25 @@
             <img src="{% static "logo.svg" %}" class="site-icon"/>
             <a href="{{ site.baseurl }}/" class="site-title-text">{{ site.title }}</a>
         </div>
-        <a href="/login" class="site-login">login</a>
+        <div class="site-login">
+            {% if user.is_authenticated %}
+                <a href="/logout">Log out</a>
+            {% else %}
+                <a href="/create_account">Create account</a>
+                <a href="/login">Log in</a>
+            {% endif %}
+        </div>
         <nav class="site-nav">
             <ul>
                 {% for topic in topics.0 %}
-                {% if topic.name %}
-                <li class="{% if topic.name|lower in nav_active %} active{% endif %}">
-                    <a class="page-link" href="/topics/{{ topic.name|lower }}">{{ topic.name | title }}</a>
-                </li>
-                {% endif %}
+                    {% if topic.name %}
+                        <li class="{% if topic.name|lower in nav_active %} active{% endif %}">
+                            <a class="page-link" href="/topics/{{ topic.name|lower }}">{{ topic.name | title }}</a>
+                        </li>
+                    {% endif %}
                 {% endfor %}
 
             </ul>
         </nav>
     </div>
 </header>
-

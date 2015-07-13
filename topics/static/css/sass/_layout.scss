@@ -188,10 +188,15 @@
   margin-left: 20px;
 }
 
-a.site-login {
+.site-login {
   position: absolute;
   top: 4pt;
   right: 19pt;
-  font-size: 11pt;
-  color: desaturate($brand-color, 10%);
+  a {
+    font-size: 11pt;
+    color: desaturate($brand-color, 10%);
+    &:last-child {
+      padding-left: 20px;
+    }
+  }
 }

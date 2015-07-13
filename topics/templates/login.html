@@ -1,23 +1,29 @@
 {% extends "layouts/default.html" %}
-{%  block content %}
-<div class="post">
+{% block content %}
+    <div class="login">
+        <h2>Login</h2>
+        {% if user.is_authenticated %}
+            <p>You are already logged in!</p>
+            <a href="/logout">Log out</a>
+        {% else %}
+            <form action="/login/" method="post" id="login-form">
+                {% csrf_token %}
+                <div class="form-row">
 
-  <form action="/login/" method="post" id="login-form">
-  {% csrf_token %}
-  <div class="form-row">
+                    <label class="required" for="id_username">Username:</label>
+                    <input id="id_username" maxlength="254" name="username" type="text">
+                </div>
+                <div class="form-row">
 
-    <label class="required" for="id_username">Username:</label> <input id="id_username" maxlength="254" name="username" type="text">
-  </div>
-  <div class="form-row">
+                    <label class="required" for="id_password">Password:</label>
+                    <input id="id_password" name="password" type="password">
+                    <input type="hidden" name="next" value="/admin/">
+                </div>
 
-    <label class="required" for="id_password">Password:</label> <input id="id_password" name="password" type="password">
-    <input type="hidden" name="next" value="/admin/">
-  </div>
-
-  <div class="submit-row">
-    <label>&nbsp;</label><input type="submit" value="Log in">
-  </div>
-</form>
-
-</div>
+                <div class="submit-row">
+                    <label>&nbsp;</label><input type="submit" value="Log in">
+                </div>
+            </form>
+        {% endif %}
+    </div>
 {% endblock %}

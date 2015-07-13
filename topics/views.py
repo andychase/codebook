@@ -1,4 +1,4 @@
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponse, Http404, HttpResponseRedirect
 from django.shortcuts import redirect
 from django.template import loader, RequestContext
@@ -11,6 +11,15 @@ from topics.parser import process
 
 with open('./topics/config.yml') as f:
     site = yaml.safe_load(f)
+
+
+def default_context(request, variables):
+    default_vars = {
+        'site': site,
+        'user': request.user
+    }
+    default_vars.update(variables)
+    return RequestContext(request, default_vars)
 
 
 @register.filter(name='markdownify')
@@ -30,8 +39,7 @@ def about(request, info_page_title):
         page_content = markdown.markdown(f.read())
 
     template = loader.get_template('layouts/page.html')
-    context = RequestContext(request, {
-        'site': site,
+    context = default_context(request, {
         'content': safestring.mark_safe(page_content),
         'topics': [Topic.get_tree_top()],
         'title': info_page_title
@@ -41,8 +49,7 @@ def about(request, info_page_title):
 
 def index(request):
     template = loader.get_template('index.html')
-    context = RequestContext(request, {
-        'site': site,
+    context = default_context(request, {
         'topics': [Topic.get_tree_top()]
     })
     return HttpResponse(template.render(context))
@@ -63,11 +70,15 @@ def login_view(request):
             bad_login = True
 
     template = loader.get_template('login.html')
-    context = RequestContext(request, {
-        'site': site,
+    context = default_context(request, {
         'topics': [Topic.get_tree_top()]
     })
     return HttpResponse(template.render(context))
+
+
+def logout_view(request):
+    logout(request)
+    return redirect('/')
 
 
 def topic_data_to_stream(topic_data):
@@ -103,8 +114,7 @@ def get_topic(request, topic_name):
     except Topic.DoesNotExist:
         raise Http404("Topic does not exist")
     topic_data = topic_data_to_stream(process(topic.text))
-    context = RequestContext(request, {
-        'site': site,
+    context = default_context(request, {
         'topics': topics,
         'nav_active': topic_path,
         'resources': topic_data
