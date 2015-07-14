@@ -41,11 +41,15 @@ $black: black;
         padding-top: 30px;
         text-align: center;
         input {
-            padding: 3px 5px;
-            color: $black;
-            background-color: transparent;
-            border: 1px solid $brand-color;
+            padding: 5px 7px;
+            border: transparent;
+            background-color: #3aa6ff;
             border-radius: 4px;
+            color: white;
+            box-shadow: 0 -1px 0px 0px rgba(0, 0, 0, 0.11) inset;
+            &:active {
+                box-shadow: none;
+            }
         }
     }
     .password-reset-link {
