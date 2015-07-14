@@ -74,10 +74,14 @@ def get_topic(request, topic_name):
 def new_topic(request, topic_path):
     if request.POST:
         topic_name = request.POST.get('name')
+        if len(topic_path) == 0:
+            parent = None
+        else:
+            parent = Topic.get_from_path(topic_path)['id']
         if topic_name:
-            new_topic = Topic(name=topic_name)
+            new_topic = Topic(name=topic_name, parent_id=parent)
             new_topic.save()
-            return redirect('/topics/{}'.format(topic_name.lower()))
+            return redirect('/topics/{}'.format("/".join(topic_path+(topic_name,)).lower()))
 
     template = loader.get_template('topics/new_topic.html')
     if any(topic_path):

@@ -21,6 +21,20 @@ class Topic(models.Model):
         return parent_path + self.name
 
     @staticmethod
+    def get_from_path(path, parent_id=None):
+        if len(path) == 1:
+            results = Topic.objects.values('id', 'name', 'parent')
+            results = results.filter(name__iexact=path[0], parent=parent_id)
+            for result in results:
+                return result
+        else:
+            results = Topic.objects.values('id', 'name', 'parent')
+            results = results.filter(name__iexact=path[0], parent=parent_id)
+            for result in results:
+                return Topic.get_from_path(path[1:], result['id'])
+        raise BadTopicPath
+
+    @staticmethod
     def get_siblings(parent_id):
         return [i for i in Topic.objects.values('id', 'name', 'parent').filter(
             parent=parent_id
