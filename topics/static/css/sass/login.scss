@@ -20,25 +20,21 @@ $black: black;
         padding: 4px 0;
         float: left;
         width: 100%;
-        label {
-            padding-right: 0.5em;
-            line-height: 2em;
-            font-size: 1em;
-            clear: both;
-            color: $color_mine_shaft_approx;
-        }
-        #id_username {
-            @extend %extend_1;
-        }
-        #id_password {
-            @extend %extend_1;
-        }
-        #id_password_confirm {
-            @extend %extend_1;
-        }
-        #id_email {
-            @extend %extend_1;
-        }
+    }
+    label {
+        padding-right: 0.5em;
+        line-height: 2em;
+        font-size: 1em;
+        clear: both;
+        color: $color_mine_shaft_approx;
+    }
+    input[type=text], input[type=password] {
+        @extend %extend_1;
+    }
+    span.helptext {
+        color: grey;
+        font-size: 8pt;
+        display: block;
     }
     .submit-row {
         clear: both;
