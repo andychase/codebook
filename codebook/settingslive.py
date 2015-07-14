@@ -40,3 +40,11 @@ if not DEBUG:
             'django.template.loaders.app_directories.Loader',
         ])
     ]
+
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp'
+EMAIL_USE_TLS = True
+EMAIL_HOST = os.environ.get('MAILGUN_SMTP_SERVER')
+EMAIL_HOST_USER = os.environ.get('MAILGUN_SMTP_LOGIN')
+EMAIL_HOST_PASSWORD = os.environ.get('MAILGUN_SMTP_PASSWORD')
+EMAIL_PORT = os.environ.get('MAILGUN_SMTP_PORT')
