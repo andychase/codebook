@@ -53,6 +53,8 @@ def get_topic(request, topic_name):
         if topic['name'].lower() == topic_path[-1].lower():
             topic_id = topic['id']
 
+    extra_empty_topic = {'path': topic_path+("",)}
+
     template = loader.get_template('topics/show_topic.html')
     try:
         topic = Topic.objects.get(id=topic_id)
@@ -62,6 +64,7 @@ def get_topic(request, topic_name):
     context = RequestContext(request, {
         'topics': topics,
         'nav_active': topic_path,
+        'extra_empty_topic': extra_empty_topic,
         'resources': topic_data
     })
     return HttpResponse(template.render(context))
