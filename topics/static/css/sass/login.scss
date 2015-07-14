@@ -55,4 +55,18 @@ $black: black;
         font-size: 10px;
         display: block;
     }
+    ul.errorlist {
+        list-style: none;
+        margin: 0 10px 0 0;
+        color: grey;
+        font-size: 10pt;
+
+        li:before {
+            @extend .ss-icon;
+            @extend .ss-alert;
+            padding-right: 4px;
+            color: #eb9617;
+
+        }
+    }
 }
