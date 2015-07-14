@@ -6,6 +6,7 @@ from django.shortcuts import redirect
 from django.template import loader, RequestContext
 
 from topics.models import Topic
+from topics.settings_context import settings_context
 
 
 def create_account_view(request):
@@ -31,6 +32,7 @@ def login_view(request):
     extra_context = {
         'topics': [Topic.get_tree_top()],
     }
+    extra_context.update(settings_context())
     template_response = views.login(request, extra_context=extra_context)
     return template_response
 
