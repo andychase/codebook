@@ -1,25 +1,34 @@
-from django.contrib.auth import authenticate, login, logout
-from django.http import HttpResponse, Http404, HttpResponseRedirect
+from django.contrib.auth import login, logout, authenticate
+from django.contrib.auth.forms import UserCreationForm
+from django.http import HttpResponse, Http404
+from django.contrib.auth import views
 from django.shortcuts import redirect
 from django.template import loader, RequestContext
 from django.template.defaultfilters import register
 from django.utils import safestring
 import markdown
 import yaml
+
 from topics.models import Topic
 from topics.parser import process
+
 
 with open('./topics/config.yml') as f:
     site = yaml.safe_load(f)
 
 
-def default_context(request, variables):
+def default_context_variables(variables, request=None):
     default_vars = {
         'site': site,
-        'user': request.user
     }
+    if request is not None:
+        default_vars['user'] = request.user
     default_vars.update(variables)
-    return RequestContext(request, default_vars)
+    return default_vars
+
+
+def default_context(request, variables):
+    return RequestContext(request, default_context_variables(variables, request))
 
 
 @register.filter(name='markdownify')
@@ -53,32 +62,6 @@ def index(request):
         'topics': [Topic.get_tree_top()]
     })
     return HttpResponse(template.render(context))
-
-
-def login_view(request):
-    if request.POST:
-        username = request.POST['username']
-        password = request.POST['password']
-        user = authenticate(username=username, password=password)
-        if user is not None:
-            if user.is_active:
-                login(request, user)
-                return redirect('/')
-            else:
-                bad_login = True
-
-            bad_login = True
-
-    template = loader.get_template('login.html')
-    context = default_context(request, {
-        'topics': [Topic.get_tree_top()]
-    })
-    return HttpResponse(template.render(context))
-
-
-def logout_view(request):
-    logout(request)
-    return redirect('/')
 
 
 def topic_data_to_stream(topic_data):
@@ -120,3 +103,53 @@ def get_topic(request, topic_name):
         'resources': topic_data
     })
     return HttpResponse(template.render(context))
+
+
+# Accounts
+
+def create_account_view(request):
+    if request.POST:
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            user = authenticate(username=form.data['username'], password=form.data['password1'])
+            login(request, user)
+            redirect('index')
+    else:
+        form = UserCreationForm()
+
+    template = loader.get_template('registration/create_account.html')
+    context = default_context(request, {
+        'topics': [Topic.get_tree_top()],
+        'form': form
+    })
+    return HttpResponse(template.render(context))
+
+
+def login_view(request):
+    extra_context = default_context_variables({
+        'topics': [Topic.get_tree_top()],
+    })
+    template_response = views.login(request, extra_context=extra_context)
+    return template_response
+
+
+def password_reset_view(request):
+    extra_context = default_context_variables({
+        'topics': [Topic.get_tree_top()],
+    })
+    template_response = views.password_reset(request, extra_context=extra_context)
+    return template_response
+
+
+def password_reset_confirm_view(request):
+    extra_context = default_context_variables({
+        'topics': [Topic.get_tree_top()],
+    })
+    template_response = views.password_reset(request, extra_context=extra_context)
+    return template_response
+
+
+def logout_view(request):
+    logout(request)
+    return redirect('index')
