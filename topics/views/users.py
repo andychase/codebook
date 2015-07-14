@@ -15,7 +15,7 @@ def create_account_view(request):
             form.save()
             user = authenticate(username=form.data['username'], password=form.data['password1'])
             login(request, user)
-            redirect('index')
+            return redirect('index')
     else:
         form = UserCreationForm()
 
