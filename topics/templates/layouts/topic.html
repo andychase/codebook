@@ -11,17 +11,7 @@
 
 <div class="page-content topic-view">
     <div class="wrapper">
-        {% for resource in resources %}
-
-            {% if resource.section %}
-            <div class="section_separator"></div>
-            <h1>{{ resource.section }}</h1>
-            {% elif resource.subsection %}
-            <h2>{{ resource.subsection }}</h2>
-            {% elif resource.link %}
-            {% include 'includes/link.html' with link=resource.link %}
-            {% endif %}
-        {% endfor %}
+        {% block content %}{% endblock %}
     </div>
 </div>
 

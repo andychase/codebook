@@ -1,4 +1,7 @@
+from django.contrib.auth.decorators import permission_required
 from django.http import HttpResponse, Http404
+from django.shortcuts import redirect
+
 from django.template import loader, RequestContext
 from django.template.defaultfilters import register
 from django.utils import safestring
@@ -39,13 +42,18 @@ def topic_data_to_stream(topic_data):
 def get_topic(request, topic_name):
     topic_name = topic_name[:50]
     topic_path = tuple(topic_name.strip("/").split("/"))
+
+    if topic_path[-1] == "new_topic":
+        short_topic_path = () if len(topic_path) == 1 else topic_path[:-1]
+        return new_topic(request, short_topic_path)
+
     topics = list(Topic.get_topics(topic_path))
     topic_id = None
     for topic in topics[-2]:
         if topic['name'].lower() == topic_path[-1].lower():
             topic_id = topic['id']
 
-    template = loader.get_template('layouts/topic.html')
+    template = loader.get_template('topics/show_topic.html')
     try:
         topic = Topic.objects.get(id=topic_id)
     except Topic.DoesNotExist:
@@ -58,3 +66,25 @@ def get_topic(request, topic_name):
     })
     return HttpResponse(template.render(context))
 
+
+@permission_required('topics.topic.can_create_topic')
+def new_topic(request, topic_path):
+    if request.POST:
+        topic_name = request.POST.get('name')
+        if topic_name:
+            new_topic = Topic(name=topic_name)
+            new_topic.save()
+            return redirect('/topics/{}'.format(topic_name.lower()))
+
+    template = loader.get_template('topics/new_topic.html')
+    if any(topic_path):
+        topics = list(Topic.get_topics(topic_path))
+        context = RequestContext(request, {
+            'topics': topics,
+            'nav_active': topic_path,
+        })
+    else:
+        context = RequestContext(request, {
+            'topics': [Topic.get_tree_top()],
+        })
+    return HttpResponse(template.render(context))
