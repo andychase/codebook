@@ -13,11 +13,6 @@
   position: relative;
 }
 
-.site-header-nav .site-nav {
-  position: absolute;
-  bottom: 0px;
-}
-
 .site-title {
   margin-top: 15px;
   margin-bottom: 10px;
@@ -40,8 +35,7 @@
 
 .site-nav {
   position: relative;
-  bottom: 0px;
-  max-width: 550px;
+  max-width: 525px;
   .menu-icon {
     display: none;
   }
@@ -79,6 +73,15 @@
   .nav-right {
     float: right;
   }
+}
+
+.site-header-nav .site-nav {
+    min-height: 41px;
+    ul {
+        position: absolute;
+        bottom: 0px;
+        width: 100%;
+    }
 }
 
 /**
