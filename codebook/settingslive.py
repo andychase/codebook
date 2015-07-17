@@ -32,9 +32,9 @@ PIPELINE_COFFEE_SCRIPT_BINARY = "/app/.heroku/node/bin/node ./node_modules/coffe
 
 # Use cached templates
 if not DEBUG:
-    del TEMPLATES[0]['OPTIONS']['APP_DIRS']
+    del TEMPLATES[0]['APP_DIRS']
     TEMPLATES[0]['OPTIONS']['DIRS'] = []
-    TEMPLATES[0]['OPTIONS']['OPTIONS']['loaders'] = [
+    TEMPLATES[0]['OPTIONS']['loaders'] = [
         ('django.template.loaders.cached.Loader', [
             'django.template.loaders.filesystem.Loader',
             'django.template.loaders.app_directories.Loader',
