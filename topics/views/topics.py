@@ -41,6 +41,9 @@ def topic_data_to_stream(topic_data):
 
 
 def get_topic(request, topic_name):
+    if not request.path.endswith("/"):
+        return redirect(request.path + "/")
+
     topic_name = topic_name[:50]
     topic_path = tuple(topic_name.strip("/").split("/"))
 
