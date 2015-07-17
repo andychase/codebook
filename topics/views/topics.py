@@ -1,4 +1,5 @@
 from django.contrib.auth.decorators import permission_required
+from django.core.exceptions import ValidationError
 from django.http import HttpResponse, Http404
 from django.shortcuts import redirect
 
@@ -80,6 +81,7 @@ def get_topic(request, topic_name):
 
 @permission_required('topics.topic.can_create_topic')
 def new_topic(request, topic_path):
+    error = ""
     if request.POST:
         topic_name = request.POST.get('name')
         if len(topic_path) == 0:
@@ -87,9 +89,15 @@ def new_topic(request, topic_path):
         else:
             parent = Topic.get_from_path(topic_path)['id']
         if topic_name:
-            new_topic = Topic(name=topic_name, parent_id=parent)
-            new_topic.save()
-            return redirect('/topics/{}'.format("/".join(topic_path + (topic_name,)).lower()))
+            new_topic = Topic(orig_name=topic_name, parent_id=parent)
+            try:
+                new_topic.full_clean()
+            except ValidationError as e:
+                for field, error_list in e.message_dict.items():
+                    error += "".join(error_list) + " "
+            else:
+                new_topic.save()
+                return redirect('/topics/{}'.format("/".join(topic_path + (topic_name,)).lower()))
 
     template = loader.get_template('topics/new_topic.html')
     extra_empty_topic = {'path': topic_path + ("",)}
@@ -99,11 +107,13 @@ def new_topic(request, topic_path):
             'topics': topics,
             'nav_active': topic_path,
             'extra_empty_topic': extra_empty_topic,
+            'error': error
         })
     else:
         context = RequestContext(request, {
             'topics': [Topic.get_tree_top()],
             'extra_empty_topic': extra_empty_topic,
+            'error': error
         })
     return HttpResponse(template.render(context))
 

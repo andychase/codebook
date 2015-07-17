@@ -1,3 +1,4 @@
+from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils.datetime_safe import datetime
 
@@ -6,15 +7,32 @@ class BadTopicPath(Exception):
     pass
 
 
+topic_name_special_keywords = {'_new', '_edit'}
+special_keywords_error = \
+    'Topic name cannot be any of these: {}'.format(",".join(topic_name_special_keywords))
+
+
+def validate_special_keywords_name(name):
+    if name.lower() in topic_name_special_keywords:
+        raise ValidationError(special_keywords_error)
+
+
 class Topic(models.Model):
-    name = models.CharField(max_length=120)
+    orig_name = models.CharField(max_length=120, validators=[validate_special_keywords_name])
+    name = models.CharField(max_length=120, blank=True, validators=[validate_special_keywords_name])
     text = models.TextField(blank=True)
     parent = models.ForeignKey('Topic', blank=True)
     parent.null = True
     pub_date = models.DateTimeField('date published', default=datetime.now)
 
+    class Meta:
+        unique_together = (("parent", "name"),)
+
     def __str__(self):
         return self.full_path()
+
+    def clean(self):
+        self.name = self.orig_name.lower()
 
     def full_path(self):
         parent_path = self.parent.full_path() + "/" if self.parent else ""
