@@ -2,77 +2,77 @@
  * Site header
  */
 .site-header {
-  border-top: 2px solid $brand-color;
-  border-bottom: 1px solid $grey-color-light;
-  min-height: 56px;
+    border-top: 2px solid $brand-color;
+    border-bottom: 1px solid $grey-color-light;
+    min-height: 56px;
 }
 
 .site-header-nav {
-  border-bottom: 1px solid $grey-color-light;
-  min-height: 40px;
-  position: relative;
+    border-bottom: 1px solid $grey-color-light;
+    min-height: 40px;
+    position: relative;
 }
 
 .site-title {
-  margin-top: 15px;
-  margin-bottom: 10px;
-  text-align: center;
-  a, a.visited {
-    color: $grey-color-dark;
-  }
+    margin-top: 15px;
+    margin-bottom: 10px;
+    text-align: center;
+    a, a.visited {
+        color: $grey-color-dark;
+    }
 
-  .site-title-text, .site-title-text:visited {
-    font-size: 20px;
-    letter-spacing: -1px;
-  }
+    .site-title-text, .site-title-text:visited {
+        font-size: 20px;
+        letter-spacing: -1px;
+    }
 
-  .site-icon {
-    width: 20px;
-    padding-right: 5px;
-    vertical-align: initial
-  }
+    .site-icon {
+        width: 20px;
+        padding-right: 5px;
+        vertical-align: initial
+    }
 }
 
 .site-nav {
-  position: relative;
-  max-width: 525px;
-  .menu-icon {
-    display: none;
-  }
+    position: relative;
+    max-width: 525px;
+    .menu-icon {
+        display: none;
+    }
 
-  .page-link {
-    &:not(:first-child) {
-      margin-left: 20px;
+    .page-link {
+        &:not(:first-child) {
+            margin-left: 20px;
+        }
     }
-  }
-  ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    li {
-      display: inline-block;
-      padding: 0;
-      margin: 0;
-      a {
-        display: inline-block;
-        padding: 2px 5px 0 5px;
-        border: 1px solid $brand-color;
-        border-bottom-width: 0;
-        border-top-left-radius: 5px;
-        border-top-right-radius: 5px;
-      }
+    ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        li {
+            display: inline-block;
+            padding: 0;
+            margin: 0;
+            a {
+                display: inline-block;
+                padding: 2px 5px 0 5px;
+                border: 1px solid $brand-color;
+                border-bottom-width: 0;
+                border-top-left-radius: 5px;
+                border-top-right-radius: 5px;
+            }
+        }
+        li.active a {
+            background-color: $brand-color;
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.22);
+            color: white;
+            text-shadow: 0 1px rgba(0, 0, 0, 0.4);
+        }
     }
-    li.active a {
-      background-color: $brand-color;
-      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.22);
-      color: white;
-      text-shadow: 0 1px rgba(0, 0, 0, 0.4);
-    }
-  }
 
-  .nav-right {
-    float: right;
-  }
+    .nav-right {
+        float: right;
+    }
 }
 
 .site-header-nav .site-nav {
@@ -89,118 +89,118 @@
  * Page content
  */
 .page-content {
-  padding: $spacing-unit 0;
+    padding: $spacing-unit 0;
 }
 
 .page-heading {
-  font-size: 20px;
+    font-size: 20px;
 }
 
 .post-list {
-  margin-left: 0;
-  list-style: none;
+    margin-left: 0;
+    list-style: none;
 }
 
 .post-meta {
-  font-size: $small-font-size;
-  color: $grey-color;
+    font-size: $small-font-size;
+    color: $grey-color;
 }
 
 .post-link {
-  display: inline-block;
-  font-size: 16px;
+    display: inline-block;
+    font-size: 16px;
 }
 
 /**
  * Posts
  */
 .post-header {
-  margin-bottom: $spacing-unit;
+    margin-bottom: $spacing-unit;
 }
 
 .post-title {
-  font-size: 42px;
-  letter-spacing: -1px;
-  line-height: 1;
+    font-size: 42px;
+    letter-spacing: -1px;
+    line-height: 1;
 
-  @include media-query($on-laptop) {
-    font-size: 36px;
-  }
+    @include media-query($on-laptop) {
+        font-size: 36px;
+    }
 }
 
 .post-content {
-  margin-bottom: $spacing-unit;
+    margin-bottom: $spacing-unit;
 
-  h2 {
-    font-size: 32px;
+    h2 {
+        font-size: 32px;
 
-    @include media-query($on-laptop) {
-      font-size: 28px;
+        @include media-query($on-laptop) {
+            font-size: 28px;
+        }
     }
-  }
 
-  h3 {
-    font-size: 26px;
+    h3 {
+        font-size: 26px;
 
-    @include media-query($on-laptop) {
-      font-size: 22px;
+        @include media-query($on-laptop) {
+            font-size: 22px;
+        }
     }
-  }
 
-  h4 {
-    font-size: 20px;
+    h4 {
+        font-size: 20px;
 
-    @include media-query($on-laptop) {
-      font-size: 18px;
+        @include media-query($on-laptop) {
+            font-size: 18px;
+        }
     }
-  }
 }
 
 .intro-words {
-  text-align: center;
-  font-size: 12pt;
-  color: dark-grey;
+    text-align: center;
+    font-size: 12pt;
+    color: dark-grey;
 }
 
 .homepage-blocks {
-  display: -webkit-box;
-  display: flex;
-  width: 100%;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: space-between;
+    display: -webkit-box;
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
 
 }
 
 .homepage-block {
-  flex-basis: 230px;
-  flex-grow: 1;
+    flex-basis: 230px;
+    flex-grow: 1;
 }
 
 .new-links-block {
-  flex-basis: 260px;
+    flex-basis: 260px;
 }
 
 .newlinks-topic {
-  color: grey;
-  &:visited, &:hover, &:hover:visited {
     color: grey;
-  }
+    &:visited, &:hover, &:hover:visited {
+        color: grey;
+    }
 }
 
 .newlinks-link {
-  margin-left: 20px;
+    margin-left: 20px;
 }
 
 .site-login {
-  position: absolute;
-  top: 4pt;
-  right: 19pt;
-  a {
-    font-size: 11pt;
-    color: desaturate($brand-color, 10%);
-    &:last-child {
-      padding-left: 20px;
+    position: absolute;
+    top: 4pt;
+    right: 19pt;
+    a {
+        font-size: 11pt;
+        color: desaturate($brand-color, 10%);
+        &:last-child {
+            padding-left: 20px;
+        }
     }
-  }
 }

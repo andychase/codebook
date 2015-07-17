@@ -1,17 +1,17 @@
 .fill {
-  display: block;
-  width: 95%;
+    display: block;
+    width: 95%;
 }
 
 #markdown-toc {
-  list-style: none;
-  ul {
     list-style: none;
-  }
-  &:before {
-    display: block;
-    content: 'Contents';
-    text-align: center;
-    font-weight: bold;
-  }
+    ul {
+        list-style: none;
+    }
+    &:before {
+        display: block;
+        content: 'Contents';
+        text-align: center;
+        font-weight: bold;
+    }
 }
