@@ -47,19 +47,26 @@ def get_topic(request, topic_name):
         short_topic_path = () if len(topic_path) == 1 else topic_path[:-1]
         return new_topic(request, short_topic_path)
 
+    is_editing = False
+    if topic_path[-1] == "edit":
+        is_editing = True
+        topic_path = topic_path[:-1]
+
     topics = list(Topic.get_topics(topic_path))
     topic_id = None
     for topic in topics[-2]:
         if topic['name'].lower() == topic_path[-1].lower():
             topic_id = topic['id']
-
-    extra_empty_topic = {'path': topic_path+("",)}
-
-    template = loader.get_template('topics/show_topic.html')
     try:
         topic = Topic.objects.get(id=topic_id)
     except Topic.DoesNotExist:
         raise Http404("Topic does not exist")
+
+    if is_editing:
+        short_topic_path = () if len(topic_path) == 1 else topic_path[:-1]
+        return edit_topic(request, short_topic_path, topic)
+
+    extra_empty_topic = {'path': topic_path + ("",)}
     topic_data = topic_data_to_stream(process(topic.text))
     context = RequestContext(request, {
         'topics': topics,
@@ -67,6 +74,8 @@ def get_topic(request, topic_name):
         'extra_empty_topic': extra_empty_topic,
         'resources': topic_data
     })
+    template = loader.get_template('topics/show_topic.html')
+
     return HttpResponse(template.render(context))
 
 
@@ -81,7 +90,7 @@ def new_topic(request, topic_path):
         if topic_name:
             new_topic = Topic(name=topic_name, parent_id=parent)
             new_topic.save()
-            return redirect('/topics/{}'.format("/".join(topic_path+(topic_name,)).lower()))
+            return redirect('/topics/{}'.format("/".join(topic_path + (topic_name,)).lower()))
 
     template = loader.get_template('topics/new_topic.html')
     if any(topic_path):
@@ -95,3 +104,22 @@ def new_topic(request, topic_path):
             'topics': [Topic.get_tree_top()],
         })
     return HttpResponse(template.render(context))
+
+
+@permission_required('topics.topic.can_edit_topic')
+def edit_topic(request, topic_path, topic):
+    if request.POST:
+        topic_text = request.POST.get('text')
+        topic.text = topic_text
+        topic.save()
+        return redirect('.')
+    else:
+        template = loader.get_template('topics/edit_topic.html')
+
+        topics = list(Topic.get_topics(topic_path))
+        context = RequestContext(request, {
+            'topics': topics,
+            'nav_active': topic_path,
+            'topic_text': topic.text
+        })
+        return HttpResponse(template.render(context))

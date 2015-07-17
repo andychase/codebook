@@ -1,0 +1,11 @@
+{% extends 'layouts/topic.html' %}
+{% block content %}
+    <form action="" method="post">
+    {% csrf_token %}
+    <label>
+        <textarea class="topic-text-area" name="text">{{ topic_text }}</textarea>
+    </label>
+    <input type="submit" value="Save this page" class="topic-edit-link">
+
+    </form>
+{% endblock %}

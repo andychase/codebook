@@ -1,5 +1,6 @@
 
 .topic-view {
+    position: relative;
     h1 {
         display: block;
         position: absolute;
@@ -30,6 +31,32 @@
         margin-top: 12pt;
         font-size: 14pt;
         color: $grey-color-dark;
+    }
+    .topic-edit-link {
+        position: absolute;
+        top: 10px;
+        left: 50%;
+        font-size: 11pt;
+        display: block;
+        width: 200px;
+        text-align: right;
+        &:before {
+            font-size: 9pt;
+            padding-right: 3px
+        }
+
+    }
+    .topic-text-area {
+        width: 100%;
+        min-height: 500pt;
+        background-color: mix($brand-color, #fdfdfd, 10%);
+        border: none;
+        outline: none;
+        margin-top: 20px;
+        padding: 18px;
+        right: 18px;
+        position: relative;
+        resize: vertical;
     }
 }
 
