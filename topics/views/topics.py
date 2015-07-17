@@ -137,6 +137,7 @@ def edit_topic(request, topic_path, topic):
             'topics': topics,
             'nav_active': topic_path,
             'extra_empty_topic': extra_empty_topic,
-            'topic_text': topic.text
+            'topic_text': topic.text,
+            'editing_topic': True,
         })
         return HttpResponse(template.render(context))

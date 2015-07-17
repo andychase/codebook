@@ -45,6 +45,12 @@
             margin-left: 20px;
         }
     }
+    &.editing-topic ul li a {
+        opacity: .2;
+    }
+    &.editing-topic ul li.new-topic a {
+        opacity: 1;
+    }
     ul {
         list-style: none;
         margin: 0;
@@ -63,6 +69,7 @@
             }
         }
         li.active a {
+            opacity: 1;
             background-color: $brand-color;
             box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.22);
             color: white;

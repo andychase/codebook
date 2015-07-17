@@ -2,7 +2,7 @@
     {% if subtopic %}
         <div class="site-header-nav">
             <div class="wrapper">
-                <div class="site-nav">
+                <div class="site-nav {% if editing_topic %}editing-topic{% endif %}">
                     <ul>
                         {% for topic in subtopic %}
                             <li class="{% if topic.name|lower in nav_active %}active{% endif %}">

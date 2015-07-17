@@ -17,7 +17,7 @@
                 <a href="/login?fromlink=true&next={{ request.path }}">Log in</a>
             {% endif %}
         </div>
-        <nav class="site-nav">
+        <nav class="site-nav {% if editing_topic %}editing-topic{% endif %}">
             <ul>
                 {% for topic in topics.0 %}
                     {% if topic.name %}
