@@ -7,7 +7,7 @@
     </div>
     {% endif %}
 
-    <div class="icon">
+    <div class="icon {% if link.type == "opinion" %}mirror{% endif %}">
         <span class="{{ site.resource_type_to_icon_map | get_item:link.type }}"></span>
         {% if link.opinion %}
         <span class="opinion {{ site.resource_type_to_icon_map | get_item:link.opinion }}"></span>

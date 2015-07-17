@@ -43,8 +43,7 @@
         top: 23px;
         font-size: 18pt;
         width: 24px;
-        .ss-chat {
-            display: block;
+        &.mirror {
             -webkit-transform: matrix(-1, 0, 0, 1, 0, 0);
             -moz-transform: matrix(-1, 0, 0, 1, 0, 0);
             -o-transform: matrix(-1, 0, 0, 1, 0, 0);
