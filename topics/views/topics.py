@@ -97,7 +97,7 @@ def new_topic(request, topic_path):
                     error += "".join(error_list) + " "
             else:
                 new_topic.save()
-                return redirect('/topics/{}'.format("/".join(topic_path + (topic_name,)).lower()))
+                return redirect('/topics/{}/'.format("/".join(topic_path + (topic_name,)).lower()))
 
     template = loader.get_template('topics/new_topic.html')
     extra_empty_topic = {'path': topic_path + ("",)}
