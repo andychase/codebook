@@ -1,6 +1,6 @@
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.forms import UserCreationForm
-from django.http import HttpResponse
+from django.http import HttpResponse, Http404
 from django.contrib.auth import views
 from django.shortcuts import redirect
 from django.template import loader, RequestContext
@@ -31,6 +31,8 @@ def create_account_view(request):
 def login_view(request):
     extra_context = {
         'topics': [Topic.get_tree_top()],
+        'next': request.GET.get("next"),
+        'fromlink': True if request.GET.get("fromlink") == 'true' else False
     }
     extra_context.update(settings_context())
     template_response = views.login(request, extra_context=extra_context)
@@ -54,5 +56,9 @@ def password_reset_confirm_view(request):
 
 
 def logout_view(request):
-    logout(request)
-    return redirect('index')
+    if request.POST:
+        next_link = "." if not request.POST.get("next") else request.POST.get("next")
+        logout(request)
+        return redirect(next_link)
+
+    raise Http404("Logout must be called from the link on the website, not directly")

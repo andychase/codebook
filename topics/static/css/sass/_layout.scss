@@ -196,9 +196,16 @@
     position: absolute;
     top: 4pt;
     right: 19pt;
-    a {
+    a, input {
+        border: none;
+        background-color: transparent;
+        font-family: $base-font-family;
         font-size: 11pt;
         color: desaturate($brand-color, 10%);
+        &:hover {
+            text-decoration: underline;
+            cursor: pointer;
+        }
         &:last-child {
             padding-left: 20px;
         }
