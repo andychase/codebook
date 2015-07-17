@@ -1,7 +1,7 @@
 {% extends 'layouts/topic.html' %}
 {% block content %}
     {% if user.is_authenticated %}
-        <a href="edit" class="topic-edit-link ss-write">edit this page</a>
+        <a href="edit/" class="topic-edit-link ss-write">edit this page</a>
     {% endif %}
     {% for resource in resources %}
         {% if resource.section %}
