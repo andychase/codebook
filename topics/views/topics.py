@@ -63,8 +63,7 @@ def get_topic(request, topic_name):
         raise Http404("Topic does not exist")
 
     if is_editing:
-        short_topic_path = () if len(topic_path) == 1 else topic_path[:-1]
-        return edit_topic(request, short_topic_path, topic)
+        return edit_topic(request, topic_path, topic)
 
     extra_empty_topic = {'path': topic_path + ("",)}
     topic_data = topic_data_to_stream(process(topic.text))
