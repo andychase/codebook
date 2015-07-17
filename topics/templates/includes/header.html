@@ -22,7 +22,7 @@
                 {% for topic in topics.0 %}
                     {% if topic.name %}
                         <li class="{% if topic.name|lower in nav_active %} active{% endif %}">
-                            <a class="page-link" href="/topics/{{ topic.name|lower }}">{{ topic.name | title }}</a>
+                            <a class="page-link" href="/topics/{{ topic.name|lower }}/">{{ topic.name | title }}</a>
                         </li>
                     {% endif %}
                 {% endfor %}
