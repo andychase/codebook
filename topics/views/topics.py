@@ -92,15 +92,18 @@ def new_topic(request, topic_path):
             return redirect('/topics/{}'.format("/".join(topic_path + (topic_name,)).lower()))
 
     template = loader.get_template('topics/new_topic.html')
+    extra_empty_topic = {'path': topic_path + ("",)}
     if any(topic_path):
         topics = list(Topic.get_topics(topic_path))
         context = RequestContext(request, {
             'topics': topics,
             'nav_active': topic_path,
+            'extra_empty_topic': extra_empty_topic,
         })
     else:
         context = RequestContext(request, {
             'topics': [Topic.get_tree_top()],
+            'extra_empty_topic': extra_empty_topic,
         })
     return HttpResponse(template.render(context))
 
@@ -116,9 +119,11 @@ def edit_topic(request, topic_path, topic):
         template = loader.get_template('topics/edit_topic.html')
 
         topics = list(Topic.get_topics(topic_path))
+        extra_empty_topic = {'path': topic_path + ("",)}
         context = RequestContext(request, {
             'topics': topics,
             'nav_active': topic_path,
+            'extra_empty_topic': extra_empty_topic,
             'topic_text': topic.text
         })
         return HttpResponse(template.render(context))
