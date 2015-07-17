@@ -1,34 +1,41 @@
 
 .topic-view {
-  h1 {
-    display: block;
-    position: absolute;
-    width: 18%;
-    margin-left: -19%;
-    margin-top: 0;
-    text-align: right;
+    h1 {
+        display: block;
+        position: absolute;
+        width: 18%;
+        margin-left: -19%;
+        margin-top: 0;
+        text-align: right;
 
-    @include media-query($on-laptop) {
-      display: auto;
-      position: relative;
-      width: auto;
-      margin-left: auto;
-      margin-top: inherit;
-      text-align: left;
+        @include media-query($on-laptop) {
+            display: auto;
+            position: relative;
+            width: auto;
+            margin-left: auto;
+            margin-top: inherit;
+            text-align: left;
+        }
     }
-  }
-  h2 {
-    padding-right: 3px;
-    text-align: center;
-    margin-top: 12pt;
-    font-size: 14pt;
-    color: $grey-color-dark;
-  }
+    h2 {
+        padding-right: 3px;
+        text-align: center;
+        margin-top: 12pt;
+        font-size: 14pt;
+        color: $grey-color-dark;
+    }
+    h2 {
+        padding-right: 3px;
+        text-align: center;
+        margin-top: 12pt;
+        font-size: 14pt;
+        color: $grey-color-dark;
+    }
 }
 
 .section_separator {
-  display: block;
-  height: 20px;
+    display: block;
+    height: 20px;
 }
 
 .site-nav .new-topic {
