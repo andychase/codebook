@@ -124,7 +124,7 @@ def edit_topic(request, topic_path, topic):
         topic_text = request.POST.get('text')
         topic.text = topic_text
         topic.save()
-        return redirect('.')
+        return redirect('..')
     else:
         template = loader.get_template('topics/edit_topic.html')
 
