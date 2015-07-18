@@ -28,7 +28,6 @@ STATICFILES_DIRS = (
     static_path,
 )
 
-PIPELINE_COFFEE_SCRIPT_BINARY = "/app/.heroku/node/bin/node ./node_modules/coffee-script/bin/coffee"
 
 # Use cached templates
 if not DEBUG:
