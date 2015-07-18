@@ -110,13 +110,15 @@ def new_topic(request, topic_path):
             'topics': topics,
             'nav_active': topic_path,
             'extra_empty_topic': extra_empty_topic,
-            'error': error
+            'error': error,
+            'editing_topic': True,
         })
     else:
         context = RequestContext(request, {
             'topics': [Topic.get_tree_top()],
             'extra_empty_topic': extra_empty_topic,
-            'error': error
+            'error': error,
+            'editing_topic': True,
         })
     return HttpResponse(template.render(context))
 
