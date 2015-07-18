@@ -29,7 +29,9 @@
                 <div class="submit-row">
                     <input type="submit" value="Login"/>
                 </div>
-                <input type="hidden" name="next" value="{{ next }}"/>
+                {% if next %}
+                    <input type="hidden" name="next" value="{{ next }}"/>
+                {% endif %}
             </form>
 
             <p><a href="{% url 'password_reset' %}">Lost password?</a></p>
