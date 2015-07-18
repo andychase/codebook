@@ -2,11 +2,6 @@ from .settings import *
 
 DEBUG = False
 
-import dj_database_url
-
-DATABASES['default'] = dj_database_url.config()
-DATABASES['default']['ENGINE'] = 'django_postgrespool'
-
 # Honor the 'X-Forwarded-Proto' header for request.is_secure()
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
@@ -17,6 +12,18 @@ ALLOWED_HOSTS = ['*']
 import os
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, '..', '..', 'database.db'),
+        'USER': '',
+        'PASSWORD': '',
+        'HOST': '',
+        'PORT': '',
+    }
+}
+
 STATIC_ROOT = 'static'
 
 static_path = os.path.join(BASE_DIR, 'static')
@@ -39,7 +46,6 @@ if not DEBUG:
             'django.template.loaders.app_directories.Loader',
         ])
     ]
-
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_USE_TLS = True
