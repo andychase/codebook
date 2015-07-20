@@ -24,21 +24,6 @@ DATABASES = {
     }
 }
 
-CACHES = {
-    'default': {
-        'BACKEND': 'django.core.cache.backends.memcached.PyLibMCCache',
-        'LOCATION': '/var/run/memcached/memcached.sock',
-    }
-}
-
-MIDDLEWARE_CLASSES += (
-    'django.middleware.cache.UpdateCacheMiddleware',
-    'django.middleware.common.CommonMiddleware',
-    'django.middleware.cache.FetchFromCacheMiddleware',
-)
-
-CACHE_MIDDLEWARE_SECONDS = 10
-
 STATIC_ROOT = 'static'
 
 static_path = os.path.join(BASE_DIR, 'static')
