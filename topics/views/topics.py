@@ -127,6 +127,7 @@ def new_topic(request, topic_path):
         context = RequestContext(request, {
             'topics': topics,
             'nav_active': topic_path,
+            'new_topic': 'new-topic',
             'extra_empty_topic': extra_empty_topic,
             'error': error,
             'editing_topic': True,
@@ -134,6 +135,7 @@ def new_topic(request, topic_path):
     else:
         context = RequestContext(request, {
             'topics': [Topic.get_tree_top()],
+            'new_topic': 'new-topic',
             'extra_empty_topic': extra_empty_topic,
             'error': error,
             'editing_topic': True,

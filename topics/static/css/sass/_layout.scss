@@ -13,6 +13,13 @@
     position: relative;
 }
 
+.extra_empty_topic {
+    border-bottom: none;
+    &.new-topic {
+        border-bottom: 1px solid $grey-color-light;
+    }
+}
+
 .site-title {
     margin-top: 15px;
     margin-bottom: 10px;
