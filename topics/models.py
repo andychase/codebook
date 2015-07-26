@@ -21,8 +21,7 @@ class Topic(models.Model):
     orig_name = models.CharField(max_length=120, validators=[validate_special_keywords_name])
     name = models.CharField(max_length=120, blank=True, validators=[validate_special_keywords_name])
     text = models.TextField(blank=True)
-    parent = models.ForeignKey('Topic', blank=True)
-    parent.null = True
+    parent = models.ForeignKey('Topic', blank=True, null=True)
     pub_date = models.DateTimeField('date published', default=datetime.now)
 
     class Meta:
