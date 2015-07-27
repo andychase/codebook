@@ -40,14 +40,11 @@ def add_link_helpers(resources):
         elif resource.link:
             if not last_block_is_section:
                 if last_block_is_subsection:
-                    output.insert(-1, resource._replace(link=None, separator=True))
                     output.insert(-1, resource._replace(link=None, section=""))
                 else:
-                    output.append(resource._replace(link=None, separator=True))
                     output.append(resource._replace(link=None, section=""))
                     output.append(resource._replace(link=None, subsection=""))
             elif not last_block_is_subsection:
-                output.append(resource._replace(link=None, separator=True))
                 output.append(resource._replace(link=None, subsection=""))
             last_block_is_section = False
             last_block_is_subsection = False
