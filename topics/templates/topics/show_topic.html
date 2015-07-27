@@ -9,6 +9,8 @@
             <h1>{{ resource.section }}</h1>
         {% elif resource.subsection %}
             <h2>{{ resource.subsection }}</h2>
+        {% elif resource.text %}
+            {{ resource.text | markdownify }}
         {% elif resource.link %}
             {% include 'includes/link.html' with link=resource.link %}
         {% endif %}
