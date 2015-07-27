@@ -1,25 +1,11 @@
+from collections import namedtuple
 import re
 from urllib.parse import urlparse
-import yaml
-import pytz
-from dateutil.parser import parse
 
+ParserOutput = namedtuple("ParserOutput", "section subsection link text")(None, None, None, None)
+BlockData = namedtuple("BlockData", "type title url metadata desc commentary")("", "", "", "", "", "")
 
 www_remover = lambda _, r=re.compile("^www\."): r.sub("", _)
-
-
-def strip_indentation(lines):
-    """
-    >>> list(strip_indentation('''    a
-    ... b
-    ... c'''))
-    ['a', 'b', 'c']
-    """
-    for line in lines.split('\n'):
-        if line.startswith(" " * 4):
-            yield line.split(" " * 4, 1)[1]
-        else:
-            yield line
 
 
 def url_handler(url):
@@ -46,102 +32,80 @@ def normalize_whitespace(source):
     return source
 
 
-def handle_author_link(author):
-    if "(" in author:
-        author_name, link = author.split("(", 1)
-        author_name = author_name.strip()
-        link, rest = link.split(")", 1)
-        if any(rest.strip()):
-            rest = " " + handle_author_link("[&]" + rest)
-        return '<a href="{}">{}</a>{}'.format(url_handler(link)[2], author_name, rest)
-    else:
-        return author
+def get_type_from_block(line):
+    """
+    >>> get_type_from_block(" [type] ")
+    'type'
+    """
+    if "[" in line and "]" in line:
+        line = line.strip()
+        line = line.split("]", 1)[0]
+        return line.split("[", 1)[1].strip()
+    return ""
 
 
-def process_link_block(block_text):
-    link_data = yaml.load(block_text)
-    domain, domain_link, url = url_handler(link_data['url'])
-    if 'author' in link_data:
-        link_data.setdefault('authors', []).insert(0, link_data['author'])
-    if 'authors' in link_data:
-        link_data['authors'] = list(map(handle_author_link, link_data['authors']))
-    link_data['domain'] = domain
-    link_data['domain_link'] = domain_link
-    link_data['url'] = url
-    link_data['date'] = pytz.timezone('US/Pacific').localize(parse(link_data['date']))
-    return link_data
-
-
-def process_first_line(block):
-    first_line = block.split("\n")[0] if len(block.split("\n")) > 0 else False
-    has_type_block = \
-        first_line and \
-        len(first_line) > 4 and \
-        first_line[4] == "[" and \
-        first_line.lstrip().startswith("[") and \
-        first_line.rstrip().endswith("]")
-    if has_type_block:
-        return has_type_block, first_line.split("[", 1)[1].rsplit("]", 1)[0]
-    return has_type_block, ""
+def get_title_from_block(line):
+    """
+    >>> get_title_from_block(" [type] title")
+    'title'
+    """
+    if "[" in line and "]" in line:
+        return line.split("]", 1)[1].strip()
+    return ""
 
 
 def process(contents):
-    last_block_link_block = []
-    blocks = []
-    topic = ""
-    current_section = ""
-    current_subsection = ""
-
-    def add_block(info=None, link_data=None, text_block=None):
-        blocks.append((info, link_data, text_block))
-
-    def process_last_block_link():
-        link_data_text = "".join(last_block_link_block)
-        add_block(link_data=process_link_block(link_data_text))
-        # Reset the last_block_link_block
-        last_block_link_block.clear()
-
+    """
+    >>> list(process("# Section"))
+    [ParserOutput(section='Section', subsection=None, link=None, text=None)]
+    >>> list(process("## SubSection"))
+    [ParserOutput(section=None, subsection='SubSection', link=None, text=None)]
+    >>> import yaml
+    >>> out_print = lambda _: print(yaml.safe_dump(dict(list(_)[0].link._asdict()), default_flow_style=False))
+    >>> out_print(process('''[type] title
+    ... http://example.org
+    ... metadata
+    ... | desc
+    ... > com '''))
+    commentary: com
+    desc: desc
+    metadata: metadata
+    title: title
+    type: type
+    url:
+    - example.org
+    - http://example.org
+    - http://example.org
+    <BLANKLINE>
+    """
     for i, block in enumerate(str(normalize_whitespace(contents)).split("\n\n")):
-        indented = block.startswith(" " * 4)
         is_section = block.startswith("# ")
         is_subsection = block.startswith("## ")
+        is_link_block = len(block) > 1 and block[0] == "["
 
         if is_section:
-            current_section = block.lstrip("#").strip()
+            yield ParserOutput._replace(section=block.lstrip("#").strip())
         elif is_subsection:
-            current_subsection = block.lstrip("##").strip()
+            yield ParserOutput._replace(subsection=block.lstrip("##").strip())
 
-        if indented:
-            block_text_lines_list = list(strip_indentation(block))
-            block_text = "\n".join(block_text_lines_list)
-            has_type_block, type_value = process_first_line(block)
+        elif is_link_block:
+            lines = block.split("\n")
+            block_data = BlockData
+            if len(lines) > 2:
+                block_data = block_data._replace(type=get_type_from_block(lines[0]))
+                block_data = block_data._replace(title=get_title_from_block(lines[0]))
+                block_data = block_data._replace(url=url_handler(lines[1]))
+                block_data = block_data._replace(metadata=lines[2].strip())
+            if len(lines) > 3:
+                for line in lines[2:]:
+                    if len(line) > 0 and line[0] == "|":
+                        block_data = block_data._replace(desc=block_data.desc + " " + line[1:])
+                    if len(line) > 0 and line[0] == ">":
+                        block_data = block_data._replace(commentary=block_data.commentary + " " + line[1:])
+                block_data = block_data._replace(commentary=block_data.commentary.strip())
+                block_data = block_data._replace(desc=block_data.desc.strip())
 
-            if has_type_block and any(last_block_link_block):
-                # This block is a link block adjacent to another link block
-                # Process last_block_link before continuing
-                process_last_block_link()
-
-            elif has_type_block:
-                # Is a link block
-                type_value_data = ['type: "{}"\ntopic: "{}"\nsection: "{}"\nsubsection: "{}"'.format(
-                    type_value,
-                    topic,
-                    current_section,
-                    current_subsection
-                )
-                ]
-                link_block_text = "\n".join(type_value_data + block_text_lines_list[1:])
-                last_block_link_block.append(link_block_text)
-            elif any(last_block_link_block):
-                # Continuation of last link block data
-                last_block_link_block.append("\n\n\n" + block_text)
-            else:
-                # Must be just a normal markdown code block
-                add_block(text_block=block)
-        else:
-            # Non-indented blocks are just passed along
-            if any(last_block_link_block):
-                process_last_block_link()
-            add_block(text_block=block)
-
-    return blocks
+            if block_data.url:
+                yield ParserOutput._replace(link=block_data)
+        elif any(block.strip()):
+            yield ParserOutput._replace(text=block)

@@ -10,11 +10,13 @@ footer: |
 
 resource_type_to_icon_map:
   guide: ss-signpost
-  opinion: ss-chat
   info: ss-info
   data: ss-barchart
-  "yes": ss-check
-  "no": ss-delete
+  "opinion/yes": ss-chat
+  "opinion/no": ss-chat
+resource_type_to_icon_map_opinion:
+  "opinion/yes": ss-check
+  "opinion/no": ss-delete
 info:
   about: About Codebook
   terms: Terms of Use
