@@ -6,9 +6,9 @@
     {% for resource in resources %}
         {% if resource.section %}
             <div class="section_separator"></div>
-            <h1>{{ resource.section }}</h1>
+            <h1>{{ resource.section | markdownify }}</h1>
         {% elif resource.subsection %}
-            <h2>{{ resource.subsection }}</h2>
+            <h2>{{ resource.subsection | markdownify }}</h2>
         {% elif resource.text %}
             {{ resource.text | markdownify }}
         {% elif resource.link %}

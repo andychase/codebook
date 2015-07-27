@@ -3,7 +3,7 @@
         <div class="commentary" {{ editing }}>
         <span>
             {% if editing %}
-                {{ link.commentary }}
+                {{ link.commentary | un_markdownify }}
             {% else %}
                 {{ link.commentary | markdownify }}
             {% endif %}
@@ -30,7 +30,7 @@
     {% endif %}
     <div class="more_link_data" {{ editing }}>
         {% if editing %}
-            {{ link.metadata }}
+            {{ link.metadata | un_markdownify}}
         {% else %}
             {{ link.metadata | markdownify }}
         {% endif %}
@@ -39,7 +39,7 @@
     {% if link.desc or editing %}
         <div class="description" {{ editing }}>
             {% if editing %}
-                {{ link.desc }}
+                {{ link.desc | un_markdownify }}
             {% else %}
                 {{ link.desc | markdownify }}
             {% endif %}

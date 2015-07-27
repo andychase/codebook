@@ -11,12 +11,16 @@ import markdown
 
 from topics.models import Topic
 from topics.parser import process
-import html
 
 
 @register.filter(name='markdownify')
-def cut(value):
+def markdownify(value):
     return safestring.mark_safe(markdown.markdown(value))
+
+
+@register.filter(name='un_markdownify')
+def un_markdownify(value):
+    return safestring.mark_safe(value.replace("\n", "<br>"))
 
 
 @register.filter(name='get_item')
@@ -143,6 +147,6 @@ def new_topic(request, topic_path):
 @permission_required('topics.topic.can_edit_topic')
 def edit_topic(request, topic):
     if request.POST:
-        topic.text = bleach.clean(html.unescape(request.POST.get('text')), ("br",), strip=True)
+        topic.text = bleach.clean(request.POST.get('text'))
         topic.save()
         return redirect('..')

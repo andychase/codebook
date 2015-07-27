@@ -7,9 +7,9 @@
                 {% if resource.section %}
                     <div class="section_separator"></div>
                 {% endif %}
-                <h1 contenteditable="true">{{ resource.section }}</h1>
+                <h1 contenteditable="true">{{ resource.section | un_markdownify }}</h1>
             {% elif resource.subsection != None %}
-                <h2 contenteditable="true">{{ resource.subsection }}</h2>
+                <h2 contenteditable="true">{{ resource.subsection | un_markdownify }}</h2>
             {% elif resource.text %}
                 {{ resource.text | markdownify }}
             {% elif resource.separator %}

@@ -6,19 +6,19 @@ get_link = (link_block) ->
   link_block.children('label').children('input').first().val()
 
 get_title = (link_block) ->
-  link_block.children('.link_url').first().html().trim()
+  link_block.children('.link_url').first()[0].innerText.trim().replace("\n", " ")
 
 get_type = (link_block) ->
   link_block.children('.icon').children().first().attr('class')
 
 get_metadata = (link_block) ->
-  link_block.children('.more_link_data').first().html().trim()
+  link_block.children('.more_link_data').first()[0].innerText.trim().replace(/\n/g, " ")
 
 get_description = (link_block) ->
-  link_block.children('.description').first().html().trim()
+  link_block.children('.description').first()[0].innerText.trim().replace(/\n/g, "\n| ")
 
 get_commentary = (link_block) ->
-  link_block.children('.commentary').first().children('span').first().html().trim()
+  link_block.children('.commentary').first().children('span').first()[0].innerText.trim().replace(/\n/g, "\n: ")
 
 link_block_to_text = (link_block) ->
   """[#{get_type(link_block)}] #{get_title(link_block)}
@@ -32,14 +32,14 @@ link_block_to_text = (link_block) ->
 topic_form_to_output_array = (topic_page) ->
   for child in topic_page.children()
     switch child.tagName
-      when "H1" then switch child.innerHTML.trim()
+      when "H1" then switch child.innerText.trim()
         when "" then ""
         else
-          "# #{child.innerHTML}"
-      when "H2" then switch child.innerHTML.trim()
+          "# #{child.innerText.trim().replace('\n', '')}"
+      when "H2" then switch child.innerText.trim()
         when "" then ""
         else
-          "## #{child.innerHTML}"
+          "## #{child.innerText.trim().replace('\n', '')}"
       when "DIV" then switch child.className
         when "link_block" then link_block_to_text($(child))
         else

@@ -99,9 +99,9 @@ def process(contents):
             if len(lines) > 3:
                 for line in lines[2:]:
                     if len(line) >= 2 and line[:2] == "| ":
-                        block_data = block_data._replace(desc=block_data.desc + " " + line[2:])
+                        block_data = block_data._replace(desc=block_data.desc + "\n" + line[2:])
                     if len(line) >= 2 and line[:2] == ": ":
-                        block_data = block_data._replace(commentary=block_data.commentary + " " + line[2:])
+                        block_data = block_data._replace(commentary=block_data.commentary + "\n" + line[2:])
                 block_data = block_data._replace(commentary=block_data.commentary.strip())
                 block_data = block_data._replace(desc=block_data.desc.strip())
 
