@@ -1,4 +1,67 @@
+#################
+## Saving Page ##
+#################
 
+get_link = (link_block) ->
+  link_block.children('label').children('input').first().val()
+
+get_title = (link_block) ->
+  link_block.children('.link_url').first().html().trim()
+
+get_type = (link_block) ->
+  link_block.children('.icon').children().first().attr('class')
+
+get_metadata = (link_block) ->
+  link_block.children('.more_link_data').first().html().trim()
+
+get_description = (link_block) ->
+  link_block.children('.description').first().html().trim()
+
+get_commentary = (link_block) ->
+  link_block.children('.commentary').first().children('span').first().html().trim()
+
+link_block_to_text = (link_block) ->
+  """[#{get_type(link_block)}] #{get_title(link_block)}
+#{get_link(link_block)}
+#{get_metadata(link_block)}
+| #{get_description(link_block)}
+: #{get_commentary(link_block)}
+"""
+
+
+topic_form_to_output_array = (topic_page) ->
+  for child in topic_page.children()
+    switch child.tagName
+      when "H1" then switch child.innerHTML.trim()
+        when "" then ""
+        else
+          "# #{child.innerHTML}"
+      when "H2" then switch child.innerHTML.trim()
+        when "" then ""
+        else
+          "## #{child.innerHTML}"
+      when "DIV" then switch child.className
+        when "link_block" then link_block_to_text($(child))
+        else
+          ""
+      else
+        ""
+
+
+$(document).ready ->
+  topic_page = $('#topic-edit-form')
+  if topic_page.length
+    topic_page.submit ->
+      $('<input>').attr({
+        type: 'hidden'
+        name: 'text'
+        value: topic_form_to_output_array(topic_page).join("\n\n").replace(/\n\n\n+/g, '\n\n')
+      }).appendTo(topic_page)
+
+
+##############
+## Feedback ##
+##############
 api_key = "+\\"
 url = "https://wiki.snc.io/w/api.php"
 

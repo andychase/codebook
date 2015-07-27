@@ -2,8 +2,8 @@ from collections import namedtuple
 import re
 from urllib.parse import urlparse
 
-ParserOutput = namedtuple("ParserOutput", "section subsection link text")(None, None, None, None)
-BlockData = namedtuple("BlockData", "type title url metadata desc commentary")("", "", "", "", "", "")
+ParserOutput = namedtuple("ParserOutput", "section subsection link text separator")(None, None, None, None, None)
+BlockData = namedtuple("BlockData", "type title url metadata desc commentary extra")("", "", "", "", "", "", None)
 
 www_remover = lambda _, r=re.compile("^www\."): r.sub("", _)
 
@@ -98,10 +98,10 @@ def process(contents):
                 block_data = block_data._replace(metadata=lines[2].strip())
             if len(lines) > 3:
                 for line in lines[2:]:
-                    if len(line) > 0 and line[0] == "|":
-                        block_data = block_data._replace(desc=block_data.desc + " " + line[1:])
-                    if len(line) > 0 and line[0] == ">":
-                        block_data = block_data._replace(commentary=block_data.commentary + " " + line[1:])
+                    if len(line) >= 2 and line[:2] == "| ":
+                        block_data = block_data._replace(desc=block_data.desc + " " + line[2:])
+                    if len(line) >= 2 and line[:2] == ": ":
+                        block_data = block_data._replace(commentary=block_data.commentary + " " + line[2:])
                 block_data = block_data._replace(commentary=block_data.commentary.strip())
                 block_data = block_data._replace(desc=block_data.desc.strip())
 

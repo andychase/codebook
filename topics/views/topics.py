@@ -1,3 +1,4 @@
+import bleach
 from django.contrib.auth.decorators import permission_required
 from django.core.exceptions import ValidationError
 from django.http import HttpResponse, Http404
@@ -10,6 +11,7 @@ import markdown
 
 from topics.models import Topic
 from topics.parser import process
+import html
 
 
 @register.filter(name='markdownify')
@@ -20,6 +22,33 @@ def cut(value):
 @register.filter(name='get_item')
 def get_item(dictionary, key):
     return dictionary.get(key)
+
+
+def add_link_helpers(resources):
+    last_block_is_section = False
+    last_block_is_subsection = False
+    output = []
+    for resource in resources:
+        if resource.section:
+            last_block_is_section = True
+        elif resource.subsection:
+            last_block_is_subsection = True
+        elif resource.link:
+            if not last_block_is_section:
+                if last_block_is_subsection:
+                    output.insert(-1, resource._replace(link=None, separator=True))
+                    output.insert(-1, resource._replace(link=None, section=""))
+                else:
+                    output.append(resource._replace(link=None, separator=True))
+                    output.append(resource._replace(link=None, section=""))
+                    output.append(resource._replace(link=None, subsection=""))
+            elif not last_block_is_subsection:
+                output.append(resource._replace(link=None, separator=True))
+                output.append(resource._replace(link=None, subsection=""))
+            last_block_is_section = False
+            last_block_is_subsection = False
+        output.append(resource)
+    return output
 
 
 def get_topic(request, topic_name):
@@ -48,18 +77,24 @@ def get_topic(request, topic_name):
     except Topic.DoesNotExist:
         raise Http404("Topic does not exist")
 
-    if is_editing:
-        return edit_topic(request, topic_path, topic)
+    if is_editing and request.POST:
+        return edit_topic(request, topic)
+    elif is_editing:
+        template = loader.get_template('topics/edit_topic.html')
+        resources = add_link_helpers(process(topic.text))
+    else:
+        template = loader.get_template('topics/show_topic.html')
+        resources = process(topic.text)
 
     extra_empty_topic = {'path': topic_path + ("",)}
-    topic_data = process(topic.text)
+
     context = RequestContext(request, {
         'topics': topics,
         'nav_active': topic_path,
+        'is_editing': is_editing,
         'extra_empty_topic': extra_empty_topic,
-        'resources': topic_data
+        'resources': resources
     })
-    template = loader.get_template('topics/show_topic.html')
 
     return HttpResponse(template.render(context))
 
@@ -106,22 +141,8 @@ def new_topic(request, topic_path):
 
 
 @permission_required('topics.topic.can_edit_topic')
-def edit_topic(request, topic_path, topic):
+def edit_topic(request, topic):
     if request.POST:
-        topic_text = request.POST.get('text')
-        topic.text = topic_text
+        topic.text = bleach.clean(html.unescape(request.POST.get('text')), ("br",), strip=True)
         topic.save()
         return redirect('..')
-    else:
-        template = loader.get_template('topics/edit_topic.html')
-
-        topics = list(Topic.get_topics(topic_path))
-        extra_empty_topic = {'path': topic_path + ("",)}
-        context = RequestContext(request, {
-            'topics': topics,
-            'nav_active': topic_path,
-            'extra_empty_topic': extra_empty_topic,
-            'topic_text': topic.text,
-            'editing_topic': True,
-        })
-        return HttpResponse(template.render(context))

@@ -1,11 +1,24 @@
 {% extends 'layouts/topic.html' %}
 {% block content %}
-    <form action="" method="post">
-    {% csrf_token %}
-    <label>
-        <textarea class="topic-text-area" name="text" placeholder="Add content here...">{{ topic_text }}</textarea>
-    </label>
-    <input type="submit" value="Save this page" class="topic-edit-link">
+    <form action="" method="post" id="topic-edit-form">
+        {% csrf_token %}
+        {% for resource in resources %}
+            {% if resource.section != None %}
+                {% if resource.section %}
+                    <div class="section_separator"></div>
+                {% endif %}
+                <h1 contenteditable="true">{{ resource.section }}</h1>
+            {% elif resource.subsection != None %}
+                <h2 contenteditable="true">{{ resource.subsection }}</h2>
+            {% elif resource.text %}
+                {{ resource.text | markdownify }}
+            {% elif resource.separator %}
+                <div class="section_separator"></div>
+            {% elif resource.link %}
+                {% include 'includes/link.html' with link=resource.link editing='contenteditable="true"' %}
+            {% endif %}
+        {% endfor %}
+        <input type="submit" value="Save this page" class="topic-edit-link" id="save-topic-page-button">
 
     </form>
 {% endblock %}

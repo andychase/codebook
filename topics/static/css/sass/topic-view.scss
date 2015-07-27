@@ -25,6 +25,16 @@
         font-size: 14pt;
         color: $grey-color-dark;
     }
+    &.topic-edit h2, &.topic-edit h1 {
+        border-bottom: 1px solid #d9d9d9;
+    }
+    &.topic-edit .editing-link-url {
+        width: 100%;
+    }
+    &.topic-edit h3.link_url {
+        padding: 0;
+        margin: 0;
+    }
     h2 {
         padding-right: 3px;
         text-align: center;

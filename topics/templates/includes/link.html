@@ -1,34 +1,53 @@
-<div class="link_block">
-    {% if link.commentary %}
-    <div class="commentary">
+<div class="link_block" id="{{ resource.id }}">
+    {% if link.commentary or editing %}
+        <div class="commentary" {{ editing }}>
         <span>
-        {{ link.commentary | markdownify }}
+            {% if editing %}
+                {{ link.commentary }}
+            {% else %}
+                {{ link.commentary | markdownify }}
+            {% endif %}
         </span>
-    </div>
+        </div>
     {% endif %}
 
     <div class="icon {% if "opinion" in link.type %}mirror{% endif %}">
+        <span class="{{ link.type }}"></span>
         <span class="{{ site.resource_type_to_icon_map | get_item:link.type }}"></span>
         {% if "opinion" in link.type %}
-        <span class="opinion {{ site.resource_type_to_icon_map_opinion | get_item:link.type }}"></span>
+            <span class="opinion {{ site.resource_type_to_icon_map_opinion | get_item:link.type }}"></span>
         {% endif %}
     </div>
-    <a class="link_url" href="{{ link.url }}">
-        {{ link.title }}
-    </a>
-
-    <div class="more_link_data">
-        {{ link.metadata | markdownify }}
-    </div>
-
-    {% if link.description %}
-    <div class="description">
-        {% if link.description %}
-        {{ link.description | markdownify }}
+    {% if editing %}
+        <h3 class="link_url" {{ editing }}>{{ link.title }}</h3>
+        <label>
+            <input class="editing-link-url" name="url" value="{{ link.url.2 }}">
+        </label>
+    {% else %}
+        <a class="link_url" href="{{ link.url.2 }}">
+            {{ link.title }}
+        </a>
+    {% endif %}
+    <div class="more_link_data" {{ editing }}>
+        {% if editing %}
+            {{ link.metadata }}
+        {% else %}
+            {{ link.metadata | markdownify }}
         {% endif %}
     </div>
+
+    {% if link.desc or editing %}
+        <div class="description" {{ editing }}>
+            {% if editing %}
+                {{ link.desc }}
+            {% else %}
+                {{ link.desc | markdownify }}
+            {% endif %}
+        </div>
     {% endif %}
 
-    {% include 'includes/feedback_form.html' with feedback_title=link.title %}
+    {% if not editing %}
+        {% include 'includes/feedback_form.html' with feedback_title=link.title %}
+    {% endif %}
 
 </div>
