@@ -1,3 +1,4 @@
+from urllib.parse import urlparse
 import bleach
 from django.contrib.auth.decorators import permission_required
 from django.core.exceptions import ValidationError
@@ -8,9 +9,34 @@ from django.template import loader, RequestContext
 from django.template.defaultfilters import register
 from django.utils import safestring
 import markdown
+import re
+import json
 
 from topics.models import Topic
-from topics.parser import process
+
+www_remover = lambda _, r=re.compile("^www\."): r.sub("", _)
+
+
+def url_handler(url):
+    if not url.startswith("http"):
+        url = "http://" + url
+    parsed = urlparse(url)
+    output_url = parsed.geturl()
+    domain = www_remover(parsed.netloc)
+    domain_link = "{}://{}".format(parsed.scheme, domain)
+    return domain, domain_link, output_url
+
+
+def process(input_string):
+    if any(input_string.strip()):
+        data = json.loads(input_string)
+        for item in data:
+            for data_type, d in item.items():
+                if data_type == "link":
+                    d['url'] = url_handler(d['url'])
+        return data
+    else:
+        return []
 
 
 @register.filter(name='markdownify')
@@ -33,19 +59,19 @@ def add_link_helpers(resources):
     last_block_is_subsection = False
     output = []
     for resource in resources:
-        if resource.section:
+        if resource.get('section'):
             last_block_is_section = True
-        elif resource.subsection:
+        elif resource.get('subsection'):
             last_block_is_subsection = True
-        elif resource.link:
+        elif resource.get('link'):
             if not last_block_is_section:
                 if last_block_is_subsection:
-                    output.insert(-1, resource._replace(link=None, section=""))
+                    output.insert(-1, dict(section=""))
                 else:
-                    output.append(resource._replace(link=None, section=""))
-                    output.append(resource._replace(link=None, subsection=""))
+                    output.append(dict(section=""))
+                    output.append(dict(subsection=""))
             elif not last_block_is_subsection:
-                output.append(resource._replace(link=None, subsection=""))
+                output.append(dict(subsection=""))
             last_block_is_section = False
             last_block_is_subsection = False
         output.append(resource)

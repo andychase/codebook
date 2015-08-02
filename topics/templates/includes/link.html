@@ -19,13 +19,13 @@
         {% endif %}
     </div>
     {% if editing %}
-        <h3 class="link_url" {{ editing }}>{{ link.title }}</h3>
+        <h3 class="link_url" {{ editing }}>{{ link.title | un_markdownify }}</h3>
         <label>
             <input class="editing-link-url" name="url" value="{{ link.url.2 }}">
         </label>
     {% else %}
         <a class="link_url" href="{{ link.url.2 }}">
-            {{ link.title }}
+            {{ link.title | markdownify }}
         </a>
     {% endif %}
     <div class="more_link_data" {{ editing }}>
