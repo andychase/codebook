@@ -1,6 +1,7 @@
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils.datetime_safe import datetime
+import reversion as revisions
 
 
 class BadTopicPath(Exception):
@@ -17,6 +18,7 @@ def validate_special_keywords_name(name):
         raise ValidationError(special_keywords_error)
 
 
+@revisions.register
 class Topic(models.Model):
     orig_name = models.CharField(max_length=120, validators=[validate_special_keywords_name])
     name = models.CharField(max_length=120, blank=True, validators=[validate_special_keywords_name])

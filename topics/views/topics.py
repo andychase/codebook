@@ -4,13 +4,14 @@ from django.contrib.auth.decorators import permission_required
 from django.core.exceptions import ValidationError
 from django.http import HttpResponse, Http404
 from django.shortcuts import redirect
-
+from django.db import transaction
 from django.template import loader, RequestContext
 from django.template.defaultfilters import register
 from django.utils import safestring
 import markdown
 import re
 import json
+import reversion as revisions
 
 from topics.models import Topic
 
@@ -127,6 +128,8 @@ def get_topic(request, topic_name):
 
 
 @permission_required('topics.topic.can_create_topic')
+@transaction.atomic()
+@revisions.create_revision()
 def new_topic(request, topic_path):
     error = ""
     if request.POST:
@@ -144,6 +147,7 @@ def new_topic(request, topic_path):
                     error += "".join(error_list) + " "
             else:
                 new_topic.save()
+                revisions.set_user(request.user)
                 return redirect('/topics/{}/'.format("/".join(topic_path + (topic_name,)).lower()))
 
     template = loader.get_template('topics/new_topic.html')
@@ -170,8 +174,11 @@ def new_topic(request, topic_path):
 
 
 @permission_required('topics.topic.can_edit_topic')
+@transaction.atomic()
+@revisions.create_revision()
 def edit_topic(request, topic):
     if request.POST:
         topic.text = bleach.clean(request.POST.get('text'))
         topic.save()
+        revisions.set_user(request.user)
         return redirect('..')
