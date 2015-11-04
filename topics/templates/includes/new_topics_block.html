@@ -2,15 +2,15 @@
     <h1 class="page-heading">New Topics</h1>
     <table class="post-list">
         {% for post in site.posts %}
-        <tr>
-            <td><span class="post-meta">{{ post.date | date:"b-d, Y" }}</span></td>
+            <tr>
+                <td><span class="post-meta">{{ post.date | date:"b-d, Y" }}</span></td>
 
-            <td>
-                <a class="post-link"
-                   href="{{ '/topics/' | add:post.title | lower }}">
-                    {{post.title }}</a>
-            </td>
-        </tr>
+                <td>
+                    <a class="post-link"
+                       href="{{ '/topics/' | add:post.title | lower }}">
+                        {{ post.title }}</a>
+                </td>
+            </tr>
         {% endfor %}
     </table>
 </div>

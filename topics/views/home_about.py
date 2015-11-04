@@ -2,7 +2,6 @@ from django.http import HttpResponse
 from django.template import loader, RequestContext
 from django.utils import safestring
 import markdown
-
 from topics.models import Topic
 
 

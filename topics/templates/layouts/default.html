@@ -1,20 +1,20 @@
 <!DOCTYPE html>
 <html>
 
-  {% include 'includes/head.html' %}
+{% include 'includes/head.html' %}
 
-  <body>
+<body>
 
-    {% include 'includes/header.html' %}
+{% include 'includes/header.html' %}
 
-    <div class="page-content">
-      <div class="wrapper">
+<div class="page-content">
+    <div class="wrapper">
         {% block content %}{% endblock %}
-      </div>
     </div>
+</div>
 
-    {% include 'includes/footer.html' %}
+{% include 'includes/footer.html' %}
 
-  </body>
+</body>
 
 </html>

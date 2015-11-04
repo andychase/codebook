@@ -12,7 +12,6 @@ import markdown
 import re
 import json
 import reversion as revisions
-
 from topics.models import Topic
 
 www_remover = lambda _, r=re.compile("^www\."): r.sub("", _)

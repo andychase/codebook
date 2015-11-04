@@ -4,7 +4,6 @@ from django.http import HttpResponse, Http404
 from django.contrib.auth import views
 from django.shortcuts import redirect
 from django.template import loader, RequestContext
-
 from topics.models import Topic
 from topics.settings_context import settings_context
 
