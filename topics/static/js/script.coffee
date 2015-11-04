@@ -117,3 +117,10 @@ $ ->
         name: 'text'
         value: JSON.stringify(topic_form_to_output_array(topic_page))
       }).appendTo(topic_page)
+
+  # Prevent pasting html styles
+  $('[contenteditable=true]').on 'paste', ->
+    input = $(this)
+    setTimeout ->
+      input.text(input.text())
+    , 0
