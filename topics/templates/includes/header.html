@@ -9,6 +9,9 @@
             {% if user.is_authenticated %}
                 <form action="/logout/" method="POST">
                     {% csrf_token %}
+                    {% if user.is_staff %}
+                        <a href="/admin">Admin</a>
+                    {% endif %}
                     <input type="hidden" value="{{ request.path }}" name="next">
                     <input type="submit" value="Log out">
                 </form>
