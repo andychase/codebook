@@ -30,12 +30,14 @@
             margin: 0;
         }
     }
-    a.link_url {
+    a.link_url, h3.link_url {
         font-size: 14pt;
         font-weight: bold;
+        width: 100%;
     }
     .more_link_data {
         font-size: 8pt;
+        width: 100%;
     }
     .icon {
         position: absolute;
@@ -66,5 +68,16 @@
     .description {
         margin-top: 10px;
         font-size: 8pt;
+    }
+
+    .control-bar {
+        position: absolute;
+        right: 10px;
+        top: 19px;
+        width: 20px;
+    }
+    .control-bar a:hover {
+        text-decoration: none;
+        cursor: pointer;
     }
 }

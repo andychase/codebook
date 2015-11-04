@@ -25,23 +25,47 @@
         font-size: 14pt;
         color: $grey-color-dark;
     }
-    &.topic-edit h2, &.topic-edit h1 {
-        border-bottom: 1px solid #d9d9d9;
-    }
-    &.topic-edit .editing-link-url {
-        width: 100%;
-    }
-    &.topic-edit .link_url {
-        padding: 0;
-        margin: 0;
-    }
-    &.topic-edit .commentary,
-    &.topic-edit .more_link_data,
-    &.topic-edit .link_url,
-    &.topic-edit .icon {
-        border: 1px solid rgba(128, 128, 128, 0.32);
+    $edit-preview-color: #d9d9d9;
+
+
+    %edit-visible {
+        border: 1px solid $edit-preview-color;
         padding: 2px;
         border-radius: 3px;
+    }
+
+    &.topic-edit {
+        h2 {
+            border-bottom: 1px solid $edit-preview-color;
+        }
+        h1 {
+            border-bottom: 1px solid $edit-preview-color;
+        }
+        .editing-link-url {
+            width: 95%;
+        }
+        .link_url {
+            margin: 0;
+            width: 95%;
+            @extend %edit-visible;
+        }
+        .commentary {
+            @extend %edit-visible;
+            @include media-query($on-laptop) {
+                width: 95%;
+            }
+        }
+        .more_link_data {
+            @extend %edit-visible;
+            width: 95%;
+            border-radius: 0;
+            border: none;
+            border-left: 5px solid $edit-preview-color;
+        }
+        .description {
+            @extend %edit-visible;
+            width: 95%;
+        }
     }
     h2 {
         padding-right: 3px;
@@ -50,22 +74,23 @@
         font-size: 14pt;
         color: $grey-color-dark;
     }
-    .topic-edit-link {
-        position: absolute;
-        top: 10px;
-        left: 50%;
-        font-size: 11pt;
+    .topic-actions {
+        margin-top: 10px;
         display: block;
-        width: 200px;
-        text-align: right;
+        text-align: center;
+    }
+    .topic-edit-link, .topic-history-link {
+        font-size: 11pt;
+        margin-left: 5px;
         &:before {
             font-size: 9pt;
             padding-right: 3px
         }
 
     }
+
     .topic-text-area {
-        width: 100%;
+        width: 90%;
         min-height: 500pt;
         background-color: mix($brand-color, #fdfdfd, 10%);
         border: none;
