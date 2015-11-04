@@ -1,3 +1,5 @@
+import dj_database_url
+import os
 from .settings import *
 
 DEBUG = False
@@ -9,20 +11,14 @@ SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 ALLOWED_HOSTS = ['*']
 
 # Static asset configuration
-import os
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, '..', '..', 'database.db'),
-        'USER': '',
-        'PASSWORD': '',
-        'HOST': '',
-        'PORT': '',
-    }
-}
+# Parse database configuration from $DATABASE_URL
+DATABASES['default'] = dj_database_url.config()
+
+# Enable Connection Pooling (if desired)
+DATABASES['default']['ENGINE'] = 'django_postgrespool'
 
 STATIC_ROOT = 'static'
 
@@ -34,7 +30,6 @@ if not os.path.isdir(static_path):
 STATICFILES_DIRS = (
     static_path,
 )
-
 
 # Use cached templates
 if not DEBUG:
