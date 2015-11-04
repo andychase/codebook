@@ -31,9 +31,17 @@
     &.topic-edit .editing-link-url {
         width: 100%;
     }
-    &.topic-edit h3.link_url {
+    &.topic-edit .link_url {
         padding: 0;
         margin: 0;
+    }
+    &.topic-edit .commentary,
+    &.topic-edit .more_link_data,
+    &.topic-edit .link_url,
+    &.topic-edit .icon {
+        border: 1px solid rgba(128, 128, 128, 0.32);
+        padding: 2px;
+        border-radius: 3px;
     }
     h2 {
         padding-right: 3px;
