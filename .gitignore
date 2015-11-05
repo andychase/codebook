@@ -57,9 +57,9 @@ docs/_build/
 # PyBuilder
 target/
 
-.idea/
+/.idea
 .DS_Store
 db.sqlite3
 venv/
 staticfiles/
-static/
+/static
