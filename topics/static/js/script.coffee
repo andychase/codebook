@@ -14,63 +14,62 @@ $.fn.moveDown = ->
 ## Saving Page ##
 #################
 
-link_block = """<div class="link_block portlet">
-    <div class="portlet-header ui-widget-header ui-corner-all">
-        <span class='ui-icon ui-icon-minusthick portlet-toggle'></span>
+link_block = """
+<div class="link_block portlet">
+    <div class="portlet-header ui-widget-header ui-corner-all ui-sortable-handle">
+        <span class="ui-icon ui-icon-minusthick portlet-toggle"></span>
     </div>
-    <div class="commentary" contenteditable="true">
-        <span>
-        </span>
-    </div>
-    <div class="icon">
+
+    <textarea class="commentary" placeholder="Commentary"></textarea>
+    <div class="icon mirror">
         <span class="opinion/yes"></span>
         <span class="ss-chat"></span>
         <span class="opinion ss-check"></span>
     </div>
-    <h3 class="link_url" contenteditable="true"></h3>
+    <input class="link_url" placeholder="Link title" value="">
     <label>
-        <input class="editing-link-url" name="url" value="http://">
+        <input class="editing-link-url" name="url" placeholder="https://example.org" value="">
     </label>
-    <div class="more_link_data" contenteditable="true">
-    </div>
-    <div class="description" contenteditable="true">
-    </div>
+    <input class="more_link_data" placeholder="Metadata" value="">
+    <textarea class="description" placeholder="Description"></textarea>
 </div>
 """
 
-bigger_header_block = """<h1 class="portlet">
-                        <div class="portlet-header ui-widget-header ui-corner-all" contenteditable="false">
-                            <span class='ui-icon ui-icon-minusthick portlet-toggle'></span>
-                        </div>
-                        <input placeholder="Heading" />
-                    </h1>
+bigger_header_block = """
+<h1 class="portlet">
+    <div class="portlet-header ui-widget-header ui-corner-all" contenteditable="false">
+      <span class='ui-icon ui-icon-minusthick portlet-toggle'></span>
+  </div>
+  <input placeholder="Heading" />
+</h1>
 """
 
-smaller_header_block = """<h2 class="portlet">
-                        <div class="portlet-header ui-widget-header ui-corner-all" contenteditable="false">
-                            <span class='ui-icon ui-icon-minusthick portlet-toggle'></span>
-                        </div>
-                        <input placeholder="Subheading" />
-                    </h2>
+smaller_header_block = """
+<h2 class="portlet">
+    <div class="portlet-header ui-widget-header ui-corner-all" contenteditable="false">
+        <span class='ui-icon ui-icon-minusthick portlet-toggle'></span>
+    </div>
+    <input placeholder="Subheading" />
+</h2>
 """
 
 get_link = (link_block) ->
   link_block.children('label').children('input').first().val()
 
 get_title = (link_block) ->
-  link_block.children('.link_url').first()[0].innerText.trim()
+  link_block.children('.link_url').val().trim()
 
 get_type = (link_block) ->
   link_block.children('.icon').children().first().attr('class')
 
 get_metadata = (link_block) ->
-  link_block.children('.more_link_data').first()[0].innerText.trim()
+  link_block.children('.more_link_data').val().trim()
 
 get_description = (link_block) ->
-  link_block.children('.description').first()[0].innerText.trim()
+  link_block.children('.description').val().trim()
 
 get_commentary = (link_block) ->
-  link_block.children('.commentary').first()[0].innerText.trim()
+  link_block.children('.commentary').val().trim()
 
 link_block_to_text = (link_block) ->
   type: get_type(link_block)
@@ -141,4 +140,3 @@ $ ->
     if code == 13
       e.preventDefault()
       false
-

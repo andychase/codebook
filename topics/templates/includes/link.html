@@ -1,17 +1,19 @@
 <div class="link_block portlet">
-    <div class="portlet-header ui-widget-header ui-corner-all">
-        <span class='ui-icon ui-icon-minusthick portlet-toggle'></span>
-    </div>
-    {% if link.commentary or editing %}
-        <div class="commentary" {{ editing }}>
-        <span>
-            {% if editing %}
-                {{ link.commentary | un_markdownify }}
-            {% else %}
-                {{ link.commentary | markdownify }}
-            {% endif %}
-        </span>
+    {% if editing %}
+        <div class="portlet-header ui-widget-header ui-corner-all">
+            <span class='ui-icon ui-icon-minusthick portlet-toggle'></span>
         </div>
+    {% endif %}
+    {% if link.commentary or editing %}
+        {% if editing %}
+            <textarea class="commentary" placeholder="Commentary">{{ link.commentary | un_markdownify }}</textarea>
+        {% else %}
+            <div class="commentary" {{ editing }}>
+        <span>
+                {{ link.commentary | markdownify }}
+        </span>
+            </div>
+        {% endif %}
     {% endif %}
 
     <div class="icon {% if "opinion" in link.type %}mirror{% endif %}">
@@ -22,30 +24,30 @@
         {% endif %}
     </div>
     {% if editing %}
-        <h3 class="link_url" {{ editing }}>{{ link.title | un_markdownify }}</h3>
+        <input class="link_url" placeholder="Link title" value="{{ link.title | un_markdownify }}"/>
         <label>
-            <input class="editing-link-url" name="url" value="{{ link.url.2 }}">
+            <input class="editing-link-url" name="url" placeholder="https://example.org" value="{{ link.url.2 }}">
         </label>
     {% else %}
         <a class="link_url" href="{{ link.url.2 }}">
             {{ link.title | markdownify }}
         </a>
     {% endif %}
-    <div class="more_link_data" {{ editing }}>
-        {% if editing %}
-            {{ link.metadata | un_markdownify }}
-        {% else %}
+    {% if editing %}
+        <input class="more_link_data" placeholder="Metadata" value="{{ link.metadata | un_markdownify }}"/>
+    {% else %}
+        <div class="more_link_data" {{ editing }}>
             {{ link.metadata | markdownify }}
-        {% endif %}
-    </div>
+        </div>
+    {% endif %}
 
     {% if link.desc or editing %}
-        <div class="description" {{ editing }}>
-            {% if editing %}
-                {{ link.desc | un_markdownify }}
-            {% else %}
+        {% if editing %}
+            <textarea class="description" placeholder="Description">{{ link.desc | un_markdownify }}</textarea>
+        {% else %}
+            <div class="description">
                 {{ link.desc | markdownify }}
-            {% endif %}
-        </div>
+            </div>
+        {% endif %}
     {% endif %}
 </div>

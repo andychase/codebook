@@ -1,3 +1,8 @@
+a.link_url, h3.link_url {
+    font-size: 14pt;
+    font-weight: bold;
+    width: 100%;
+}
 
 .link_block {
     padding: 20px 25px 20px 55px;
@@ -30,11 +35,7 @@
             margin: 0;
         }
     }
-    a.link_url, h3.link_url {
-        font-size: 14pt;
-        font-weight: bold;
-        width: 100%;
-    }
+
     .more_link_data {
         font-size: 8pt;
         width: 100%;

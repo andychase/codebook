@@ -7,6 +7,10 @@
         border-radius: 3px;
     }
 
+    input, textarea {
+        font-family: $base-font-family;
+    }
+
     &.topic-edit {
         h2 {
             border-bottom: 1px solid $edit-preview-color;
@@ -30,7 +34,6 @@
             width: 90%;
             margin: 0 auto;
             position: static;
-            font-family: $base-font-family;
             border: none;
         }
         h1 input {
@@ -40,11 +43,13 @@
         }
         .editing-link-url {
             width: 95%;
+            @extend %edit-visible;
         }
         .link_url {
             margin: 0;
             width: 95%;
-            @extend %edit-visible;
+            @extend a.link_url;
+            color: $brand-color;
         }
         .commentary {
             @extend %edit-visible;
@@ -52,12 +57,14 @@
                 width: 95%;
             }
         }
+        div.ui-sortable-helper .commentary {
+            height: 20%;
+        }
         .more_link_data {
             @extend %edit-visible;
             width: 95%;
-            border-radius: 0;
-            border: none;
             border-left: 5px solid $edit-preview-color;
+            margin-left: -4px;
         }
         .description {
             @extend %edit-visible;
