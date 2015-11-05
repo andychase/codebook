@@ -2,15 +2,21 @@
 {% block content %}
     <form action="" method="post" id="topic-edit-form">
         {% csrf_token %}
-        <div>
+        <div class="column">
             {% for resource in resources %}
                 {% if resource.section != None %}
-                    {% if resource.section %}
-                        <div class="section_separator"></div>
-                    {% endif %}
-                    <h1 contenteditable="true">{{ resource.section | un_markdownify }}</h1>
+                    <h1 class="portlet">
+                        <div class="portlet-header ui-widget-header ui-corner-all" contenteditable="false">
+                            <span class='ui-icon ui-icon-minusthick portlet-toggle'></span>
+                        </div>
+                        <input value="{{ resource.section | un_markdownify }}"/></h1>
                 {% elif resource.subsection != None %}
-                    <h2 contenteditable="true">{{ resource.subsection | un_markdownify }}</h2>
+                    <h2 class="portlet">
+                        <div class="portlet-header ui-widget-header ui-corner-all" contenteditable="false">
+                            <span class='ui-icon ui-icon-minusthick portlet-toggle'></span>
+                        </div>
+                        <input value="{{ resource.subsection | un_markdownify }}"/>
+                    </h2>
                 {% elif resource.text %}
                     {{ resource.text | markdownify }}
                 {% elif resource.separator %}
@@ -20,6 +26,68 @@
                 {% endif %}
             {% endfor %}
         </div>
-        <input type="submit" value="Save this page" class="topic-edit-link" id="save-topic-page-button">
+        <nav class="edit-topic-add-element">
+            <ul>
+                <li><i title="Add a heading" class="ss-text bigger-header"></i></li>
+                <li><i title="Add a subheading" class="ss-text smaller-header"></i></li>
+                <li><i title="Add a link block" class="ss-link link"></i></li>
+            </ul>
+        </nav>
+        <div class="save-topic-container">
+            <input type="submit" value="Save this page" class="topic-edit-link" id="save-topic-page-button">
+        </div>
     </form>
+{% endblock %}
+{% block scripts %}
+    <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.4/themes/flick/jquery-ui.css"/>
+    <style>
+        .portlet-header {
+            border: 1px solid #111111;
+            background: linear-gradient(to bottom, #eeeeee 0%,#cccccc 100%);
+            color: #111111;
+            font-weight: bold;
+            width: 100%;
+            margin-bottom: 6px;
+            border-radius: 2px;
+        }
+        div > div.portlet-header {
+            width: 96%;
+        }
+
+        .portlet-placeholder {
+            border: 1px dotted black;
+            margin: 0 1em 1em 0;
+            height: 180px;
+        }
+
+        h1.portlet-placeholder, h2.portlet-placeholder {
+            height: 50px;
+        }
+        .ui-sortable-helper {
+            box-shadow: 0 5px 17px -4px rgba(0, 0, 0, 0.22)
+        }
+        .save-topic-container {
+            text-align: center;
+        }
+
+    </style>
+    <script>
+        $(function () {
+            $(".column").sortable({
+                connectWith: ".column",
+                handle: ".portlet-header",
+                cancel: ".portlet-toggle",
+                placeholder: "portlet-placeholder ui-corner-all"
+            });
+
+            $(".portlet-toggle").click(function () {
+                var icon = $(this);
+                icon.toggleClass("ui-icon-minusthick ui-icon-plusthick");
+                icon.closest(".portlet").slideUp(150, function () {
+                    $(this).remove();
+                });
+            });
+        });
+    </script>
 {% endblock %}

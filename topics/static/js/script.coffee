@@ -2,19 +2,22 @@
 ##
 
 $.fn.moveUp = ->
-    $.each this, ->
-        $(this).after $(this).prev()
+  $.each this, ->
+    $(this).after $(this).prev()
 
 $.fn.moveDown = ->
-    $.each this, ->
-        $(this).before $(this).next()
+  $.each this, ->
+    $(this).before $(this).next()
 
 
 #################
 ## Saving Page ##
 #################
 
-link_block = """<div class="link_block" id="">
+link_block = """<div class="link_block portlet">
+    <div class="portlet-header ui-widget-header ui-corner-all">
+        <span class='ui-icon ui-icon-minusthick portlet-toggle'></span>
+    </div>
     <div class="commentary" contenteditable="true">
         <span>
         </span>
@@ -32,13 +35,23 @@ link_block = """<div class="link_block" id="">
     </div>
     <div class="description" contenteditable="true">
     </div>
-    <div class="control-bar">
-      <a class="ss-plus add-link-button"></a>
-      <a class="ss-delete remove-link-button"></a>
-      <a class="ss-navigateup move-link-up-button"></a>
-      <a class="ss-navigatedown move-link-down-button"></a>
-    </div>
 </div>
+"""
+
+bigger_header_block = """<h1 class="portlet">
+                        <div class="portlet-header ui-widget-header ui-corner-all" contenteditable="false">
+                            <span class='ui-icon ui-icon-minusthick portlet-toggle'></span>
+                        </div>
+                        <input placeholder="Heading" />
+                    </h1>
+"""
+
+smaller_header_block = """<h2 class="portlet">
+                        <div class="portlet-header ui-widget-header ui-corner-all" contenteditable="false">
+                            <span class='ui-icon ui-icon-minusthick portlet-toggle'></span>
+                        </div>
+                        <input placeholder="Subheading" />
+                    </h2>
 """
 
 get_link = (link_block) ->
@@ -71,30 +84,31 @@ link_block_to_text = (link_block) ->
 topic_form_to_output_array = (topic_page) ->
   output = []
   for child in topic_page.children()
-    if child.tagName == "H1" and child.innerText.trim()
-      output.push({section: child.innerText.trim().replace('\n', '')})
-    else if child.tagName == "H2" and child.innerText.trim()
-      output.push({subsection: child.innerText.trim().replace('\n', '')})
-    else if child.tagName == "DIV" and child.className == "link_block"
+    if child.tagName == "H1" and $(child).children('input').val().trim()
+      output.push({section: $(child).children('input').val()})
+    else if child.tagName == "H2" and $(child).children('input').val().trim()
+      output.push({subsection: $(child).children('input').val()})
+    else if child.tagName == "DIV" and $(child).hasClass("link_block")
       output.push({link: link_block_to_text($(child))})
   output
 
-setupButtons = (element) ->
-  controlBar = $(element).children('.control-bar')
-  controlBar.children('.add-link-button').click ->
-    new_link_block = $(link_block)
-    new_link_block.hide()
-    new_link_block.insertAfter($(this).parent().parent())
-    new_link_block.slideDown(150)
-    setupButtons(new_link_block)
-  controlBar.children('.remove-link-button').click ->
-    parent = $(this).parent().parent()
-    parent.slideUp 150, ->
-      parent.remove()
-  controlBar.children('.move-link-up-button').click ->
-      $(this).parent().parent().moveUp()
-  controlBar.children('.move-link-down-button').click ->
-      $(this).parent().parent().moveDown()
+setupButtons = (topic_page_form) ->
+  controlBar = $(topic_page_form).children('.edit-topic-add-element')
+  elementBuilder = (block) ->
+    ->
+      new_link_block = $(block)
+      new_link_block.hide()
+      new_link_block.appendTo(topic_page_form.children('.column').first())
+      new_link_block.slideDown(150)
+      new_link_block.find(".portlet-toggle").click ->
+        icon = $(this);
+        icon.toggleClass("ui-icon-minusthick ui-icon-plusthick");
+        icon.closest(".portlet").slideUp 150, ->
+          $(this).remove();
+
+  controlBar.find('.link').click(elementBuilder(link_block))
+  controlBar.find('.bigger-header').click(elementBuilder(bigger_header_block))
+  controlBar.find('.smaller-header').click(elementBuilder(smaller_header_block))
 
 add_new_link_buttons = (topic_page) ->
   add_new_button_to($(topic_page).children().last())
@@ -102,15 +116,11 @@ add_new_link_buttons = (topic_page) ->
     add_new_button_to(this)
 
 
-
 $ ->
   topic_page_form = $('#topic-edit-form')
   topic_page = topic_page_form.children('div').first()
   if topic_page.length
-    if not topic_page.children().length
-      $(link_block).appendTo(topic_page)
-    topic_page.children('.link_block').each (index, element) ->
-      setupButtons(element)
+    setupButtons(topic_page_form)
     topic_page_form.submit (e) ->
       $('<input>').attr({
         type: 'hidden'
@@ -124,3 +134,11 @@ $ ->
     setTimeout ->
       input.text(input.text())
     , 0
+
+  # Prevent Enter Submit
+  topic_page_form.find('input').on 'keyup keypress', (e) ->
+    code = e.keyCode or e.which
+    if code == 13
+      e.preventDefault()
+      false
+

@@ -54,30 +54,6 @@ def get_item(dictionary, key):
     return dictionary.get(key)
 
 
-def add_link_helpers(resources):
-    last_block_is_section = False
-    last_block_is_subsection = False
-    output = []
-    for resource in resources:
-        if resource.get('section'):
-            last_block_is_section = True
-        elif resource.get('subsection'):
-            last_block_is_subsection = True
-        elif resource.get('link'):
-            if not last_block_is_section:
-                if last_block_is_subsection:
-                    output.insert(-1, dict(section=""))
-                else:
-                    output.append(dict(section=""))
-                    output.append(dict(subsection=""))
-            elif not last_block_is_subsection:
-                output.append(dict(subsection=""))
-            last_block_is_section = False
-            last_block_is_subsection = False
-        output.append(resource)
-    return output
-
-
 def get_topic(request, topic_name):
     if not request.path.endswith("/"):
         return redirect(request.path + "/")
@@ -108,10 +84,10 @@ def get_topic(request, topic_name):
         return edit_topic(request, topic)
     elif is_editing:
         template = loader.get_template('topics/edit_topic.html')
-        resources = add_link_helpers(process(topic.text))
     else:
         template = loader.get_template('topics/show_topic.html')
-        resources = process(topic.text)
+
+    resources = process(topic.text)
 
     extra_empty_topic = {'path': topic_path + ("",)}
 

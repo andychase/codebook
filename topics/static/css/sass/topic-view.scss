@@ -1,7 +1,7 @@
 
 .topic-view {
     position: relative;
-    h1 {
+    h1, h1 input {
         display: block;
         position: absolute;
         width: 18%;
@@ -18,7 +18,7 @@
             text-align: left;
         }
     }
-    h2 {
+    h2, h2 input {
         padding-right: 3px;
         text-align: center;
         margin-top: 12pt;
@@ -26,7 +26,6 @@
         color: $grey-color-dark;
     }
     $edit-preview-color: #d9d9d9;
-
 
     %edit-visible {
         border: 1px solid $edit-preview-color;
@@ -37,9 +36,33 @@
     &.topic-edit {
         h2 {
             border-bottom: 1px solid $edit-preview-color;
+            height: 50px;
         }
         h1 {
             border-bottom: 1px solid $edit-preview-color;
+            position: static;
+            margin-left: 0;
+            margin-right: 0;
+            width: 100%;
+            text-align: center;
+            height: 70px;
+        }
+        h1, h2 {
+            min-height: 50px;
+            position: relative;
+            background-color: white;
+        }
+        h1 input, h2 input {
+            width: 90%;
+            margin: 0 auto;
+            position: static;
+            font-family: $base-font-family;
+            border: none;
+        }
+        h1 input {
+            text-align: center;
+            font-size: 24pt;
+            height: 30pt;
         }
         .editing-link-url {
             width: 95%;
@@ -65,6 +88,23 @@
         .description {
             @extend %edit-visible;
             width: 95%;
+        }
+    }
+    .edit-topic-add-element {
+        text-align: center;
+        ul li {
+            list-style: none;
+            display: inline;
+            vertical-align: middle;
+            margin: 10px;
+        }
+        .smaller-header {
+            font-size: 8pt;
+            position: relative;
+            bottom: 2px;
+        }
+        i {
+            cursor: pointer;
         }
     }
     h2 {

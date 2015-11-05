@@ -1,4 +1,7 @@
-<div class="link_block" id="{{ resource.id }}">
+<div class="link_block portlet">
+    <div class="portlet-header ui-widget-header ui-corner-all">
+        <span class='ui-icon ui-icon-minusthick portlet-toggle'></span>
+    </div>
     {% if link.commentary or editing %}
         <div class="commentary" {{ editing }}>
         <span>
@@ -45,15 +48,4 @@
             {% endif %}
         </div>
     {% endif %}
-    {% if editing %}
-        <div class="control-bar">
-            {% if editing %}
-                <a class="ss-plus add-link-button"></a>
-                <a class="ss-delete remove-link-button"></a>
-                <a class="ss-navigateup move-link-up-button"></a>
-                <a class="ss-navigatedown move-link-down-button"></a>
-            {% endif %}
-        </div>
-    {% endif %}
-
 </div>
