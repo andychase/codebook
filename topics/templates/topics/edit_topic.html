@@ -41,37 +41,6 @@
 {% block scripts %}
     <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.4/themes/flick/jquery-ui.css"/>
-    <style>
-        .portlet-header {
-            border: 1px solid #111111;
-            background: linear-gradient(to bottom, #eeeeee 0%,#cccccc 100%);
-            color: #111111;
-            font-weight: bold;
-            width: 100%;
-            margin-bottom: 6px;
-            border-radius: 2px;
-        }
-        div > div.portlet-header {
-            width: 96%;
-        }
-
-        .portlet-placeholder {
-            border: 1px dotted black;
-            margin: 0 1em 1em 0;
-            height: 180px;
-        }
-
-        h1.portlet-placeholder, h2.portlet-placeholder {
-            height: 50px;
-        }
-        .ui-sortable-helper {
-            box-shadow: 0 5px 17px -4px rgba(0, 0, 0, 0.22)
-        }
-        .save-topic-container {
-            text-align: center;
-        }
-
-    </style>
     <script>
         $(function () {
             $(".column").sortable({

@@ -25,108 +25,13 @@
         font-size: 14pt;
         color: $grey-color-dark;
     }
-    $edit-preview-color: #d9d9d9;
 
-    %edit-visible {
-        border: 1px solid $edit-preview-color;
-        padding: 2px;
-        border-radius: 3px;
-    }
-
-    &.topic-edit {
-        h2 {
-            border-bottom: 1px solid $edit-preview-color;
-            height: 50px;
-        }
-        h1 {
-            border-bottom: 1px solid $edit-preview-color;
-            position: static;
-            margin-left: 0;
-            margin-right: 0;
-            width: 100%;
-            text-align: center;
-            height: 70px;
-        }
-        h1, h2 {
-            min-height: 50px;
-            position: relative;
-            background-color: white;
-        }
-        h1 input, h2 input {
-            width: 90%;
-            margin: 0 auto;
-            position: static;
-            font-family: $base-font-family;
-            border: none;
-        }
-        h1 input {
-            text-align: center;
-            font-size: 24pt;
-            height: 30pt;
-        }
-        .editing-link-url {
-            width: 95%;
-        }
-        .link_url {
-            margin: 0;
-            width: 95%;
-            @extend %edit-visible;
-        }
-        .commentary {
-            @extend %edit-visible;
-            @include media-query($on-laptop) {
-                width: 95%;
-            }
-        }
-        .more_link_data {
-            @extend %edit-visible;
-            width: 95%;
-            border-radius: 0;
-            border: none;
-            border-left: 5px solid $edit-preview-color;
-        }
-        .description {
-            @extend %edit-visible;
-            width: 95%;
-        }
-    }
-    .edit-topic-add-element {
-        text-align: center;
-        ul li {
-            list-style: none;
-            display: inline;
-            vertical-align: middle;
-            margin: 10px;
-        }
-        .smaller-header {
-            font-size: 8pt;
-            position: relative;
-            bottom: 2px;
-        }
-        i {
-            cursor: pointer;
-        }
-    }
     h2 {
         padding-right: 3px;
         text-align: center;
         margin-top: 12pt;
         font-size: 14pt;
         color: $grey-color-dark;
-    }
-    .topic-actions {
-        margin-top: 10px;
-        display: block;
-        text-align: center;
-    }
-    .topic-edit-link, .topic-history-link {
-        font-size: 11pt;
-        margin-left: 5px;
-        &:before {
-            font-size: 9pt;
-            padding-right: 3px
-        }
-
     }
 
     .topic-text-area {
