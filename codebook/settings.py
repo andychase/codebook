@@ -124,5 +124,6 @@ PIPELINE_CSS_COMPRESSOR = 'pipeline.compressors.NoopCompressor'
 PIPELINE_JS_COMPRESSOR = 'pipeline.compressors.NoopCompressor'
 
 LOGIN_REDIRECT_URL = '/'
+LOGIN_URL = 'topics:login'
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
