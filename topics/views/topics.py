@@ -131,8 +131,9 @@ def new_topic(request, topic_path):
         if topic_name:
             topic_to_save = Topic(orig_name=topic_name, parent_id=parent)
             try:
-                if parent is None and topic_name[:-3] in {'.txt', '.xml'}:
-                    raise ValidationError("Top level topics can't end in .txt or .xml for technical reasons. Sorry.")
+                if parent is None and topic_name[-4:] in {'.txt', '.xml'}:
+                    error_message = "Top level topics can't end in .txt or .xml for technical reasons. Sorry."
+                    raise ValidationError({'name': error_message})
                 topic_to_save.full_clean()
             except ValidationError as e:
                 for field, error_list in e.message_dict.items():
