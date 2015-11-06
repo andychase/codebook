@@ -2,6 +2,7 @@ from urllib.parse import urlparse
 import bleach
 from django.contrib.auth.decorators import permission_required
 from django.core.exceptions import ValidationError
+from django.core.urlresolvers import reverse
 from django.http import HttpResponse, Http404
 from django.shortcuts import redirect
 from django.db import transaction
@@ -139,7 +140,7 @@ def new_topic(request, topic_path):
             else:
                 topic_to_save.save()
                 revisions.set_user(request.user)
-                return redirect('/topics/{}/'.format("/".join(topic_path + (topic_name,)).lower()))
+                return redirect(reverse('topics:get_topic', args=[topic_to_save.name]))
 
     template = loader.get_template('topics/new_topic.html')
     extra_empty_topic = {'path': topic_path + ("",)}
