@@ -8,20 +8,17 @@ class BadTopicPath(Exception):
     pass
 
 
-topic_name_special_keywords = {'_new', '_edit'}
-special_keywords_error = \
-    'Topic name cannot be any of these: {}'.format(",".join(topic_name_special_keywords))
-
-
-def validate_special_keywords_name(name):
-    if name.lower() in topic_name_special_keywords:
-        raise ValidationError(special_keywords_error)
+def validate_topic_name(name):
+    if len(name) < 1:
+        raise ValidationError('Topic name must be at least 1 character')
+    elif name.lower()[0] == '_':
+        raise ValidationError('Topic name cannot start with an underscore')
 
 
 @revisions.register
 class Topic(models.Model):
-    orig_name = models.CharField(max_length=120, validators=[validate_special_keywords_name])
-    name = models.CharField(max_length=120, blank=True, validators=[validate_special_keywords_name])
+    orig_name = models.CharField(max_length=120, validators=[validate_topic_name])
+    name = models.CharField(max_length=120, blank=True, validators=[validate_topic_name])
     text = models.TextField(blank=True)
     parent = models.ForeignKey('Topic', blank=True, null=True)
     pub_date = models.DateTimeField('date published', default=datetime.now)

@@ -15,6 +15,6 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='topic',
             name='name',
-            field=models.CharField(blank=True, max_length=120, validators=[topics.models.validate_special_keywords_name]),
+            field=models.CharField(blank=True, max_length=120, validators=[topics.models.validate_topic_name]),
         ),
     ]

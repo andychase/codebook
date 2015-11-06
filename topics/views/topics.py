@@ -61,12 +61,12 @@ def get_topic(request, topic_name):
     topic_name = topic_name[:50]
     topic_path = tuple(topic_name.strip("/").split("/"))
 
-    if topic_path[-1] == "new_topic":
+    if topic_path[-1] == "_new":
         short_topic_path = () if len(topic_path) == 1 else topic_path[:-1]
         return new_topic(request, short_topic_path)
 
     is_editing = False
-    if topic_path[-1] == "edit":
+    if topic_path[-1] == "_edit":
         is_editing = True
         topic_path = topic_path[:-1]
 
@@ -116,6 +116,8 @@ def new_topic(request, topic_path):
         if topic_name:
             new_topic = Topic(orig_name=topic_name, parent_id=parent)
             try:
+                if parent is None and topic_name[:-3] in {'.txt', '.xml'}:
+                    raise ValidationError("Top level topics can't end in .txt or .xml for technical reasons. Sorry.")
                 new_topic.full_clean()
             except ValidationError as e:
                 for field, error_list in e.message_dict.items():

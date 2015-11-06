@@ -22,7 +22,7 @@ class Migration(migrations.Migration):
                 ('text', models.TextField(blank=True)),
                 ('orig_name', models.CharField(max_length=120)),
                 ('parent', models.ForeignKey(null=True, blank=True, to='topics.Topic')),
-                ('name', models.CharField(max_length=120, blank=True, validators=[topics.models.validate_special_keywords_name])),
+                ('name', models.CharField(max_length=120, blank=True, validators=[topics.models.validate_topic_name])),
             ],
         ),
         migrations.AlterUniqueTogether(

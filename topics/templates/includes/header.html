@@ -7,7 +7,7 @@
         </div>
         <div class="site-login">
             {% if user.is_authenticated %}
-                <form action="/logout/" method="POST">
+                <form action="/_logout/" method="POST">
                     {% csrf_token %}
                     {% if user.is_staff %}
                         <a href="{% url 'admin:index' %}">Admin</a>

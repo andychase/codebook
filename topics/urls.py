@@ -10,17 +10,17 @@ password_reset_confirm = \
 urlpatterns = [
     url(r'^$', home_about.index, name='index'),
     # User authentication
-    url(r'^login/$', users.login_view, name='login'),
-    url(r'^accounts/login/$', users.login_view, name='login'),
-    url(r'^create_account/$', users.create_account_view, name='create_account'),
-    url(r'^logout/$', users.logout_view, name='logout'),
-    url(r'^password_reset/$', users.password_reset_view, name='password_reset'),
+    url(r'^_login/$', users.login_view, name='login'),
+    url(r'^_accounts/login/$', users.login_view, name='login'),
+    url(r'^_create_account/$', users.create_account_view, name='create_account'),
+    url(r'^_logout/$', users.logout_view, name='logout'),
+    url(r'^_password_reset/$', users.password_reset_view, name='password_reset'),
     url(password_reset_confirm, auth_views.password_reset_confirm, name='password_reset_confirm'),
-    url(r'^password_reset/done/$', auth_views.password_reset_done, name='password_reset_done'),
-    url(r'^reset/done/$', auth_views.password_reset_complete, name='password_reset_complete'),
+    url(r'^_password_reset/done/$', auth_views.password_reset_done, name='password_reset_done'),
+    url(r'^_reset/done/$', auth_views.password_reset_complete, name='password_reset_complete'),
 
     # About
-    url(r'^about/(about|terms|privacy)$', home_about.about, name='about'),
+    url(r'^_about/(about|terms|privacy)$', home_about.about, name='about'),
     # Topics
-    url(r'^topics/(.*)', topics.get_topic, name='get_topic'),
+    url(r'^(.*)', topics.get_topic, name='get_topic'),
 ]

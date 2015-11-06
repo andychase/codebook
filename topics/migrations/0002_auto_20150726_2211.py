@@ -15,6 +15,6 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='topic',
             name='orig_name',
-            field=models.CharField(validators=[topics.models.validate_special_keywords_name], max_length=120),
+            field=models.CharField(validators=[topics.models.validate_topic_name], max_length=120),
         ),
     ]
