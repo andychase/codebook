@@ -6,7 +6,7 @@
             <p>You are already logged in!</p>
         {% else %}
             {% if form.errors %}
-                <p>Your username and password didn't match. Please try again.</p>
+                <p>Your username and password combination was incorrect.<br/> Please try again.</p>
             {% endif %}
             {% if next %}
                 {% if user.is_authenticated %}
