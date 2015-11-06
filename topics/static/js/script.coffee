@@ -21,11 +21,6 @@ link_block = """
     </div>
 
     <textarea class="commentary" placeholder="Commentary"></textarea>
-    <div class="icon mirror">
-        <span class="opinion/yes"></span>
-        <span class="ss-chat"></span>
-        <span class="opinion ss-check"></span>
-    </div>
     <input class="link_url" placeholder="Link title" value="">
     <label>
         <input class="editing-link-url" name="url" placeholder="https://example.org" value="">
