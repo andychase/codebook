@@ -16,13 +16,13 @@
         {% endif %}
     {% endif %}
 
-    <div class="icon {% if "opinion" in link.type %}mirror{% endif %}">
-        <span class="{{ link.type }}"></span>
-        <span class="{{ site.resource_type_to_icon_map | get_item:link.type }}"></span>
-        {% if "opinion" in link.type %}
-            <span class="opinion {{ site.resource_type_to_icon_map_opinion | get_item:link.type }}"></span>
-        {% endif %}
-    </div>
+{#    <div class="icon {% if "opinion" in link.type %}mirror{% endif %}">#}
+{#        <span class="{{ link.type }}"></span>#}
+{#        <span class="{{ site.resource_type_to_icon_map | get_item:link.type }}"></span>#}
+{#        {% if "opinion" in link.type %}#}
+{#            <span class="opinion {{ site.resource_type_to_icon_map_opinion | get_item:link.type }}"></span>#}
+{#        {% endif %}#}
+{#    </div>#}
     {% if editing %}
         <input class="link_url" placeholder="Link title" value="{{ link.title | un_markdownify }}"/>
         <label>
