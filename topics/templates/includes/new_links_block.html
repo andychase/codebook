@@ -4,7 +4,7 @@
         {% for link in site.data.top_links %}
             <li>
                 <a class="newlinks-topic"
-                   href="{{ '/topics/' | add:link.topic | lower }}">
+                   href="{%  url 'topics:get_topic' link.topic|lower %}">
                     {{ link.topic }}
                 </a><br>
 

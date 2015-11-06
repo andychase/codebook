@@ -16,7 +16,7 @@
                     <p>Please login to see this page.</p>
                 {% endif %}
             {% endif %}
-            <form method="post" action="{% url 'login' %}" id="login-form">
+            <form method="post" action="{% url 'topics:login' %}" id="login-form">
                 {% csrf_token %}
                 <div class="form-row">
                     {{ form.username.label_tag }}
@@ -34,7 +34,7 @@
                 {% endif %}
             </form>
 
-            <p><a href="{% url 'password_reset' %}">Lost password?</a></p>
+            <p><a href="{% url 'topics:password_reset' %}">Lost password?</a></p>
         {% endif %}
     </div>
 {% endblock %}

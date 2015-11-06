@@ -4,7 +4,7 @@
         <h2>Create Account</h2>
         {% if user.is_authenticated %}
             <p>You are already logged in!</p>
-            <a href="/logout">Log out</a>
+            <a href="{% url 'topics:logout' %}">Log out</a>
         {% else %}
             <form action="/create_account/" method="post" id="login-form">
                 {% csrf_token %}

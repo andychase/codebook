@@ -10,14 +10,14 @@
                 <form action="/logout/" method="POST">
                     {% csrf_token %}
                     {% if user.is_staff %}
-                        <a href="/admin">Admin</a>
+                        <a href="{% url 'admin:index' %}">Admin</a>
                     {% endif %}
                     <input type="hidden" value="{{ request.path }}" name="next">
                     <input type="submit" value="Log out">
                 </form>
             {% else %}
-                <a href="/create_account">Create account</a>
-                <a href="/login?fromlink=true&next={{ request.path }}">Log in</a>
+                <a href="{% url 'topics:create_account' %}">Create account</a>
+                <a href="{% url 'topics:login' %}?fromlink=true&next={{ request.path }}">Log in</a>
             {% endif %}
         </div>
         <nav class="site-nav {% if editing_topic %}editing-topic{% endif %}">
@@ -25,7 +25,7 @@
                 {% for topic in topics.0 %}
                     {% if topic.name %}
                         <li class="{% if topic.name|lower in nav_active %} active{% endif %}">
-                            <a class="page-link" href="/topics/{{ topic.name|lower }}/">{{ topic.name | title }}</a>
+                            <a class="page-link" href="{% url 'topics:get_topic' topic.name|lower %}/">{{ topic.name | title }}</a>
                         </li>
                     {% endif %}
                 {% endfor %}

@@ -7,7 +7,7 @@
 
                 <td>
                     <a class="post-link"
-                       href="{{ '/topics/' | add:post.title | lower }}">
+                       href="{% url 'topics:get_topic' post.title %}">
                         {{ post.title }}</a>
                 </td>
             </tr>
