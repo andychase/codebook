@@ -1,6 +1,7 @@
 from urllib.parse import urlparse
 import bleach
 from django.contrib.auth.decorators import permission_required
+from django.contrib.sites.shortcuts import get_current_site
 from django.core.exceptions import ValidationError
 from django.core.urlresolvers import reverse
 from django.http import HttpResponse, Http404
@@ -74,24 +75,24 @@ def get_topic(request, topic_name, retry=False):
             topic_path = ("",)
 
     if any(topic_path):
-        topics = list(Topic.get_topics(topic_path))
+        topics = list(Topic.get_topics(get_current_site(request), topic_path))
         topic_id = None
         for topic in topics[-2]:
             if topic['name'].lower() == topic_path[-1].lower():
                 topic_id = topic['id']
     else:
-        topics = [Topic.get_tree_top()]
+        topics = [Topic.get_tree_top(get_current_site(request))]
         try:
-            topic_id = Topic.get_from_path(topic_path, None)['id']
+            topic_id = Topic.get_from_path(get_current_site(request), topic_path, None)['id']
         except BadTopicPath:
             if not retry and topic_path == ('',):
-                Topic(orig_name="", parent_id=None).save()
+                Topic(orig_name="", parent_id=None, site=get_current_site(request)).save()
                 return get_topic(request, '', retry=True)
             else:
                 raise
 
     try:
-        topic = Topic.objects.get(id=topic_id)
+        topic = Topic.get_from_id(topic_id)
     except Topic.DoesNotExist:
         raise Http404("Topic does not exist")
 
@@ -127,9 +128,9 @@ def new_topic(request, topic_path):
         if len(topic_path) == 0:
             parent = None
         else:
-            parent = Topic.get_from_path(topic_path)['id']
+            parent = Topic.get_from_path(get_current_site(request), topic_path)['id']
         if topic_name:
-            topic_to_save = Topic(orig_name=topic_name, parent_id=parent)
+            topic_to_save = Topic(orig_name=topic_name, parent_id=parent, site=get_current_site(request))
             try:
                 if parent is None and topic_name[-4:] in {'.txt', '.xml'}:
                     error_message = "Top level topics can't end in .txt or .xml for technical reasons. Sorry."
@@ -146,7 +147,7 @@ def new_topic(request, topic_path):
     template = loader.get_template('topics/new_topic.html')
     extra_empty_topic = {'path': topic_path + ("",)}
     if any(topic_path):
-        topics = list(Topic.get_topics(topic_path))
+        topics = list(Topic.get_topics(get_current_site(request), topic_path))
         context = RequestContext(request, {
             'topics': topics,
             'nav_active': topic_path,
@@ -157,7 +158,7 @@ def new_topic(request, topic_path):
         })
     else:
         context = RequestContext(request, {
-            'topics': [Topic.get_tree_top()],
+            'topics': [Topic.get_tree_top(get_current_site(request))],
             'new_topic': 'new-topic',
             'extra_empty_topic': extra_empty_topic,
             'error': error,

@@ -24,6 +24,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
     'pipeline',
     'reversion',
     'topics',
@@ -41,6 +42,9 @@ MIDDLEWARE_CLASSES = (
 )
 
 ROOT_URLCONF = 'codebook.urls'
+
+if os.getenv("SITE_ID"):
+    SITE_ID = os.getenv("SITE_ID")
 
 TEMPLATES = [
     {

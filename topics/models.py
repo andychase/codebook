@@ -1,3 +1,4 @@
+from django.contrib.sites.models import Site
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils.datetime_safe import datetime
@@ -16,18 +17,38 @@ def validate_topic_name(name):
 
 
 @revisions.register
+class TopicSite(Site):
+    header = models.CharField(max_length=120)
+    create_date = models.DateTimeField('date created', default=datetime.now)
+
+    def __str__(self):
+        return self.name
+
+    @staticmethod
+    def get_from_name(name):
+        results = Site.objects.values('id', 'name').filter(name=name)
+        for result in results:
+            return result['id']
+
+
+@revisions.register
 class Topic(models.Model):
     orig_name = models.CharField(max_length=120, validators=[validate_topic_name])
     name = models.CharField(max_length=120, blank=True, validators=[validate_topic_name])
     text = models.TextField(blank=True)
+    site = models.ForeignKey(Site)
     parent = models.ForeignKey('Topic', blank=True, null=True)
     pub_date = models.DateTimeField('date published', default=datetime.now)
 
     class Meta:
-        unique_together = (("parent", "name"),)
+        unique_together = (("site", "parent", "name"),)
 
     def __str__(self):
-        return self.full_path()
+        path = self.full_path()
+        if path:
+            return path
+        else:
+            return "<root>"
 
     def clean(self):
         self.name = self.orig_name.lower().replace(" ", "-")
@@ -37,17 +58,21 @@ class Topic(models.Model):
         return parent_path + self.name
 
     @staticmethod
-    def get_from_path(path, parent_id=None):
+    def get_from_id(topic_id):
+        return Topic.objects.get(id=topic_id)
+
+    @staticmethod
+    def get_from_path(site_id, path, parent_id=None):
         if len(path) == 1:
-            results = Topic.objects.values('id', 'name', 'parent')
-            results = results.filter(name__iexact=path[0], parent=parent_id)
+            results = Topic.objects.values('id', 'name', 'parent', 'site')
+            results = results.filter(name__iexact=path[0], parent=parent_id, site=site_id)
             for result in results:
                 return result
         else:
-            results = Topic.objects.values('id', 'name', 'parent')
-            results = results.filter(name__iexact=path[0], parent=parent_id)
+            results = Topic.objects.values('id', 'name', 'parent', 'site')
+            results = results.filter(name__iexact=path[0], parent=parent_id, site=site_id)
             for result in results:
-                return Topic.get_from_path(path[1:], result['id'])
+                return Topic.get_from_path(site_id, path[1:], result['id'])
         raise BadTopicPath
 
     @staticmethod
@@ -55,15 +80,15 @@ class Topic(models.Model):
         return [i for i in Topic.objects.values('id', 'name', 'parent').filter(parent=parent_id)]
 
     @staticmethod
-    def get_tree_top():
-        results = Topic.objects.values('id', 'orig_name', 'name', 'parent')
-        results = results.filter(parent=None)
+    def get_tree_top(site_id):
+        results = Topic.objects.values('id', 'orig_name', 'name', 'parent', 'site')
+        results = results.filter(parent=None, site=site_id)
         return results
 
     @staticmethod
-    def get_topics(path, root=(), past_path=()):
+    def get_topics(site_id, path, root=(), past_path=()):
         if not root:
-            root = Topic.get_tree_top()
+            root = Topic.get_tree_top(site_id)
             yield root
         next_id = False
         for i in root:

@@ -1,5 +1,6 @@
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.sites.shortcuts import get_current_site
 from django.http import HttpResponse, Http404
 from django.contrib.auth import views
 from django.shortcuts import redirect
@@ -21,7 +22,7 @@ def create_account_view(request):
 
     template = loader.get_template('registration/create_account.html')
     context = RequestContext(request, {
-        'topics': [Topic.get_tree_top()],
+        'topics': [Topic.get_tree_top(get_current_site(request))],
         'form': form
     })
     return HttpResponse(template.render(context))
@@ -29,7 +30,7 @@ def create_account_view(request):
 
 def login_view(request):
     extra_context = {
-        'topics': [Topic.get_tree_top()],
+        'topics': [Topic.get_tree_top(get_current_site(request))],
         'next': request.GET.get("next"),
         'fromlink': True if request.GET.get("fromlink") == 'true' else False
     }
@@ -40,7 +41,7 @@ def login_view(request):
 
 def password_reset_view(request):
     extra_context = {
-        'topics': [Topic.get_tree_top()],
+        'topics': [Topic.get_tree_top(get_current_site(request))],
     }
     template_response = views.password_reset(request, extra_context=extra_context)
     return template_response
@@ -48,7 +49,7 @@ def password_reset_view(request):
 
 def password_reset_confirm_view(request):
     extra_context = {
-        'topics': [Topic.get_tree_top()],
+        'topics': [Topic.get_tree_top(get_current_site(request))],
     }
     template_response = views.password_reset(request, extra_context=extra_context)
     return template_response

@@ -1,6 +1,7 @@
 from django.http import HttpResponse
 from django.template import loader, RequestContext
 from django.utils import safestring
+from django.contrib.sites.shortcuts import get_current_site
 import markdown
 from topics.models import Topic
 
@@ -14,7 +15,7 @@ def about(request, info_page_title):
     template = loader.get_template('layouts/page.html')
     context = RequestContext(request, {
         'content': safestring.mark_safe(page_content),
-        'topics': [Topic.get_tree_top()],
+        'topics': [Topic.get_tree_top(get_current_site(request))],
         'title': info_page_title
     })
     return HttpResponse(template.render(context))
