@@ -46,7 +46,7 @@ def markdownify(value):
 
 @register.filter(name='un_markdownify')
 def un_markdownify(value):
-    return safestring.mark_safe(value.replace("\n", "<br>"))
+    return safestring.mark_safe(value)
 
 
 @register.filter(name='get_item')
