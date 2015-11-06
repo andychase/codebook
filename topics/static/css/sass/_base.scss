@@ -57,6 +57,10 @@ ul, ol {
     margin-left: $spacing-unit;
 }
 
+nav > ul {
+    margin-left: 0;
+}
+
 li {
     > ul,
     > ol {
