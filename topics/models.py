@@ -30,7 +30,7 @@ class Topic(models.Model):
         return self.full_path()
 
     def clean(self):
-        self.name = self.orig_name.lower()
+        self.name = self.orig_name.lower().replace(" ", "-")
 
     def full_path(self):
         parent_path = self.parent.full_path() + "/" if self.parent else ""
@@ -56,7 +56,7 @@ class Topic(models.Model):
 
     @staticmethod
     def get_tree_top():
-        results = Topic.objects.values('id', 'name', 'parent')
+        results = Topic.objects.values('id', 'orig_name', 'name', 'parent')
         results = results.filter(parent=None)
         return results
 
