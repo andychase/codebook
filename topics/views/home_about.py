@@ -18,11 +18,3 @@ def about(request, info_page_title):
         'title': info_page_title
     })
     return HttpResponse(template.render(context))
-
-
-def index(request):
-    template = loader.get_template('index.html')
-    context = RequestContext(request, {
-        'topics': [Topic.get_tree_top()]
-    })
-    return HttpResponse(template.render(context))

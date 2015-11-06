@@ -12,7 +12,7 @@ import markdown
 import re
 import json
 import reversion as revisions
-from topics.models import Topic
+from topics.models import Topic, BadTopicPath
 
 www_remover = lambda _, r=re.compile("^www\."): r.sub("", _)
 
@@ -54,7 +54,7 @@ def get_item(dictionary, key):
     return dictionary.get(key)
 
 
-def get_topic(request, topic_name):
+def get_topic(request, topic_name, retry=False):
     if not request.path.endswith("/"):
         return redirect(request.path + "/")
 
@@ -69,12 +69,26 @@ def get_topic(request, topic_name):
     if topic_path[-1] == "_edit":
         is_editing = True
         topic_path = topic_path[:-1]
+        if len(topic_path) == 0:
+            topic_path = ("",)
 
-    topics = list(Topic.get_topics(topic_path))
-    topic_id = None
-    for topic in topics[-2]:
-        if topic['name'].lower() == topic_path[-1].lower():
-            topic_id = topic['id']
+    if any(topic_path):
+        topics = list(Topic.get_topics(topic_path))
+        topic_id = None
+        for topic in topics[-2]:
+            if topic['name'].lower() == topic_path[-1].lower():
+                topic_id = topic['id']
+    else:
+        topics = [Topic.get_tree_top()]
+        try:
+            topic_id = Topic.get_from_path(topic_path, None)['id']
+        except BadTopicPath:
+            if not retry and topic_path == ('',):
+                Topic(orig_name="", parent_id=None).save()
+                return get_topic(request, '', retry=True)
+            else:
+                raise
+
     try:
         topic = Topic.objects.get(id=topic_id)
     except Topic.DoesNotExist:
@@ -114,16 +128,16 @@ def new_topic(request, topic_path):
         else:
             parent = Topic.get_from_path(topic_path)['id']
         if topic_name:
-            new_topic = Topic(orig_name=topic_name, parent_id=parent)
+            topic_to_save = Topic(orig_name=topic_name, parent_id=parent)
             try:
                 if parent is None and topic_name[:-3] in {'.txt', '.xml'}:
                     raise ValidationError("Top level topics can't end in .txt or .xml for technical reasons. Sorry.")
-                new_topic.full_clean()
+                topic_to_save.full_clean()
             except ValidationError as e:
                 for field, error_list in e.message_dict.items():
                     error += "".join(error_list) + " "
             else:
-                new_topic.save()
+                topic_to_save.save()
                 revisions.set_user(request.user)
                 return redirect('/topics/{}/'.format("/".join(topic_path + (topic_name,)).lower()))
 

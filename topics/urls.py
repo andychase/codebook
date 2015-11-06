@@ -8,7 +8,6 @@ password_reset_confirm = \
     "^reset/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$"
 
 urlpatterns = [
-    url(r'^$', home_about.index, name='index'),
     # User authentication
     url(r'^_login/$', users.login_view, name='login'),
     url(r'^_accounts/login/$', users.login_view, name='login'),
