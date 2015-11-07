@@ -177,7 +177,7 @@ def new_topic(request, topic_path):
 @revisions.create_revision()
 def edit_topic(request, topic):
     if request.POST:
-        topic.text = bleach.clean(request.POST.get('text'))
+        topic.text = json.dumps(json.loads(bleach.clean(request.POST.get('text'))))
         topic.save()
         revisions.set_user(request.user)
         return redirect('..')
