@@ -136,6 +136,11 @@ $ ->
         name: 'text'
         value: JSON.stringify(topic_form_to_output_array(topic_page))
       }).appendTo(topic_page)
+      $('<input>').attr({
+        type: 'hidden'
+        name: 'rename_topic_name'
+        value: $('input[name=rename_topic_name]').val()
+      }).appendTo(topic_page)
       topic_order_after = JSON.stringify(topic_order_serialize())
       if topic_order_before != topic_order_after
         $('<input>').attr({

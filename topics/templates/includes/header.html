@@ -23,10 +23,14 @@
         <nav class="site-nav {% if editing_topic %}editing-topic{% endif %}">
             <ul>
                 {% for topic in topics.0 %}{% if topic.orig_name %}<li
-                            class="{% if topic.name|lower in nav_active %} active{% endif %}">
+                            id="{{ topic.name }}" class="{% if topic.name in nav_active %} active{% endif %}">
+                    {% if is_editing and topic.name in nav_active %}
+                        <input class="page-link" name="rename_topic_name"
+                            value="{{ topic.orig_name }}"/>
+                    {% else %}
                         <a class="page-link"
                            href="{% url 'topics:get_topic' topic.name|lower %}/">{{ topic.orig_name }}</a>
-
+                    {% endif %}
                     </li>{% endif %}{% endfor %}
                 {% include 'includes/new_topic_button.html' %}
             </ul>

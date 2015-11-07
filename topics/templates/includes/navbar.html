@@ -4,10 +4,15 @@
             <div class="wrapper">
                 <div class="site-nav {% if editing_topic %}editing-topic{% endif %}">
                     <ul>
-                        {% for topic in subtopic %}<li class="{% if topic.name|lower in nav_active %}active{% endif %}">
-                                <a class="page-link" href="/{{ topic.path | join:"/" | lower }}/">
-                                    {{ topic.orig_name | title }}
-                                </a>
+                        {% for topic in subtopic %}
+                            <li id="{{ topic.name }}" class="{% if topic.name|lower in nav_active %}active{% endif %}">
+                                {% if is_editing and topic.name in nav_active %}
+                                    <input class="page-link"
+                                           value="{{ topic.orig_name }}"/>
+                                {% else %}
+                                    <a class="page-link" name="rename_topic_name"
+                                       href="{% url 'topics:get_topic' topic.name|lower %}/">{{ topic.orig_name }}</a>
+                                {% endif %}
                             </li>{% if forloop.last %}
                             {% include 'includes/new_topic_button.html' with topic=topic %}
                         {% endif %}{% endfor %}
