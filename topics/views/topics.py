@@ -1,8 +1,7 @@
 from urllib.parse import urlparse
 import bleach
-from django.contrib.auth.decorators import permission_required
 from django.contrib.sites.shortcuts import get_current_site
-from django.core.exceptions import ValidationError
+from django.core.exceptions import ValidationError, PermissionDenied
 from django.core.urlresolvers import reverse
 from django.http import HttpResponse, Http404
 from django.shortcuts import redirect
@@ -14,7 +13,8 @@ import markdown
 import re
 import json
 import reversion as revisions
-from topics.models import Topic, BadTopicPath
+from topics.helpers.user_permissions import user_can_edit
+from topics.models import Topic, BadTopicPath, TopicSite
 
 www_remover = lambda _, r=re.compile("^www\."): r.sub("", _)
 
@@ -62,6 +62,7 @@ def get_topic(request, topic_name, retry=False):
 
     topic_name = topic_name[:50]
     topic_path = tuple(topic_name.strip("/").split("/"))
+    topic_path_is_root = (topic_path == ("",))
 
     if topic_path[-1] == "_new":
         short_topic_path = () if len(topic_path) == 1 else topic_path[:-1]
@@ -72,9 +73,10 @@ def get_topic(request, topic_name, retry=False):
         is_editing = True
         topic_path = topic_path[:-1]
         if len(topic_path) == 0:
+            topic_path_is_root = True
             topic_path = ("",)
 
-    if any(topic_path):
+    if not topic_path_is_root:
         topics = list(Topic.get_topics(get_current_site(request), topic_path))
         topic_id = None
         for topic in topics[-2]:
@@ -85,7 +87,7 @@ def get_topic(request, topic_name, retry=False):
         try:
             topic_id = Topic.get_from_path(get_current_site(request), topic_path, None)['id']
         except BadTopicPath:
-            if not retry and topic_path == ('',):
+            if not retry:
                 Topic(orig_name="", parent_id=None, site=get_current_site(request)).save()
                 return get_topic(request, '', retry=True)
             else:
@@ -112,13 +114,16 @@ def get_topic(request, topic_name, retry=False):
         'nav_active': topic_path,
         'is_editing': is_editing,
         'extra_empty_topic': extra_empty_topic,
+        'topic_path_is_root': topic_path_is_root,
         'resources': resources
     })
+    if is_editing and not TopicSite.get_from_request(request).can_user_edit(request.user.id):
+        raise PermissionDenied
 
     return HttpResponse(template.render(context))
 
 
-@permission_required('topics.topic.can_create_topic')
+@user_can_edit
 @transaction.atomic()
 @revisions.create_revision()
 def new_topic(request, topic_path):
@@ -167,7 +172,7 @@ def new_topic(request, topic_path):
     return HttpResponse(template.render(context))
 
 
-@permission_required('topics.topic.can_edit_topic')
+@user_can_edit
 @transaction.atomic()
 @revisions.create_revision()
 def edit_topic(request, topic):

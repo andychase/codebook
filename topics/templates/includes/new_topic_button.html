@@ -1,4 +1,4 @@
-{% if user.is_authenticated %}
+{% if user_can_edit %}
     <li class="new-topic">
         <a href="/{% if topic %}{{ topic.path | join:'/' }}/../{% endif %}_new" class="ss-plus"></a>
     </li>

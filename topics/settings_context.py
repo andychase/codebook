@@ -1,9 +1,9 @@
-from django.contrib.sites.shortcuts import get_current_site
-
 from topics.models import TopicSite
 
 
 def settings_context(request):
+    site = TopicSite.get_from_request(request)
     return {
-        'site': TopicSite.objects.filter(site_ptr_id=get_current_site(request)).first()
+        'site': site,
+        'user_can_edit': site.can_user_edit(request.user.id)
     }

@@ -12,10 +12,13 @@
             {% include 'includes/link.html' with link=resource.link %}
         {% endif %}
     {% endfor %}
-    {% if user.is_authenticated %}
-        <div class="topic-actions">
+    <div class="topic-actions">
+        {% if user_can_edit %}
             <a href="_edit/" class="topic-edit-link ss-write">edit this page</a>
+        {% endif %}
+        {% if not topic_path_is_root and not user_can_edit %}
             <a href="_edit/" class="topic-history-link ss-clock">see page history</a>
-        </div>
-    {% endif %}
+        {% endif %}
+    </div>
+
 {% endblock %}
