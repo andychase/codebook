@@ -48,6 +48,7 @@ class Topic(models.Model):
     name = models.CharField(max_length=120, blank=True, validators=[validate_topic_name])
     text = models.TextField(blank=True)
     site = models.ForeignKey(Site)
+    order = models.IntegerField(default=0)
     parent = models.ForeignKey('Topic', blank=True, null=True)
     pub_date = models.DateTimeField('date published', default=datetime.now)
 
@@ -76,24 +77,25 @@ class Topic(models.Model):
     def get_from_path(site_id, path, parent_id=None):
         if len(path) == 1:
             results = Topic.objects.values('id', 'name', 'parent', 'site')
-            results = results.filter(name__iexact=path[0], parent=parent_id, site=site_id)
+            results = results.filter(name__iexact=path[0], parent=parent_id, site=site_id).order_by("order", "id")
             for result in results:
                 return result
         else:
             results = Topic.objects.values('id', 'name', 'parent', 'site')
-            results = results.filter(name__iexact=path[0], parent=parent_id, site=site_id)
+            results = results.filter(name__iexact=path[0], parent=parent_id, site=site_id).order_by("order", "id")
             for result in results:
                 return Topic.get_from_path(site_id, path[1:], result['id'])
         raise BadTopicPath
 
     @staticmethod
     def get_siblings(parent_id):
-        return [i for i in Topic.objects.values('id', 'orig_name', 'name', 'parent').filter(parent=parent_id)]
+        q = Topic.objects.values('id', 'orig_name', 'name', 'parent').filter(parent=parent_id).order_by("order", "id")
+        return list(q)
 
     @staticmethod
     def get_tree_top(site_id):
         results = Topic.objects.values('id', 'orig_name', 'name', 'parent', 'site')
-        results = results.filter(parent=None, site=site_id)
+        results = results.filter(parent=None, site=site_id).order_by("order", "id")
         return results
 
     @staticmethod
