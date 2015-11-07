@@ -243,3 +243,13 @@
         }
     }
 }
+
+/* Message flashing */
+.warning {
+    color: grey;
+    font-style: italic;
+    font-size: 10pt;
+    i {
+        margin-right: 3px;
+    }
+}
