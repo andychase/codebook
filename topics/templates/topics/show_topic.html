@@ -16,7 +16,7 @@
         {% if user_can_edit %}
             <a href="_edit/" class="topic-edit-link ss-write">edit this page</a>
         {% endif %}
-        {% if not topic_path_is_root and not user_can_edit %}
+        {% if not topic_path_is_root and user_can_edit %}
             <a href="_edit/" class="topic-history-link ss-clock">see page history</a>
         {% endif %}
     </div>
