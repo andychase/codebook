@@ -6,7 +6,7 @@ from django.core.exceptions import ValidationError, PermissionDenied
 from django.core.urlresolvers import reverse
 from django.http import HttpResponse, Http404
 from django.shortcuts import redirect
-from django.db import transaction
+from django.db import transaction, IntegrityError
 from django.template import loader, RequestContext
 from django.template.defaultfilters import register
 from django.utils import safestring
@@ -19,7 +19,7 @@ from topics.models import Topic, BadTopicPath, TopicSite
 
 duplicate_topic_warning = """
 <i class="ss-alert"></i>
-There was an error while re-naming the topic,
+There was an error while renaming or rearranging topics:
 a topic with that name already exists in this category.
 """
 
@@ -48,6 +48,15 @@ def process(input_string):
         return data
     else:
         return []
+
+
+def add_active_to_topic_path(topics, nav_active):
+    for i, active, topic_list in zip(range(1, len(topics)+1), nav_active, topics):
+        for topic in topic_list:
+            if topic['name'] == active:
+                topic['active'] = True
+            if i == len(nav_active):
+                topic['last_nav'] = True
 
 
 @register.filter(name='markdownify')
@@ -116,10 +125,9 @@ def get_topic(request, topic_name, retry=False):
     resources = process(topic.text)
 
     extra_empty_topic = {'path': topic_path + ("",)}
-
+    add_active_to_topic_path(topics, topic_path)
     context = RequestContext(request, {
         'topics': topics,
-        'nav_active': topic_path,
         'is_editing': is_editing,
         'extra_empty_topic': extra_empty_topic,
         'topic_path_is_root': topic_path_is_root,
@@ -168,9 +176,9 @@ def new_topic(request, topic_path):
     extra_empty_topic = {'path': topic_path + ("",)}
     if any(topic_path):
         topics = list(Topic.get_topics(get_current_site(request), topic_path))
+        add_active_to_topic_path(topics, topic_path)
         context = RequestContext(request, {
             'topics': topics,
-            'nav_active': topic_path,
             'new_topic': 'new-topic',
             'extra_empty_topic': extra_empty_topic,
             'error': error,
@@ -187,12 +195,25 @@ def new_topic(request, topic_path):
     return HttpResponse(template.render(context))
 
 
-def handle_topics_sort(topic, topics_sort):
-    pass
+def handle_topics_sort(topic_being_edited, raw_topic_lists):
+    topic_lists = []
+    # Setup
+    for topic_list in raw_topic_lists:
+        topic_id_list = [int(item.replace("topic-", "")) for item in topic_list]
+        topic_object_list = [Topic.get_from_id(item_id) for item_id in topic_id_list]
+        topic_lists.append(topic_object_list)
+    # Set parents of all topics
+    for parent_id, topic_list in zip((None,) + topic_being_edited.full_path_ids(), topic_lists):
+        for topic in topic_list:
+            topic.parent_id = parent_id
+    # Set order of all topics & save
+    for topic_list in topic_lists:
+        for index, topic in enumerate(topic_list):
+            topic.order = index
+            topic.save()
 
 
 @user_can_edit
-@transaction.atomic()
 @revisions.create_revision()
 def edit_topic(request, topic):
     if request.POST:
@@ -203,20 +224,27 @@ def edit_topic(request, topic):
         delete_topic = \
             len(schema) == 0 and topic.name != "" and not any(topics_sort) and not rename_change
 
-        if rename_change:
-            original_name = topic.orig_name
-            topic.orig_name = rename_topic_name
-            try:
-                topic.full_clean()
-            except ValidationError:
-                topic.orig_name = original_name
-                messages.warning(request, duplicate_topic_warning)
+        original_name = topic.orig_name
+        try:
+            with transaction.atomic():
+                if rename_change:
+                    topic.orig_name = rename_topic_name
+                    topic.full_clean()
+                    topic.save()
 
-        if any(topics_sort):
-            handle_topics_sort(topic, topics_sort)
+                if any(topics_sort):
+                    handle_topics_sort(topic, topics_sort)
+                    topic = Topic.get_from_id(topic.id)
+        except (IntegrityError, ValidationError):
+            topic.orig_name = original_name
+            topic.full_clean()
+            messages.warning(request, duplicate_topic_warning)
 
         if delete_topic:
-            url_to_redirect = reverse('topics:get_topic', args=[topic.parent.full_path()])
+            if topic.parent is not None:
+                url_to_redirect = reverse('topics:get_topic', args=[topic.parent.full_path()])
+            else:
+                url_to_redirect = "/"
             topic.delete()
             revisions.set_user(request.user)
             return redirect(url_to_redirect)

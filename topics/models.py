@@ -69,6 +69,12 @@ class Topic(models.Model):
         parent_path = self.parent.full_path() + "/" if self.parent else ""
         return parent_path + self.name
 
+    def full_path_ids(self, child_ids=tuple()):
+        if self.parent:
+            return self.parent.full_path_ids((self.id,)+child_ids)
+        else:
+            return (self.id,)+child_ids
+
     @staticmethod
     def get_from_id(topic_id):
         return Topic.objects.get(id=topic_id)

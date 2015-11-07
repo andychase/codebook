@@ -6,13 +6,13 @@
                     <ul>
                         {% for topic in subtopic %}
                             <li id="topic-{{ topic.id }}"
-                                class="{% if topic.name|lower in nav_active %}active{% endif %}">
-                                {% if is_editing and topic.name in nav_active %}
-                                    <input class="page-link"
+                                class="{% if topic.active %}active{% endif %}">
+                                {% if is_editing and topic.active and topic.last_nav %}
+                                    <input class="page-link" name="rename_topic_name"
                                            value="{{ topic.orig_name }}"/>
                                 {% else %}
-                                    <a class="page-link" name="rename_topic_name"
-                                       href="{% url 'topics:get_topic' topic.name|lower %}/">{{ topic.orig_name }}</a>
+                                    <a class="page-link"
+                                       href="/{{ topic.path|join:"/" }}/">{{ topic.orig_name }}</a>
                                 {% endif %}
                             </li>{% if forloop.last %}
                             {% include 'includes/new_topic_button.html' with topic=topic %}

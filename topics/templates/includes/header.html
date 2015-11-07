@@ -24,8 +24,8 @@
             <ul>
                 {% for topic in topics.0 %}{% if topic.orig_name %}<li
                             id="topic-{{ topic.id }}"
-                            class="{% if topic.name in nav_active %} active{% endif %}">
-                    {% if is_editing and topic.name in nav_active %}
+                            class="{% if topic.active %} active{% endif %}">
+                    {% if is_editing and topic.active and topic.last_nav %}
                         <input class="page-link" name="rename_topic_name"
                             value="{{ topic.orig_name }}"/>
                     {% else %}
