@@ -1,4 +1,5 @@
 from urllib.parse import urlparse
+
 import bleach
 from django.contrib.sites.shortcuts import get_current_site
 from django.core.exceptions import ValidationError, PermissionDenied
@@ -13,6 +14,7 @@ import markdown
 import re
 import json
 import reversion as revisions
+
 from topics.helpers.user_permissions import user_can_edit
 from topics.models import Topic, BadTopicPath, TopicSite
 
@@ -88,8 +90,7 @@ def get_topic(request, topic_name, retry=False):
             topic_id = Topic.get_from_path(get_current_site(request), topic_path, None)['id']
         except BadTopicPath:
             if not retry:
-                Topic(orig_name="", parent_id=None, site=get_current_site(request)).save()
-                return get_topic(request, '', retry=True)
+                return create_top_level(request)
             else:
                 raise
 
@@ -121,6 +122,13 @@ def get_topic(request, topic_name, retry=False):
         raise PermissionDenied
 
     return HttpResponse(template.render(context))
+
+
+@transaction.atomic()
+@revisions.create_revision()
+def create_top_level(request):
+    Topic(orig_name="", parent_id=None, site=get_current_site(request)).save()
+    return get_topic(request, '', retry=True)
 
 
 @user_can_edit
@@ -178,7 +186,7 @@ def new_topic(request, topic_path):
 def edit_topic(request, topic):
     if request.POST:
         schema = json.loads(bleach.clean(request.POST.get('text')))
-        if len(schema) == 0:
+        if len(schema) == 0 and topic.name != "":
             topic.delete()
             revisions.set_user(request.user)
             return redirect('../..')
