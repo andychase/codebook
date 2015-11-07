@@ -177,7 +177,13 @@ def new_topic(request, topic_path):
 @revisions.create_revision()
 def edit_topic(request, topic):
     if request.POST:
-        topic.text = json.dumps(json.loads(bleach.clean(request.POST.get('text'))))
-        topic.save()
-        revisions.set_user(request.user)
-        return redirect('..')
+        schema = json.loads(bleach.clean(request.POST.get('text')))
+        if len(schema) == 0:
+            topic.delete()
+            revisions.set_user(request.user)
+            return redirect('../..')
+        else:
+            topic.text = json.dumps(schema)
+            topic.save()
+            revisions.set_user(request.user)
+            return redirect('..')
