@@ -34,7 +34,7 @@ def login_view(request):
         'next': request.GET.get("next"),
         'fromlink': True if request.GET.get("fromlink") == 'true' else False
     }
-    extra_context.update(settings_context())
+    extra_context.update(settings_context(request))
     template_response = views.login(request, extra_context=extra_context)
     return template_response
 

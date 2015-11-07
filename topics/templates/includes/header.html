@@ -3,7 +3,7 @@
     <div class="wrapper">
         <div class="site-title">
             <img src="{% static "logo.svg" %}" class="site-icon"/>
-            <a href="{{ site.baseurl }}/" class="site-title-text">{{ site.title }}</a>
+            <a href="/" class="site-title-text">{{ site.header }}</a>
         </div>
         <div class="site-login">
             {% if user.is_authenticated %}

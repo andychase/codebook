@@ -1,10 +1,9 @@
-import yaml
+from django.contrib.sites.shortcuts import get_current_site
 
-with open('./topics/config.yml') as f:
-    site = yaml.safe_load(f)
+from topics.models import TopicSite
 
 
-def settings_context(_=None):
+def settings_context(request):
     return {
-        'site': site
+        'site': TopicSite.objects.filter(site_ptr_id=get_current_site(request)).first()
     }

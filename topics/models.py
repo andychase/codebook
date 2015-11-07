@@ -18,7 +18,8 @@ def validate_topic_name(name):
 
 @revisions.register
 class TopicSite(Site):
-    header = models.CharField(max_length=120)
+    header = models.CharField(max_length=120, blank=True)
+    description = models.CharField(max_length=120, blank=True)
     create_date = models.DateTimeField('date created', default=datetime.now)
 
     def __str__(self):
