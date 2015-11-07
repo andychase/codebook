@@ -5,7 +5,8 @@
                 <div class="site-nav {% if editing_topic %}editing-topic{% endif %}">
                     <ul>
                         {% for topic in subtopic %}
-                            <li id="{{ topic.name }}" class="{% if topic.name|lower in nav_active %}active{% endif %}">
+                            <li id="topic-{{ topic.id }}"
+                                class="{% if topic.name|lower in nav_active %}active{% endif %}">
                                 {% if is_editing and topic.name in nav_active %}
                                     <input class="page-link"
                                            value="{{ topic.orig_name }}"/>
