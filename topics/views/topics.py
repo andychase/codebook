@@ -155,7 +155,7 @@ def new_topic(request, topic_path):
             else:
                 topic_to_save.save()
                 revisions.set_user(request.user)
-                return redirect(reverse('topics:get_topic', args=[topic_to_save.name]))
+                return redirect(reverse('topics:get_topic', args=[topic_to_save.full_path()]))
 
     template = loader.get_template('topics/new_topic.html')
     extra_empty_topic = {'path': topic_path + ("",)}
