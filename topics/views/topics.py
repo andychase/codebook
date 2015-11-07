@@ -1,6 +1,6 @@
 from urllib.parse import urlparse
-
 import bleach
+from django.contrib import messages
 from django.contrib.sites.shortcuts import get_current_site
 from django.core.exceptions import ValidationError, PermissionDenied
 from django.core.urlresolvers import reverse
@@ -14,9 +14,14 @@ import markdown
 import re
 import json
 import reversion as revisions
-
 from topics.helpers.user_permissions import user_can_edit
 from topics.models import Topic, BadTopicPath, TopicSite
+
+duplicate_topic_warning = """
+<i class="ss-alert"></i>
+There was an error while re-naming the topic,
+a topic with that name already exists in this category.
+"""
 
 
 def www_remover(input_text, r=re.compile("^www\.")):
@@ -192,16 +197,31 @@ def handle_topics_sort(topic, topics_sort):
 def edit_topic(request, topic):
     if request.POST:
         schema = json.loads(bleach.clean(request.POST.get('text')))
-        topics_sort = list(json.loads(request.POST.get('topics_sort')))
+        topics_sort = list(json.loads(request.POST.get('topics_sort', '[]')))
+        rename_topic_name = request.POST.get('rename_topic_name', '').strip()
+        rename_change = any(rename_topic_name) and rename_topic_name != topic.orig_name
+        delete_topic = \
+            len(schema) == 0 and topic.name != "" and not any(topics_sort) and not rename_change
+
+        if rename_change:
+            original_name = topic.orig_name
+            topic.orig_name = rename_topic_name
+            try:
+                topic.full_clean()
+            except ValidationError:
+                topic.orig_name = original_name
+                messages.warning(request, duplicate_topic_warning)
+
         if any(topics_sort):
             handle_topics_sort(topic, topics_sort)
 
-        if len(schema) == 0 and topic.name != "" and not any(topics_sort):
+        if delete_topic:
+            url_to_redirect = reverse('topics:get_topic', args=[topic.parent.full_path()])
             topic.delete()
             revisions.set_user(request.user)
-            return redirect('../..')
+            return redirect(url_to_redirect)
         else:
             topic.text = json.dumps(schema)
             topic.save()
             revisions.set_user(request.user)
-            return redirect('..')
+            return redirect(reverse('topics:get_topic', args=[topic.full_path()]))
