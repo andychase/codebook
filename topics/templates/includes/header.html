@@ -22,13 +22,12 @@
         </div>
         <nav class="site-nav {% if editing_topic %}editing-topic{% endif %}">
             <ul>
-                {% for topic in topics.0 %}
-                    {% if topic.orig_name %}
-                        <li class="{% if topic.name|lower in nav_active %} active{% endif %}">
-                            <a class="page-link" href="{% url 'topics:get_topic' topic.name|lower %}/">{{ topic.orig_name }}</a>
-                        </li>
-                    {% endif %}
-                {% endfor %}
+                {% for topic in topics.0 %}{% if topic.orig_name %}<li
+                            class="{% if topic.name|lower in nav_active %} active{% endif %}">
+                        <a class="page-link"
+                           href="{% url 'topics:get_topic' topic.name|lower %}/">{{ topic.orig_name }}</a>
+
+                    </li>{% endif %}{% endfor %}
                 {% include 'includes/new_topic_button.html' %}
             </ul>
         </nav>

@@ -41,10 +41,28 @@
 {% block scripts %}
     <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.4/themes/flick/jquery-ui.css"/>
+    <style>
+        .nav-item-placeholder {
+            height: 15px;
+            width: 80px;
+            overflow: hidden;
+            border: 1px dotted black;
+            border-top-left-radius: 5px;
+            border-top-right-radius: 5px;
+        }
+    </style>
     <script>
         $(function () {
+            $(".site-nav > ul").sortable({
+                connectWith: ".site-nav ul",
+                tolerance: "pointer",
+                placeholder: "nav-item-placeholder",
+                cancel: '.active, .new-topic',
+                cursorAt: {top:10, left: 20}
+            });
+
+
             $(".column").sortable({
-                connectWith: ".column",
                 handle: ".portlet-header",
                 cancel: ".portlet-toggle",
                 placeholder: "portlet-placeholder ui-corner-all"

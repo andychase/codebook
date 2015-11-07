@@ -88,7 +88,7 @@ class Topic(models.Model):
 
     @staticmethod
     def get_siblings(parent_id):
-        return [i for i in Topic.objects.values('id', 'name', 'parent').filter(parent=parent_id)]
+        return [i for i in Topic.objects.values('id', 'orig_name', 'name', 'parent').filter(parent=parent_id)]
 
     @staticmethod
     def get_tree_top(site_id):
