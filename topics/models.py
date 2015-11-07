@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from django.contrib.sites.models import Site
 from django.core.exceptions import ValidationError
 from django.db import models
@@ -20,7 +21,9 @@ def validate_topic_name(name):
 class TopicSite(Site):
     header = models.CharField(max_length=120, blank=True)
     description = models.CharField(max_length=120, blank=True)
+    allow_anonymous_edits = models.BooleanField(default=True)
     create_date = models.DateTimeField('date created', default=datetime.now)
+    users = models.ManyToManyField(User)
 
     def __str__(self):
         return self.name
