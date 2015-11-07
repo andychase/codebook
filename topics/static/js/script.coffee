@@ -86,6 +86,16 @@ topic_form_to_output_array = (topic_page) ->
       output.push({link: link_block_to_text($(child))})
   output
 
+topic_order_serialize = () ->
+  output = []
+  $(".site-nav > ul").each ->
+    nav_output = []
+    $(this).children("li").each ->
+      if ($(this).attr('id'))
+        nav_output.push($(this).attr('id'))
+    output.push(nav_output)
+  output
+
 setupButtons = (topic_page_form) ->
   controlBar = $(topic_page_form).children('.edit-topic-add-element')
   elementBuilder = (block) ->
@@ -119,12 +129,20 @@ $ ->
   topic_page = topic_page_form.children('div').first()
   if topic_page.length
     setupButtons(topic_page_form)
-    topic_page_form.submit (e) ->
+    topic_order_before = JSON.stringify(topic_order_serialize())
+    topic_page_form.submit () ->
       $('<input>').attr({
         type: 'hidden'
         name: 'text'
         value: JSON.stringify(topic_form_to_output_array(topic_page))
       }).appendTo(topic_page)
+      topic_order_after = JSON.stringify(topic_order_serialize())
+      if topic_order_before != topic_order_after
+        $('<input>').attr({
+          type: 'hidden'
+          name: 'topics_sort'
+          value: topic_order_after
+        }).appendTo(topic_page)
 
     # Prevent Enter Submit
     topic_page_form.find('input').on 'keyup keypress', (e) ->

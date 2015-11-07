@@ -18,7 +18,9 @@ import reversion as revisions
 from topics.helpers.user_permissions import user_can_edit
 from topics.models import Topic, BadTopicPath, TopicSite
 
-www_remover = lambda _, r=re.compile("^www\."): r.sub("", _)
+
+def www_remover(input_text, r=re.compile("^www\.")):
+    return r.sub("", input_text)
 
 
 def url_handler(url):
@@ -180,13 +182,21 @@ def new_topic(request, topic_path):
     return HttpResponse(template.render(context))
 
 
+def handle_topics_sort(topic, topics_sort):
+    pass
+
+
 @user_can_edit
 @transaction.atomic()
 @revisions.create_revision()
 def edit_topic(request, topic):
     if request.POST:
         schema = json.loads(bleach.clean(request.POST.get('text')))
-        if len(schema) == 0 and topic.name != "":
+        topics_sort = list(json.loads(request.POST.get('topics_sort')))
+        if any(topics_sort):
+            handle_topics_sort(topic, topics_sort)
+
+        if len(schema) == 0 and topic.name != "" and not any(topics_sort):
             topic.delete()
             revisions.set_user(request.user)
             return redirect('../..')
