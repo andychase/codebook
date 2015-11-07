@@ -112,4 +112,4 @@ class Topic(models.Model):
             part['path'] = past_path + (path[0],) + (part['name'],)
         yield next_part
         if len(path) > 1:
-            yield from Topic.get_topics(path[1:], next_part, past_path + path[:1])
+            yield from Topic.get_topics(site_id, path[1:], next_part, past_path + path[:1])
