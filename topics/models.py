@@ -75,6 +75,9 @@ class Topic(models.Model):
         else:
             return (self.id,)+child_ids
 
+    def any_children(self):
+        return Topic.objects.filter(parent=self.id).count() > 0
+
     @staticmethod
     def get_from_id(topic_id):
         return Topic.objects.get(id=topic_id)

@@ -51,7 +51,7 @@ def process(input_string):
 
 
 def add_active_to_topic_path(topics, nav_active):
-    for i, active, topic_list in zip(range(1, len(topics)+1), nav_active, topics):
+    for i, active, topic_list in zip(range(1, len(topics) + 1), nav_active, topics):
         for topic in topic_list:
             if topic['name'] == active:
                 topic['active'] = True
@@ -222,7 +222,8 @@ def edit_topic(request, topic):
         rename_topic_name = request.POST.get('rename_topic_name', '').strip()
         rename_change = any(rename_topic_name) and rename_topic_name != topic.orig_name
         delete_topic = \
-            len(schema) == 0 and topic.name != "" and not any(topics_sort) and not rename_change
+            len(schema) == 0 and topic.name != "" and not any(topics_sort) \
+            and not rename_change and not topic.any_children()
 
         original_name = topic.orig_name
         try:
