@@ -14,6 +14,8 @@ import markdown
 import re
 import json
 import reversion as revisions
+
+from siter.views import site_not_found
 from topics.helpers.user_permissions import user_can_edit
 from topics.models import Topic, BadTopicPath, TopicSite
 
@@ -75,6 +77,8 @@ def get_item(dictionary, key):
 
 
 def get_topic(request, topic_name, retry=False):
+    if TopicSite.get_from_request(request) is None:
+        return site_not_found(request, topic_name)
     if not request.path.endswith("/"):
         return redirect(request.path + "/")
 

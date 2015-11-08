@@ -1,6 +1,7 @@
 from django.contrib.auth.models import User
-from django.contrib.sites.models import Site, get_current_site
-from django.core.exceptions import ValidationError
+from django.contrib.sites.models import Site
+from django.contrib.sites.shortcuts import get_current_site
+from django.core.exceptions import ValidationError, ObjectDoesNotExist
 from django.db import models
 from django.utils.datetime_safe import datetime
 import reversion as revisions
@@ -36,7 +37,10 @@ class TopicSite(Site):
 
     @staticmethod
     def get_from_request(request):
-        return TopicSite.objects.filter(site_ptr_id=get_current_site(request)).first()
+        try:
+            return TopicSite.objects.filter(site_ptr_id=get_current_site(request)).first()
+        except ObjectDoesNotExist:
+            return None
 
     def can_user_edit(self, user_id):
         return self.allow_anonymous_edits or self.users.filter(id=user_id).count() > 0
