@@ -31,7 +31,7 @@ def create_account_view(request, topics):
             form.save()
             user = authenticate(username=form.data['username'], password=form.data['password1'])
             login(request, user)
-            return redirect('index')
+            return redirect('')
     else:
         form = UserCreationForm()
 
