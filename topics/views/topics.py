@@ -173,7 +173,8 @@ def new_topic(request, topic_path):
                     error += "".join(error_list) + " "
             else:
                 topic_to_save.save()
-                revisions.set_user(request.user)
+                if not request.user.is_anonymous():
+                    revisions.set_user(request.user)
                 return redirect(reverse('topics:get_topic', args=[topic_to_save.full_path()]))
 
     template = loader.get_template('topics/new_topic.html')
@@ -251,10 +252,12 @@ def edit_topic(request, topic):
             else:
                 url_to_redirect = "/"
             topic.delete()
-            revisions.set_user(request.user)
+            if not request.user.is_anonymous():
+                revisions.set_user(request.user)
             return redirect(url_to_redirect)
         else:
             topic.text = json.dumps(schema)
             topic.save()
-            revisions.set_user(request.user)
+            if not request.user.is_anonymous():
+                revisions.set_user(request.user)
             return redirect(reverse('topics:get_topic', args=[topic.full_path()]))
