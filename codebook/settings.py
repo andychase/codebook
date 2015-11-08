@@ -28,6 +28,7 @@ INSTALLED_APPS = (
     'pipeline',
     'reversion',
     'topics',
+    'siter',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -124,6 +125,12 @@ PIPELINE_CSS = {
             'css/main.scss',
         ),
         'output_filename': 'css/style.css',
+    },
+    'siter': {
+        'source_filenames': (
+            'css/siter.scss',
+        ),
+        'output_filename': 'css/siter.css',
     },
 }
 
