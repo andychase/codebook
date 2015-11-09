@@ -1,4 +1,5 @@
-{% extends 'layouts/topic.html' %}
+{% extends "layouts/default.html" %}
+{% block extra_page_classes %}topic-view {% endblock %}
 {% block content %}
     {% for resource in resources %}
         {% if resource.section %}

@@ -1,4 +1,5 @@
-{% extends 'layouts/topic.html' %}
+{% extends "layouts/default.html" %}
+{% block extra_page_classes %}topic-view {% if is_editing %}topic-edit{% endif %}{% endblock %}
 {% block content %}
     <form action="" method="post" id="topic-edit-form">
         {% csrf_token %}
@@ -58,7 +59,7 @@
                 tolerance: "pointer",
                 placeholder: "nav-item-placeholder",
                 cancel: '.active, .new-topic',
-                cursorAt: {top:10, left: 20}
+                cursorAt: {top: 10, left: 20}
             });
 
 

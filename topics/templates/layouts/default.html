@@ -9,14 +9,19 @@
 
 {% include 'includes/navbar.html' %}
 
-<div class="page-content">
+<div class="page-content {% block extra_page_classes %}{% endblock %}">
     <div class="wrapper">
+        {% for message in messages %}
+            <div class="warning">
+                {{ message | safe }}
+            </div>
+        {% endfor %}
         {% block content %}{% endblock %}
     </div>
 </div>
 
 {% include 'includes/footer.html' %}
-
+{% block scripts %}{% endblock %}
 </body>
 
 </html>
