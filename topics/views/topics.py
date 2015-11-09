@@ -82,7 +82,7 @@ def get_topic(request, topic_name, retry=False):
     if not request.path.endswith("/"):
         return redirect(request.path + "/")
 
-    topic_name = topic_name[:50]
+    topic_name = topic_name[:2000]
     topic_path = tuple(topic_name.strip("/").split("/"))
     topic_path_is_root = (topic_path == ("",))
 

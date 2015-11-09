@@ -143,7 +143,7 @@ class Topic(models.Model):
             yield root
         next_id = False
         for i in root:
-            if i['name'].lower() == path[0].lower():
+            if i['name'] == path[0]:
                 next_id = i['id']
         if not next_id:
             raise BadTopicPath
