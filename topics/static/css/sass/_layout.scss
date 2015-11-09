@@ -69,6 +69,7 @@
             height: 27px;
             overflow: hidden;
             vertical-align: bottom;
+            box-shadow: 0 -1px rgba(0, 0, 0, 0.04) inset;
             &.ui-sortable-helper {
                 box-shadow: 0 5px 17px -4px rgba(0, 0, 0, 0.22);
                 max-height: 27px !important;
