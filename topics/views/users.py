@@ -7,9 +7,9 @@ from django.contrib.auth import views
 from django.shortcuts import redirect
 from django.template import loader, RequestContext
 
-from siter.views import site_not_found
 from topics.models import Topic
 from topics.settings_context import settings_context
+from topics.views.home_about import site_not_found
 
 
 def catch_site_not_found(func):
