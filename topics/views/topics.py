@@ -14,9 +14,9 @@ import markdown
 import re
 import json
 import reversion as revisions
-
+from reddit_cssfilter import cssfilter
 from topics.helpers.user_permissions import user_can_edit
-from topics.models import Topic, BadTopicPath, TopicSite
+from topics.models import Topic, BadTopicPath, TopicSite, TopicSiteData
 from topics.views.home_about import site_not_found
 
 duplicate_topic_warning = """
@@ -218,10 +218,23 @@ def handle_topics_sort(topic_being_edited, raw_topic_lists):
             topic.save()
 
 
+def edit_root_topic(request):
+    css_style = request.POST.get('css_style')
+    if css_style:
+        stylesheet, errors = cssfilter.validate_css(css_style, [])
+        if errors:
+            for error in errors:
+                messages.warning(request, error.message_key % error.message_params)
+        else:
+            TopicSiteData.update_css_style(get_current_site(request).id, stylesheet)
+
+
 @user_can_edit
 @revisions.create_revision()
 def edit_topic(request, topic):
     if request.POST:
+        if topic.name == "" and TopicSite.get_from_request(request).is_user_admin(request.user):
+            edit_root_topic(request)
         schema = json.loads(bleach.clean(request.POST.get('text')))
         topics_sort = list(json.loads(request.POST.get('topics_sort', '[]')))
         rename_topic_name = request.POST.get('rename_topic_name', '').strip()

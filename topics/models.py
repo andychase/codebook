@@ -25,6 +25,7 @@ class TopicSite(Site):
     allow_anonymous_edits = models.BooleanField(default=True)
     create_date = models.DateTimeField('date created', default=datetime.now)
     users = models.ManyToManyField(User)
+    admin = models.ForeignKey(User, null=True, blank=True, related_name="admin_user")
 
     def __str__(self):
         return self.name
@@ -44,6 +45,30 @@ class TopicSite(Site):
 
     def can_user_edit(self, user_id):
         return self.allow_anonymous_edits or self.users.filter(id=user_id).count() > 0
+
+    def is_user_admin(self, user):
+        return self.admin == user
+
+
+class TopicSiteData(Site):
+    css_style = models.TextField(blank=True)
+
+    @classmethod
+    def get_css_style(cls, site_id):
+        site = cls.objects.filter(site_ptr_id=site_id).values('css_style').first()
+        if site:
+            return site['css_style']
+        else:
+            return ""
+
+    @classmethod
+    def update_css_style(cls, site_id, stylesheet):
+        site = cls.objects.filter(site_ptr_id=site_id).first()
+        if site:
+            site.css_style = stylesheet
+            site.save()
+        else:
+            cls(site_ptr_id=site_id, css_style=stylesheet).save()
 
 
 @revisions.register
@@ -75,9 +100,9 @@ class Topic(models.Model):
 
     def full_path_ids(self, child_ids=tuple()):
         if self.parent:
-            return self.parent.full_path_ids((self.id,)+child_ids)
+            return self.parent.full_path_ids((self.id,) + child_ids)
         else:
-            return (self.id,)+child_ids
+            return (self.id,) + child_ids
 
     def any_children(self):
         return Topic.objects.filter(parent=self.id).count() > 0

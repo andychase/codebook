@@ -132,3 +132,20 @@
         text-align: center;
     }
 }
+
+.site-settings {
+    border-top: 1px dashed grey;
+    border-bottom: 1px dashed grey;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    h3 {
+        font-family: monospace;
+        text-align: center;
+    }
+
+    textarea {
+        width: 100%;
+        font-family: monospace;
+    }
+
+}

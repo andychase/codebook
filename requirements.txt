@@ -12,3 +12,4 @@ PyYAML
 python-dateutil
 django-postgrespool
 bleach
+reddit-cssfilter
