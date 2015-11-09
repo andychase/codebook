@@ -15,9 +15,9 @@ import re
 import json
 import reversion as revisions
 
-from siter.views import site_not_found
 from topics.helpers.user_permissions import user_can_edit
 from topics.models import Topic, BadTopicPath, TopicSite
+from topics.views.home_about import site_not_found
 
 duplicate_topic_warning = """
 <i class="ss-alert"></i>

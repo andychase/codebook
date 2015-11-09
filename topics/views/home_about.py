@@ -19,3 +19,11 @@ def about(request, info_page_title):
         'title': info_page_title
     })
     return HttpResponse(template.render(context))
+
+
+def site_not_found(request, path):
+    template = loader.get_template('topics/site_not_found.html')
+    context = RequestContext(request, {
+        'path': path
+    })
+    return HttpResponse(template.render(context))
