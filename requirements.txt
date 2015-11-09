@@ -1,7 +1,6 @@
 dj-database-url
 whitenoise
 Django
-django-debug-toolbar
 django-pipeline
 django-reversion
 gunicorn
