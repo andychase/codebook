@@ -75,6 +75,7 @@ class TopicSiteData(Site):
 class Topic(models.Model):
     orig_name = models.CharField(max_length=120, validators=[validate_topic_name])
     name = models.CharField(max_length=120, blank=True, validators=[validate_topic_name])
+    active = models.BooleanField(default=True)
     text = models.TextField(blank=True)
     site = models.ForeignKey(Site)
     order = models.IntegerField(default=0)
@@ -91,8 +92,12 @@ class Topic(models.Model):
         else:
             return "<root>"
 
+    @staticmethod
+    def clean_name(orig_name):
+        return orig_name.lower().replace(" ", "-")
+
     def clean(self):
-        self.name = self.orig_name.lower().replace(" ", "-")
+        self.name = self.clean_name(self.orig_name)
 
     def full_path(self):
         parent_path = self.parent.full_path() + "/" if self.parent else ""
@@ -105,35 +110,50 @@ class Topic(models.Model):
             return (self.id,) + child_ids
 
     def any_children(self):
-        return Topic.objects.filter(parent=self.id).count() > 0
+        return Topic.objects.filter(parent=self.id, active=True).count() > 0
 
     @staticmethod
     def get_from_id(topic_id):
         return Topic.objects.get(id=topic_id)
 
+    @classmethod
+    def get_deleted(cls, orig_name, parent_id, site):
+        return Topic.objects.filter(name=cls.clean_name(orig_name), parent_id=parent_id, site_id=site.id, active=False)
+
     @staticmethod
     def get_from_path(site_id, path, parent_id=None):
         if len(path) == 1:
             results = Topic.objects.values('id', 'name', 'parent', 'site')
-            results = results.filter(name__iexact=path[0], parent=parent_id, site=site_id).order_by("order", "id")
+            results = results.filter(
+                name__iexact=path[0],
+                parent=parent_id,
+                site=site_id,
+                active=True
+            ).order_by("order", "id")
             for result in results:
                 return result
         else:
             results = Topic.objects.values('id', 'name', 'parent', 'site')
-            results = results.filter(name__iexact=path[0], parent=parent_id, site=site_id).order_by("order", "id")
+            results = results.filter(
+                name__iexact=path[0],
+                parent=parent_id,
+                site=site_id,
+                active=True
+            ).order_by("order", "id")
             for result in results:
                 return Topic.get_from_path(site_id, path[1:], result['id'])
         raise BadTopicPath
 
     @staticmethod
     def get_siblings(parent_id):
-        q = Topic.objects.values('id', 'orig_name', 'name', 'parent').filter(parent=parent_id).order_by("order", "id")
-        return list(q)
+        results = Topic.objects.values('id', 'orig_name', 'name', 'parent')
+        results = results.filter(parent=parent_id, active=True).order_by("order", "id")
+        return list(results)
 
     @staticmethod
     def get_tree_top(site_id):
         results = Topic.objects.values('id', 'orig_name', 'name', 'parent', 'site')
-        results = results.filter(parent=None, site=site_id).order_by("order", "id")
+        results = results.filter(parent=None, active=True, site=site_id).order_by("order", "id")
         return results
 
     @staticmethod

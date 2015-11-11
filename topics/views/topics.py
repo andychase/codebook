@@ -162,7 +162,13 @@ def new_topic(request, topic_path):
         else:
             parent = Topic.get_from_path(get_current_site(request), topic_path)['id']
         if topic_name:
-            topic_to_save = Topic(orig_name=topic_name, parent_id=parent, site=get_current_site(request))
+            deleted_topic = Topic.get_deleted(orig_name=topic_name, parent_id=parent, site=get_current_site(request))
+            if any(deleted_topic):
+                topic_to_save = deleted_topic.first()
+                topic_to_save.active = True
+                messages.warning(request, "A previously deleted topic was restored.")
+            else:
+                topic_to_save = Topic(orig_name=topic_name, parent_id=parent, site=get_current_site(request))
             try:
                 if parent is None and topic_name[-4:] in {'.txt', '.xml'}:
                     error_message = "Top level topics can't end in .txt or .xml for technical reasons. Sorry."
@@ -264,7 +270,8 @@ def edit_topic(request, topic):
                 url_to_redirect = reverse('topics:get_topic', args=[topic.parent.full_path()])
             else:
                 url_to_redirect = "/"
-            topic.delete()
+            topic.active = False
+            topic.save()
             if not request.user.is_anonymous():
                 revisions.set_user(request.user)
             return redirect(url_to_redirect)
