@@ -121,7 +121,7 @@ add_new_link_buttons = (topic_page) ->
     add_new_button_to(this)
 
 sizeTextArea = ->
-  this.style.height = 0;
+  this.style.height = (this.scrollHeight - (this.scrollHeight % 30)) + 'px';
   this.style.height = (this.scrollHeight + 10) + 'px'
 
 $ ->
@@ -159,4 +159,3 @@ $ ->
     # Size textareas automatically
     $('textarea').each(sizeTextArea)
     $('textarea').on('keyup', sizeTextArea)
-
