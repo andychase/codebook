@@ -2,7 +2,11 @@
 <header class="site-header">
     <div class="wrapper">
         <div class="site-title">
-            <img src="{% static "logo.svg" %}" class="site-icon"/>
+            {% if site_logo == "logos/snc.svg" %}
+                <img src="{% static site_logo %}" style="width: 60px" class="site-icon"/>
+            {% else %}
+                <img src="{% static site_logo %}" class="site-icon"/>
+            {% endif %}
             <a href="/" class="site-title-text">{{ site.header }}</a>
         </div>
         <div class="site-login">
