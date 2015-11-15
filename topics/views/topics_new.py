@@ -7,16 +7,10 @@ from django.db import transaction
 from django.http import HttpResponse
 from django.shortcuts import redirect
 from django.template import loader, RequestContext
-
+from topics.helpers import view_helpers
 from topics.helpers.user_permissions import user_can_edit
 from topics.helpers.view_helpers import add_active_to_topic_path
 from topics.models import Topic
-
-
-@transaction.atomic()
-@revisions.create_revision()
-def create_top_level(request):
-    Topic(orig_name="", parent_id=None, site=get_current_site(request)).save()
 
 
 def create_new_topic(request, topic_path):
@@ -53,7 +47,11 @@ def create_new_topic(request, topic_path):
 @user_can_edit
 @transaction.atomic()
 @revisions.create_revision()
-def new_topic(request, topic_path):
+def new_topic(request, topic_name):
+    topic_path, topic_path_is_root = view_helpers.topic_name_to_path(topic_name)
+    if topic_path_is_root:
+        topic_path = tuple()
+
     error = ""
     if request.POST:
         error, result = create_new_topic(request, topic_path)

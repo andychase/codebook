@@ -2,6 +2,7 @@ from django.conf.urls import url
 from django.contrib.auth import views as auth_views
 from .views import users
 from .views import topics
+from .views import topics_new
 from .views import home_about
 
 password_reset_confirm = \
@@ -21,5 +22,8 @@ urlpatterns = [
     # About
     url(r'^_about/(about|terms|privacy)$', home_about.about, name='about'),
     # Topics
+    url(r'^(.*)_new/$', topics_new.new_topic, name='new_topic'),
+    # url(r'^(.*)/_edit/$', topics.get_topic, name='edit_topic'),
+    # url(r'^(.*)/_history/$', topics.get_topic, name='history_topic'),
     url(r'^(.*)', topics.get_topic, name='get_topic'),
 ]

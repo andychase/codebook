@@ -61,3 +61,10 @@ def add_active_to_topic_path(topics, nav_active):
                 topic['active'] = True
             if i == len(nav_active):
                 topic['last_nav'] = True
+
+
+def topic_name_to_path(topic_name):
+    topic_name = topic_name[:2000]
+    topic_path = tuple(topic_name.strip("/").split("/"))
+    topic_path_is_root = (topic_path == ("",))
+    return topic_path, topic_path_is_root

@@ -1,32 +1,28 @@
 import reversion as revisions
 from django.contrib.sites.shortcuts import get_current_site
 from django.core.exceptions import PermissionDenied
+from django.db import transaction
 from django.http import HttpResponse, Http404
 from django.shortcuts import redirect
 from django.template import loader, RequestContext
-
 from topics.helpers import view_helpers
 from topics.models import Topic, BadTopicPath, TopicSite
-from topics.views.home_about import site_not_found
 from topics.views.topics_edit import edit_topic
-from topics.views.topics_new import create_top_level, new_topic
 
 view_helpers.setup()
 
 
+@transaction.atomic()
+@revisions.create_revision()
+def create_top_level(request):
+    Topic(orig_name="", parent_id=None, site=get_current_site(request)).save()
+
+
 def get_topic(request, topic_name, retry=False):
-    if TopicSite.get_from_request(request) is None:
-        return site_not_found(request, topic_name)
+    topic_path, topic_path_is_root = view_helpers.topic_name_to_path(topic_name)
+
     if not request.path.endswith("/"):
         return redirect(request.path + "/")
-
-    topic_name = topic_name[:2000]
-    topic_path = tuple(topic_name.strip("/").split("/"))
-    topic_path_is_root = (topic_path == ("",))
-
-    if topic_path[-1] == "_new":
-        short_topic_path = () if len(topic_path) == 1 else topic_path[:-1]
-        return new_topic(request, short_topic_path)
 
     is_editing = False
     is_history = False
