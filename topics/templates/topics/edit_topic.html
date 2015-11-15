@@ -34,14 +34,6 @@
                 <li><i title="Add a link block" class="ss-link link"></i></li>
             </ul>
         </nav>
-        {% if topic_path_is_root and user_is_admin %}
-            <section class="site-settings">
-                <h3>Site settings</h3>
-                <label>
-                    <textarea name="css_style" class="css-style">{{ site.css }}</textarea>
-                </label>
-            </section>
-        {% endif %}
         <div class="save-topic-container">
             <input type="submit" value="Save this page" class="topic-edit-link" id="save-topic-page-button">
         </div>

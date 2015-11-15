@@ -1,17 +1,16 @@
 import json
+
 import bleach
 import reversion as revisions
 from django.contrib import messages
-from django.contrib.sites.shortcuts import get_current_site
 from django.core.exceptions import ValidationError
 from django.core.urlresolvers import reverse
 from django.db import transaction, IntegrityError
 from django.shortcuts import redirect
-from reddit_cssfilter import cssfilter
 
 from topics.helpers import view_helpers
 from topics.helpers.user_permissions import user_can_edit
-from topics.models import Topic, TopicSite, TopicSiteData
+from topics.models import Topic
 
 
 def handle_topics_sort(topic_being_edited, raw_topic_lists):
@@ -32,23 +31,10 @@ def handle_topics_sort(topic_being_edited, raw_topic_lists):
             topic.save()
 
 
-def edit_root_topic(request):
-    css_style = request.POST.get('css_style')
-    if css_style:
-        stylesheet, errors = cssfilter.validate_css(css_style, [])
-        if errors:
-            for error in errors:
-                messages.warning(request, error.message_key % error.message_params)
-        else:
-            TopicSiteData.update_css_style(get_current_site(request).id, stylesheet)
-
-
 @user_can_edit
 @revisions.create_revision()
 def edit_topic(request, topic):
     if request.POST:
-        if topic.name == "" and TopicSite.get_from_request(request).is_user_admin(request.user):
-            edit_root_topic(request)
         schema = json.loads(bleach.clean(request.POST.get('text')))
         topics_sort = list(json.loads(request.POST.get('topics_sort', '[]')))
         rename_topic_name = request.POST.get('rename_topic_name', '').strip()
