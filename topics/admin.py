@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Topic, Site, TopicSite
+from .models import Topic, Site, TopicSite, TopicSiteData
 import reversion
 
 
@@ -9,3 +9,4 @@ class TopicAdmin(reversion.VersionAdmin):
 
 admin.site.register(Topic, TopicAdmin)
 admin.site.register(TopicSite)
+admin.site.register(TopicSiteData)
