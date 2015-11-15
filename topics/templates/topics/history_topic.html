@@ -1,9 +1,17 @@
 {% extends "layouts/default.html" %}
-{% block extra_page_classes %}topic-view {% endblock %}
+{% block extra_page_classes %}topic-view history-view{% endblock %}
 {% block content %}
-    {% for history in is_history %}
-        {{ history.field_dict }}
+    <table>
+    <tbody>
+    {% for version in is_history %}
+        <tr>
+        <td>{{ version.revision.user.username }}</td>
+        <td><a href="{{ version.revision.id }}/">{{ version.revision.date_created }}</a></td>
+        <td><a href="../_edit/{{ version.revision.id }}/"><i class="ss-refresh"></i>Revert to this version</a></td>
+        </tr>
     {% endfor %}
+    </tbody>
+    </table>
     <div class="topic-actions">
         {% if user_can_edit %}
             <a href="_edit/" class="topic-edit-link ss-write">edit this page</a>

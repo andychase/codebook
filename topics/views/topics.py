@@ -26,6 +26,7 @@ def get_topic(request, topic_name, retry=False):
 
     is_editing = False
     is_history = False
+    historical_version = None
     if topic_path[-1] == "_edit":
         is_editing = True
         topic_path = topic_path[:-1]
@@ -36,6 +37,12 @@ def get_topic(request, topic_name, retry=False):
     if topic_path[-1] == "_history":
         is_history = True
         topic_path = topic_path[:-1]
+        if len(topic_path) == 0:
+            topic_path_is_root = True
+            topic_path = ("",)
+    elif len(topic_path) > 2 and topic_path[-2] == "_history":
+        historical_version = int(topic_path[-1])
+        topic_path = topic_path[:-2]
         if len(topic_path) == 0:
             topic_path_is_root = True
             topic_path = ("",)
@@ -59,6 +66,12 @@ def get_topic(request, topic_name, retry=False):
 
     try:
         topic = Topic.get_from_id(topic_id)
+        if historical_version is not None:
+            version = revisions.get_for_object(topic).filter(revision_id=historical_version).first()
+            version = version.field_dict
+            version['site_id'] = version['site']
+            del version['site']
+            topic = Topic(**version)
     except Topic.DoesNotExist:
         raise Http404("Topic does not exist")
 
@@ -80,6 +93,7 @@ def get_topic(request, topic_name, retry=False):
         'topics': topics,
         'is_editing': is_editing,
         'is_history': is_history,
+        'historical_version': historical_version,
         'extra_empty_topic': extra_empty_topic,
         'topic_path_is_root': topic_path_is_root,
         'resources': resources

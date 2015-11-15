@@ -14,11 +14,13 @@
         {% endif %}
     {% endfor %}
     <div class="topic-actions">
-        {% if user_can_edit %}
-            <a href="_edit/" class="topic-edit-link ss-write">edit this page</a>
-        {% endif %}
-        {% if not topic_path_is_root or user_can_edit %}
-            <a href="_history/" class="topic-history-link ss-clock">see page history</a>
+        {% if not historical_version %}
+            {% if user_can_edit %}
+                <a href="_edit/" class="topic-edit-link ss-write">edit this page</a>
+            {% endif %}
+            {% if not topic_path_is_root or user_can_edit %}
+                <a href="_history/" class="topic-history-link ss-clock">see page history</a>
+            {% endif %}
         {% endif %}
     </div>
 
