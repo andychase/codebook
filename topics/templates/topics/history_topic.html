@@ -1,0 +1,15 @@
+{% extends "layouts/default.html" %}
+{% block extra_page_classes %}topic-view {% endblock %}
+{% block content %}
+    {% for history in is_history %}
+        {{ history.field_dict }}
+    {% endfor %}
+    <div class="topic-actions">
+        {% if user_can_edit %}
+            <a href="_edit/" class="topic-edit-link ss-write">edit this page</a>
+        {% endif %}
+        {% if not topic_path_is_root and user_can_edit %}
+            <a href="_history/" class="topic-history-link ss-clock">see page history</a>
+        {% endif %}
+    </div>
+{% endblock %}

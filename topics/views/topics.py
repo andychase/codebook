@@ -91,8 +91,16 @@ def get_topic(request, topic_name, retry=False):
         return new_topic(request, short_topic_path)
 
     is_editing = False
+    is_history = False
     if topic_path[-1] == "_edit":
         is_editing = True
+        topic_path = topic_path[:-1]
+        if len(topic_path) == 0:
+            topic_path_is_root = True
+            topic_path = ("",)
+
+    if topic_path[-1] == "_history":
+        is_history = True
         topic_path = topic_path[:-1]
         if len(topic_path) == 0:
             topic_path_is_root = True
@@ -123,6 +131,9 @@ def get_topic(request, topic_name, retry=False):
         return edit_topic(request, topic)
     elif is_editing:
         template = loader.get_template('topics/edit_topic.html')
+    elif is_history:
+        is_history = revisions.get_for_object(topic)
+        template = loader.get_template('topics/history_topic.html')
     else:
         template = loader.get_template('topics/show_topic.html')
 
@@ -133,6 +144,7 @@ def get_topic(request, topic_name, retry=False):
     context = RequestContext(request, {
         'topics': topics,
         'is_editing': is_editing,
+        'is_history': is_history,
         'extra_empty_topic': extra_empty_topic,
         'topic_path_is_root': topic_path_is_root,
         'resources': resources
