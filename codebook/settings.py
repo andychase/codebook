@@ -92,6 +92,8 @@ USE_TZ = True
 
 USE_ETAGS = True
 
+APPEND_SLASH = True
+
 # Logging
 LOGGING = {
     'version': 1,

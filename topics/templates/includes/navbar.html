@@ -12,7 +12,7 @@
                                            value="{{ topic.orig_name }}"/>
                                 {% else %}
                                     <a class="page-link"
-                                       href="/{{ topic.path|join:"/" }}/">{{ topic.orig_name }}</a>
+                                       href="{% url 'topics:get_topic' topic.path|join:"/" %}">{{ topic.orig_name }}</a>
                                 {% endif %}
                             </li>{% if forloop.last %}
                             {% include 'includes/new_topic_button.html' with topic=topic %}

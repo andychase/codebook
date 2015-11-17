@@ -22,9 +22,6 @@ def create_top_level(request):
 def get_topic(request, topic_name, retry=False):
     topic_path, topic_path_is_root = view_helpers.topic_name_to_path(topic_name)
 
-    if not request.path.endswith("/"):
-        return redirect(request.path + "/")
-
     is_editing = False
     is_history = False
     historical_version = None

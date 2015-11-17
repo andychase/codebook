@@ -34,7 +34,7 @@
                             value="{{ topic.orig_name }}"/>
                     {% else %}
                         <a class="page-link"
-                           href="{% url 'topics:get_topic' topic.name|lower %}/">{{ topic.orig_name }}</a>
+                           href="{% url 'topics:get_topic' topic.name %}">{{ topic.orig_name }}</a>
                     {% endif %}
                     </li>{% endif %}{% endfor %}
                 {% include 'includes/new_topic_button.html' %}
