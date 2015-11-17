@@ -10,7 +10,6 @@ static3
 pytz
 PyYAML
 python-dateutil
-django-postgrespool
 bleach
 django-redis-cache
 django-clear-cache==0.3

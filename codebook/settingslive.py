@@ -16,9 +16,7 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 # Parse database configuration from $DATABASE_URL
 DATABASES['default'] = dj_database_url.config()
-
-# Enable Connection Pooling (if desired)
-DATABASES['default']['ENGINE'] = 'django_postgrespool'
+DATABASES['default']['CONN_MAX_AGE'] = 500
 
 DATABASE_POOL_ARGS = {
     'max_overflow': 10,
