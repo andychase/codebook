@@ -14,7 +14,10 @@
         {% endif %}
     {% endfor %}
     <div class="topic-actions">
-        {% if not historical_version %}
+        {% if historical_version %}
+            <a href="../.." class="topic-edit-link ss-left">back to page</a>
+            <a href=".." class="topic-edit-link ss-clock">back to history</a>
+        {% else %}
             {% if user_can_edit %}
                 <a href="_edit/" class="topic-edit-link ss-write">edit this page</a>
             {% endif %}
