@@ -22,7 +22,7 @@ def should_cache_request(request, path):
 
 def should_cache_response(response):
     return (
-        response.status_code == 200 and not response.streaming
+        response.status_code == 200 and not response.streaming and not hasattr(response, '_cache_hit')
     )
 
 
@@ -44,6 +44,7 @@ class TopicCacheMiddleware:
             cache_key = make_cache_key(get_current_site(request).domain, path)
             existing_cache = cache.get(cache_key)
             if existing_cache:
+                existing_cache._cache_hit = True
                 return existing_cache
 
     def process_response(self, request, response):
