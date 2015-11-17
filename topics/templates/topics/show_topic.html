@@ -1,6 +1,6 @@
 {% extends "layouts/default.html" %}
 {% block extra_page_classes %}topic-view {% endblock %}
-{% block page_title %}: {{ active_topic.name }}{% endblock %}
+{% block page_title %}{% if active_topic.name %}: {{ active_topic.name }}{% endif %}{% endblock %}
 {% block content %}
     {% for resource in resources %}
         {% if resource.section %}
