@@ -38,7 +38,7 @@ def get_topic(request, topic_name, retry=False):
         if len(topic_path) == 0:
             topic_path_is_root = True
             topic_path = ("",)
-    elif len(topic_path) > 2 and topic_path[-2] == "_history":
+    elif len(topic_path) >= 2 and topic_path[-2] == "_history":
         historical_version = int(topic_path[-1])
         topic_path = topic_path[:-2]
         if len(topic_path) == 0:
