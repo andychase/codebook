@@ -27,6 +27,7 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'pipeline',
     'reversion',
+    'clear_cache',
     'topics',
 )
 
