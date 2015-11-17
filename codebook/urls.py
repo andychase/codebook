@@ -16,9 +16,14 @@ Including another URLconf
 from django.conf.urls import include, url
 from django.conf.urls.static import static
 from django.contrib import admin
+from django.contrib.staticfiles.storage import staticfiles_storage
+from django.views.generic import RedirectView
+
 from codebook import settings
 
 urlpatterns = [
                   url(r'^_admin/', include(admin.site.urls)),
+                  url(r'^favicon.ico$',
+                      RedirectView.as_view(url=staticfiles_storage.url('favicon.ico'), permanent=False)),
                   url(r'', include('topics.urls', namespace='topics')),
               ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
