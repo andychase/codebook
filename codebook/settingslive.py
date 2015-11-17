@@ -20,6 +20,12 @@ DATABASES['default'] = dj_database_url.config()
 # Enable Connection Pooling (if desired)
 DATABASES['default']['ENGINE'] = 'django_postgrespool'
 
+DATABASE_POOL_ARGS = {
+    'max_overflow': 10,
+    'pool_size': 5,
+    'recycle': 300
+}
+
 STATIC_ROOT = 'static'
 
 static_path = os.path.join(BASE_DIR, 'static')
