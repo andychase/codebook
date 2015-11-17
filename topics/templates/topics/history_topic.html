@@ -13,11 +13,6 @@
     </tbody>
     </table>
     <div class="topic-actions">
-        {% if user_can_edit %}
-            <a href="_edit/" class="topic-edit-link ss-write">edit this page</a>
-        {% endif %}
-        {% if not topic_path_is_root and user_can_edit %}
-            <a href="_history/" class="topic-history-link ss-clock">see page history</a>
-        {% endif %}
+        <a href=".." class="topic-edit-link ss-left">back to page</a>
     </div>
 {% endblock %}
