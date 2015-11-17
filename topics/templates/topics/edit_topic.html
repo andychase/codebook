@@ -1,5 +1,6 @@
 {% extends "layouts/default.html" %}
 {% block extra_page_classes %}topic-view {% if is_editing %}topic-edit{% endif %}{% endblock %}
+{% block page_title %}: Editing {{ active_topic.name }}{% endblock %}
 {% block content %}
     <form action="" method="post" id="topic-edit-form">
         {% csrf_token %}

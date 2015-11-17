@@ -89,6 +89,7 @@ def get_topic(request, topic_name, retry=False):
     view_helpers.add_active_to_topic_path(topics, topic_path)
     context = RequestContext(request, {
         'topics': topics,
+        'active_topic': topic,
         'is_editing': is_editing,
         'is_history': is_history,
         'historical_version': historical_version,
