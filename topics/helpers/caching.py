@@ -13,6 +13,14 @@ def special_page_in_path(topic_name):
     return max(len(i) > 0 and i[0] == "_" for i in topic_name.split("/"))
 
 
+def skip_cache(request, topic_name):
+    return (
+        request.user.is_authenticated() or
+        special_page_in_path(topic_name) or
+        'gzip' not in request.META.get('HTTP_ACCEPT_ENCODING', [])
+    )
+
+
 def clear_topic(site_domain, topic_name):
     cache.delete(make_cache_key(site_domain, topic_name))
 
@@ -26,7 +34,7 @@ def clear_site(site_domain):
 
 def cache_topic(func):
     def show_topic(request, topic_name, retry=False):
-        if request.user.is_authenticated() or special_page_in_path(topic_name):
+        if skip_cache(request, topic_name):
             return func(request, topic_name, retry)
         cache_key = make_cache_key(get_current_site(request).domain, topic_name)
         existing_cache = cache.get(cache_key)
