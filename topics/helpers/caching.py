@@ -1,6 +1,5 @@
 from django.contrib.sites.shortcuts import get_current_site
 from django.core.cache import cache
-from django.views.decorators.cache import cache_page
 
 DEFAULT_TIMEOUT = 60 * 24
 
