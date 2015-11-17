@@ -26,4 +26,5 @@ urlpatterns = [
     # url(r'^(.*)/_edit/$', topics.get_topic, name='edit_topic'),
     # url(r'^(.*)/_history/$', topics.get_topic, name='history_topic'),
     url(r'^(.*)/$', topics.get_topic, name='get_topic'),
+    url(r'^()$', topics.get_topic, name='get_topic'),
 ]
