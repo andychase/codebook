@@ -77,7 +77,7 @@ def get_topic(request, topic_name, retry=False):
         raise Http404("Topic does not exist")
 
     if is_editing and request.POST:
-        return edit_topic(request, topic, topic_name)
+        return edit_topic(request, topic)
     elif is_editing:
         template = loader.get_template('topics/edit_topic.html')
     elif is_history:

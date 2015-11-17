@@ -35,7 +35,7 @@ def handle_topics_sort(topic_being_edited, raw_topic_lists):
 
 @user_can_edit
 @revisions.create_revision()
-def edit_topic(request, topic, topic_name):
+def edit_topic(request, topic):
     if request.POST:
         schema = json.loads(bleach.clean(request.POST.get('text')))
         topics_sort = list(json.loads(request.POST.get('topics_sort', '[]')))
@@ -76,7 +76,7 @@ def edit_topic(request, topic, topic_name):
             return redirect(url_to_redirect)
         else:
             topic.text = json.dumps(schema)
-            caching.clear_topic(get_current_site(request).domain, topic_name)
+            caching.clear_topic(get_current_site(request).domain, topic.full_path())
             topic.save()
             if not request.user.is_anonymous():
                 revisions.set_user(request.user)
