@@ -12,11 +12,11 @@ def special_page_in_path(topic_name):
     return max(len(i) > 0 and i[0] == "_" for i in topic_name.split("/"))
 
 
-def skip_cache(request, topic_name):
+def should_cache(request):
     return (
-        request.user.is_authenticated() or
-        special_page_in_path(topic_name) or
-        'gzip' not in request.META.get('HTTP_ACCEPT_ENCODING', [])
+        'sessionid' not in request.COOKIES and
+        not special_page_in_path(request.get_full_path()) and
+        'gzip' in request.META.get('HTTP_ACCEPT_ENCODING', [])
     )
 
 
@@ -31,22 +31,21 @@ def clear_site(site_domain):
         cache.clear()
 
 
-def cache_topic(func):
-    def show_topic(request, topic_name, retry=False):
-        if skip_cache(request, topic_name):
-            return func(request, topic_name, retry)
-        cache_key = make_cache_key(get_current_site(request).domain, topic_name)
-        existing_cache = cache.get(cache_key)
-        if existing_cache:
-            return existing_cache
-        else:
-            response = func(request, topic_name, retry)
+class TopicCacheMiddleware:
+    def process_request(self, request):
+        if should_cache(request):
+            cache_key = make_cache_key(get_current_site(request).domain, request.get_full_path())
+            existing_cache = cache.get(cache_key)
+            if existing_cache:
+                return existing_cache
+
+    def process_response(self, request, response):
+        if should_cache(request):
+            cache_key = make_cache_key(get_current_site(request).domain, request.get_full_path())
             if hasattr(response, 'render') and callable(response.render):
                 response.add_post_render_callback(
                     lambda r: cache.set(cache_key, r, DEFAULT_TIMEOUT)
                 )
             else:
                 cache.set(cache_key, response, DEFAULT_TIMEOUT)
-            return response
-
-    return show_topic
+        return response
