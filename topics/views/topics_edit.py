@@ -3,10 +3,12 @@ import json
 import bleach
 import reversion as revisions
 from django.contrib import messages
+from django.contrib.sites.shortcuts import get_current_site
 from django.core.exceptions import ValidationError
 from django.core.urlresolvers import reverse
 from django.db import transaction, IntegrityError
 from django.shortcuts import redirect
+from topics.helpers import caching
 
 from topics.helpers import view_helpers
 from topics.helpers.user_permissions import user_can_edit
@@ -33,7 +35,7 @@ def handle_topics_sort(topic_being_edited, raw_topic_lists):
 
 @user_can_edit
 @revisions.create_revision()
-def edit_topic(request, topic):
+def edit_topic(request, topic, topic_name):
     if request.POST:
         schema = json.loads(bleach.clean(request.POST.get('text')))
         topics_sort = list(json.loads(request.POST.get('topics_sort', '[]')))
@@ -50,10 +52,12 @@ def edit_topic(request, topic):
                     topic.orig_name = rename_topic_name
                     topic.full_clean()
                     topic.save()
+                    caching.clear_site(get_current_site(request).domain)
 
                 if any(topics_sort):
                     handle_topics_sort(topic, topics_sort)
                     topic = Topic.get_from_id(topic.id)
+                    caching.clear_site(get_current_site(request).domain)
         except (IntegrityError, ValidationError):
             topic.orig_name = original_name
             topic.full_clean()
@@ -65,12 +69,14 @@ def edit_topic(request, topic):
             else:
                 url_to_redirect = "/"
             topic.active = False
+            caching.clear_site(get_current_site(request).domain)
             topic.save()
             if not request.user.is_anonymous():
                 revisions.set_user(request.user)
             return redirect(url_to_redirect)
         else:
             topic.text = json.dumps(schema)
+            caching.clear_topic(get_current_site(request).domain, topic_name)
             topic.save()
             if not request.user.is_anonymous():
                 revisions.set_user(request.user)

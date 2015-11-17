@@ -1,5 +1,5 @@
-# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
+from urllib.parse import urlparse
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -103,6 +103,26 @@ LOGGING = {
         },
     },
 }
+
+if os.environ.get('REDIS_URL'):
+    redis_url = urlparse(os.environ.get('REDIS_URL'))
+
+    CACHES = {
+        'default': {
+            'BACKEND': 'redis_cache.RedisCache',
+            'LOCATION': '{}:{}'.format(redis_url.hostname, redis_url.port),
+            'OPTIONS': {
+                'PASSWORD': redis_url.password,
+                'DB': 0,
+            }
+        }
+    }
+else:
+    CACHES = {
+        'default': {
+            'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+        }
+    }
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.8/howto/static-files/

@@ -11,6 +11,7 @@ from topics.helpers import view_helpers
 from topics.helpers.user_permissions import user_can_edit
 from topics.helpers.view_helpers import add_active_to_topic_path
 from topics.models import Topic
+from topics.helpers import caching
 
 
 def create_new_topic(request, topic_path):
@@ -38,6 +39,7 @@ def create_new_topic(request, topic_path):
                 error += "".join(error_list) + " "
         else:
             topic_to_save.save()
+            caching.clear_site(get_current_site(request).domain)
             if not request.user.is_anonymous():
                 revisions.set_user(request.user)
             return error, redirect(reverse('topics:get_topic', args=[topic_to_save.full_path()]))

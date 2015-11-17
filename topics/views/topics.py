@@ -6,6 +6,7 @@ from django.http import HttpResponse, Http404
 from django.shortcuts import redirect
 from django.template import loader, RequestContext
 from topics.helpers import view_helpers
+from topics.helpers.caching import cache_topic
 from topics.models import Topic, BadTopicPath, TopicSite
 from topics.views.topics_edit import edit_topic
 
@@ -18,6 +19,7 @@ def create_top_level(request):
     Topic(orig_name="", parent_id=None, site=get_current_site(request)).save()
 
 
+@cache_topic
 def get_topic(request, topic_name, retry=False):
     topic_path, topic_path_is_root = view_helpers.topic_name_to_path(topic_name)
 
@@ -76,7 +78,7 @@ def get_topic(request, topic_name, retry=False):
         raise Http404("Topic does not exist")
 
     if is_editing and request.POST:
-        return edit_topic(request, topic)
+        return edit_topic(request, topic, topic_name)
     elif is_editing:
         template = loader.get_template('topics/edit_topic.html')
     elif is_history:

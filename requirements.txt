@@ -12,4 +12,4 @@ PyYAML
 python-dateutil
 django-postgrespool
 bleach
-
+django-redis-cache
