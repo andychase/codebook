@@ -5,16 +5,16 @@ Preamble
 ========
 
 This Master Privacy Policy (“Privacy Policy”) explains the collection,
-use, and disclosure of “personal information” by Tech Store Club
-(“TSC”), an Oregon Non-Profit organization.
+use, and disclosure of “personal information” by Snap Notes Collective
+(“SNC”), an Oregon Non-Profit organization.
 Unless otherwise noted on a particular site or service, this Privacy
-Policy applies to your use of all of the websites that Tech Store Club operates, including
-<https://codebook.snc.io>, <https://techstore.club>, as well as the products,
+Policy applies to your use of all of the websites that Snap Notes Collective operates, including
+<https://snc.io>, as well as the products,
 information, and services provided through the Websites (the “Services”).
 
 This Privacy Policy also explains our commitment to you with respect to
 our use and disclosure of non personal browsing and site usage data that
-Tech Store Club collects as the provider of the Services. That
+Snap Notes Collective collects as the provider of the Services. That
 commitment is contained in a “Data Usage Policy,” below.
 
 As used in this policy, “personal information” means information that
@@ -27,7 +27,7 @@ agreeing to the practices described in this Privacy Policy.
 Our Principles
 --------------
 
-Tech Store Club is committed to handling responsibly the information
+Snap Notes Collective is committed to handling responsibly the information
 and data we collect about you through our Services, whether personal
 information or non personal browsing and site usage data. We have
 designed our Privacy Policy and our Data Usage Policy consistent with
@@ -42,14 +42,14 @@ the following principles (the “Principles”):
     result of your use of our Services, should not be used for marketing
     or advertising purposes, nor should it be provided voluntarily
     (without your permission) to anyone else unless required; and
-4.  If Tech Store Club is required to provide a third party with your
+4.  If Snap Notes Collective is required to provide a third party with your
     personal information (whether by subpoena or otherwise), then
     provided we have collected and retained an email address for you,
-    Tech Store Club will use reasonable means to notify you promptly of
-    that event, unless prohibited by law or TSC is otherwise advised
+    Snap Notes Collective will use reasonable means to notify you promptly of
+    that event, unless prohibited by law or SNC is otherwise advised
      not to notify you on the advice of legal counsel.
 
-Personal Information TSC Collects
+Personal Information SNC Collects
 --------------------------------
 
 We may collect personal information through our Services, including
@@ -60,28 +60,28 @@ without limitation:
     participation in any of the forums we make available through our
     Services.
 
-What TSC Does with Personal Information
+What SNC Does with Personal Information
 --------------------------------------
 
 Donations. If you donate money to us via our
 support page, your personal information will be handled depending on
 which option you choose.
 
-1.  You may donate money to Tech Store Club directly or through a
+1.  You may donate money to Snap Notes Collective directly or through a
     variety of on-line payment sites, including PayPal, JustGive.org,
     Good Search, Network for Good, and Mission Fish, among others. When
-    you use any of those websites and services to donate to TSC, your
+    you use any of those websites and services to donate to SNC, your
     personal information is sent to, handled by and stored by those
     websites in accordance with their respective privacy policies and
     terms of use. You should read and understand the privacy policy and
-    terms of use of any website you use to donate to Tech Store Club.
-    When you donate money to Tech Store Club directly, we use your
+    terms of use of any website you use to donate to Snap Notes Collective.
+    When you donate money to Snap Notes Collective directly, we use your
     personal information to process your donation. When you donate money
-    as part of one of TSC’s fundraising campaigns, your name will be
+    as part of one of SNC’s fundraising campaigns, your name will be
     published on our “supporters page” unless you request otherwise. If
-    you sign up to receive updates from Tech Store Club
+    you sign up to receive updates from Snap Notes Collective
      when you provide your donation, we will use your personal
-    information to send you communications about Tech Store Club news
+    information to send you communications about Snap Notes Collective news
     and campaigns.
 
 Participating in Our Community
@@ -98,8 +98,8 @@ submit to any Service. We also use that personal information to
 establish and maintain your account, to provide you with the features
  we provide Registered Users, and to email you regarding changes to this
 policy or other applicable policies. If you sign up to receive updates
-from Tech Store Club when you create your account, we will use your
-personal information to send you communications about Tech Store Club
+from Snap Notes Collective when you create your account, we will use your
+personal information to send you communications about Snap Notes Collective
 news and campaigns.
 
 Any other personal information that we may collect which is not
@@ -109,12 +109,12 @@ used in accordance with the Principles.
 Disclosures of Personal Information
 -----------------------------------
 
-In general, it is not Tech Store Club’ practice to disclose personal
+In general, it is not Snap Notes Collective’ practice to disclose personal
 information to third parties. Other than providing you with attribution
 using your nickname in connection with your works, we
 may share your personal information in two instances:
 
-First, Tech Store Club may share personal information with our
+First, Snap Notes Collective may share personal information with our
 contractors and service providers in order to maintain, enhance, or add
 to the functionality of the Services.
 
@@ -126,19 +126,19 @@ process, such as a search warrant, subpoena, statute, or court order; or
 (d) protect our rights, reputation, and property, or that of our users,
 affiliates, or the public.
 
-If Tech Store Club is required to provide a third party with your
+If Snap Notes Collective is required to provide a third party with your
 personal information (whether by subpoena or otherwise), then provided
 we have collected and retained an email address for you, Creative
 Commons will use reasonable means to notify you promptly of that event,
-unless prohibited by law or TSC is otherwise advised not to
+unless prohibited by law or SNC is otherwise advised not to
  notify you on the advice of legal counsel.
 
 Security of Personal Information Collected via the Services
 -----------------------------------------------------------
 
-Tech Store Club has implemented reasonable measures to protect against
+Snap Notes Collective has implemented reasonable measures to protect against
 unauthorized access to and unlawful interception or processing of
-personal information that Tech Store Club stores and controls. However,
+personal information that Snap Notes Collective stores and controls. However,
 no website can fully eliminate security risks. Third parties may
 circumvent our security measures to unlawfully intercept or access
 transmissions or private communications. We will post a reasonably
@@ -165,16 +165,16 @@ log of the websites you visit and when you visit them.
 ### No Selling or Sharing
 
 Except in the unique situations identified in this Privacy Policy,
-Tech Store Club does not sell or otherwise voluntarily provide the non
+Snap Notes Collective does not sell or otherwise voluntarily provide the non
 personal browsing information we collect about you or your website usage
 to third parties.
 
 ### Notice
 
-If Tech Store Club is required to provide a third party with your non
+If Snap Notes Collective is required to provide a third party with your non
 personal browsing information or to log in on behalf of a 
-user (whether by subpoena or otherwise), then TSC will use
-reasonable means to notify you promptly of that event, unless TSC is
+user (whether by subpoena or otherwise), then SNC will use
+reasonable means to notify you promptly of that event, unless SNC is
 prohibited by law from doing so or is otherwise advised not to notify
  you on the advice of legal counsel.
 
@@ -185,7 +185,7 @@ used in accordance with the Principles.
 Reorganization or Spin-Offs
 ---------------------------
 
-Tech Store Club may transfer some or all of your personal and/or non
+Snap Notes Collective may transfer some or all of your personal and/or non
 personal browsing information to a third party as a result of a
 reorganization, spin-off, or similar transaction. Upon such transfer,
 the acquirer’s privacy policy will apply. In such event, Creative
@@ -203,7 +203,7 @@ personal information from anyone under the age of 13 without requiring
 parental consent. Our Master Terms of Use specifically prohibit anyone
 using our Services from submitting any personally identifiable
 information about persons under 13 years of age. Any person who provides
-their personal information to TSC through the Services represents that
+their personal information to SNC through the Services represents that
 they are 13 years of age or older.
 
 Third-Party Sites
@@ -236,16 +236,16 @@ constitutes your agreement to this Privacy Policy and any
 Using this Privacy Policy for Your Own Purposes
 -----------------------------------------------
 
-The Tech Store Club Privacy Policy have been adapted from
+The Snap Notes Collective Privacy Policy have been adapted from
 [Creative Common's Terms of Use](https://creativecommons.org/terms).
 
-The Tech Store Club Privacy Policy is dedicated to the public domain
+The Snap Notes Collective Privacy Policy is dedicated to the public domain
 under the [Creative Commons CC0 Public Domain
 Dedication](https://creativecommons.org/publicdomain/zero/1.0/). You are
 free to use and adapt this Privacy Policy and any applicable
 Supplemental Privacy Policy Terms for your own purposes. However, please
 keep in mind that this Privacy Policy may not be completely
- suitable for your situation. Tech Store Club and Creative Commons strongly encourages you
+ suitable for your situation. Snap Notes Collective and Creative Commons strongly encourages you
 to seek the advice of your own attorney before repurposing this Privacy
 Policy on your own site.
 
@@ -253,6 +253,6 @@ Questions?
 ----------
 
 If you have questions about this Privacy Policy, please contact us by
-email at <admin@techstore.club>.
+email at <admin@snc.io>.
 
 Effective Date: 2015-6-26 (June 26th 2015).

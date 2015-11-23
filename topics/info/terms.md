@@ -5,8 +5,8 @@
 
 Master terms: Unless otherwise noted on a particular site or service,
 these master terms of use (“Master Terms”) apply to your use of all of
-the websites that Tech Store Club operates, including
-<https://codebook.snc.io>, <https://techstore.club>, as well as the products,
+the websites that Snap Notes Collective operates, including
+<https://snc.io>, as well as the products,
 information, and services provided through the Websites, including the
 license chooser and legal tools (together with the Websites, the
 “Services”).
@@ -18,14 +18,14 @@ between the Additional Terms and the Master Terms, then the Additional
 Terms apply in relation to the relevant Service.
 
 Collectively, the Terms: The Master Terms, together with any Additional
-Terms, form a binding legal agreement between you and Tech Store Club
+Terms, form a binding legal agreement between you and Snap Notes Collective
 in relation to your use of the Services. Collectively, this legal
 agreement is referred to below as the “Terms.”
 
 > Human-readable summary of Sec 1: These terms, together with any
 > special terms for particular websites, create a contract between you
-> and Tech Store Club. The contract governs your use of all websites
-> operated by Tech Store Club, unless a particular website indicates
+> and Snap Notes Collective. The contract governs your use of all websites
+> operated by Snap Notes Collective, unless a particular website indicates
 > otherwise. These human-readable summaries of each section are not part
 > of the contract, but are intended to help you understand its terms.
 
@@ -46,7 +46,7 @@ Terms, you are not authorized to use any Services.
 3 Changes to the Terms
 -----------------------
 
-From time to time, Tech Store Club may change, remove, or add to the
+From time to time, Snap Notes Collective may change, remove, or add to the
 Terms, and reserves the right to do so in its discretion. In that case,
 we will post updated Terms and indicate the date of revision. If we feel
 the modifications are material, we will make reasonable efforts to post
@@ -66,13 +66,13 @@ have read, understood, and agreed to those Terms.
 4 No Legal or Engineering Advice
 --------------------------------
 
-Tech Store Club is not a law firm, does not provide legal advice, and
+Snap Notes Collective is not a law firm, does not provide legal advice, and
 is not a substitute for a law firm. Sending us an email or using any of
 the Services, including the licenses, public domain tools, and choosers,
 does not constitute legal advice or create an attorney-client
 relationship.
 
-Tech Store Club does not provide engineering advice, and is not a substitute
+Snap Notes Collective does not provide engineering advice, and is not a substitute
 for a software engineering firm. Sending us an email or using any of
 the Services, including the blog posts, guides, resources, and links,
 does not constitute engineering advice or create an professional-client
@@ -85,12 +85,12 @@ relationship.
 5 Content Available through the Services
 -----------------------------------------
 
-Provided as-is: You acknowledge that Tech Store Club does not make any
+Provided as-is: You acknowledge that Snap Notes Collective does not make any
 representations or warranties about the material, data, and information,
 such as data files, text, computer software, code, music, audio files or
 other sounds, photographs, videos, posts, links, or other images (collectively, the
 “Content”) which you may have access to as part of, or through your use
-of, the Services. Under no circumstances is Tech Store Club liable in
+of, the Services. Under no circumstances is Snap Notes Collective liable in
 any way for any Content, including, but not limited to: any infringing
 Content, any errors or omissions in Content, or for any loss or damage
 of any kind incurred as a result of the use of any Content posted,
@@ -107,16 +107,16 @@ can and cannot do. Licensing:
 CC-Owned Content: Other than the text of Creative Commons licenses, CC0,
 and other legal tools and the text of the deeds for all legal tools (all
 of which are made available under the CC0 Public Domain Dedication),
-Tech Store Club trademarks (subject to the Trademark Policy), and the
+Snap Notes Collective trademarks (subject to the Trademark Policy), and the
 software code, all Content on the Websites is licensed under the
 Creative Commons Attribution 4.0 International license, unless otherwise
 marked. See the Creative Commons Policies page for more information.
 
-TSC-Owned Code: All of Tech Store Club's software code is free software; please check
+TSC-Owned Code: All of Snap Notes Collective's software code is free software; please check
 our code repository for the specific license on software you want to
 reuse.
 
-Search Tools: On some of its Websites, Tech Store Club provides website
+Search Tools: On some of its Websites, Snap Notes Collective provides website
 search tools, which return Content based on any license information our
 search tools are able to locate and interpret. Those search tools may
 return Content that is not CC licensed, and you should independently
@@ -147,7 +147,7 @@ under the Creative Commons Attribution 4.0 License and may be used under
 the terms of that license or any later version of a Creative Commons
 Attribution License, or (b) is in the public domain (such as Content
 that is not copyrightable or Content you make available under CC0), or ©
-if not owned by you, (i) is available under a Tech Store Club
+if not owned by you, (i) is available under a Snap Notes Collective
 Attribution 4.0 License or (ii) is a media file that is available under
 any Creative Commons license or that you are authorized by law to post
 or share through any of the Services, such as under the fair use
@@ -156,11 +156,11 @@ copyright. All of Your Content must be
  appropriately marked with licensing (or other permission status such as
 fair use) and attribution information.
 
-Removal: Tech Store Club may, but is not obligated to, review Your
+Removal: Snap Notes Collective may, but is not obligated to, review Your
 Content and may delete or remove Your Content (without notice) from any
 of the Services in its sole discretion. Removal of any of Your Content
-from the Services (by you or Tech Store Club) does not impact any
-rights you granted in Your Content under the terms of a Tech Store Club
+from the Services (by you or Snap Notes Collective) does not impact any
+rights you granted in Your Content under the terms of a Snap Notes Collective
 license.
 
 > Human-readable summary of Sec 6: We do not take any ownership of your
@@ -197,12 +197,12 @@ You must not set up an account on behalf of another
 
 No Membership in CC: Creating a CCID or using any of the related
 Websites or Services does not and shall not be deemed to make you a
-member, shareholder or affiliate of Tech Store Club for any purposes
+member, shareholder or affiliate of Snap Notes Collective for any purposes
 whatsoever, nor shall you have any of the rights of statutory members as
 defined in Sections 2(3) and 3 of Chapter 180 of the General Laws
  of Massachusetts.
 
-Termination: Tech Store Club reserves the right to modify or
+Termination: Snap Notes Collective reserves the right to modify or
 discontinue your account at any time for any reason or no reason at all.
 
 > Human-readable summary of Sec 7: Please do not register for an account
@@ -269,17 +269,17 @@ You agree not to engage in any of the following activities:
 9 DISCLAIMER OF WARRANTIES
 --------------------------
 
-TO THE FULLEST EXTENT PERMITTED BY APPLICABLE LAW, TECH STORE CLUB
+TO THE FULLEST EXTENT PERMITTED BY APPLICABLE LAW, Snap Notes Collective
 OFFERS THE SERVICES (INCLUDING ALL CONTENT AVAILABLE ON OR THROUGH THE
 SERVICES) AS-IS AND MAKES NO REPRESENTATIONS OR WARRANTIES OF ANY KIND
 CONCERNING THE SERVICES, EXPRESS, IMPLIED, STATUTORY, OR OTHERWISE,
 INCLUDING WITHOUT LIMITATION, WARRANTIES OF TITLE, MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE, OR NON-INFRINGEMENT. TECH STORE CLUB
+FITNESS FOR A PARTICULAR PURPOSE, OR NON-INFRINGEMENT. Snap Notes Collective
 DOES NOT WARRANT THAT THE FUNCTIONS OF THE SERVICES WILL BE
 UNINTERRUPTED OR ERROR-FREE, THAT CONTENT MADE AVAILABLE ON OR THROUGH
 THE SERVICES WILL BE ERROR-FREE, THAT DEFECTS WILL BE CORRECTED, OR THAT
 ANY SERVERS USED BY CC ARE FREE OF VIRUSES OR OTHER HARMFUL COMPONENTS.
-TECH STORE CLUB DOES NOT WARRANT OR MAKE ANY REPRESENTATION REGARDING
+Snap Notes Collective DOES NOT WARRANT OR MAKE ANY REPRESENTATION REGARDING
 USE OF THE CONTENT AVAILABLE THROUGH THE SERVICES IN TERMS OF ACCURACY,
 RELIABILITY, OR OTHERWISE.
 
@@ -290,16 +290,16 @@ RELIABILITY, OR OTHERWISE.
 --------------------------
 
 TO THE FULLEST EXTENT PERMITTED BY APPLICABLE LAW, IN NO EVENT WILL
-TECH STORE CLUB BE LIABLE TO YOU ON ANY LEGAL THEORY FOR ANY
+Snap Notes Collective BE LIABLE TO YOU ON ANY LEGAL THEORY FOR ANY
 INCIDENTAL, DIRECT, INDIRECT, PUNITIVE, ACTUAL, CONSEQUENTIAL, SPECIAL,
 EXEMPLARY, OR OTHER DAMAGES, INCLUDING WITHOUT LIMITATION, LOSS OF
 REVENUE OR INCOME, LOST PROFITS, PAIN AND SUFFERING, EMOTIONAL DISTRESS,
 COST OF SUBSTITUTE GOODS OR SERVICES, OR SIMILAR DAMAGES SUFFERED OR
 INCURRED BY YOU OR ANY THIRD PARTY THAT ARISE IN CONNECTION WITH THE
-SERVICES (OR THE TERMINATION THEREOF FOR ANY REASON), EVEN IF TECH
-STORE CLUB HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
+SERVICES (OR THE TERMINATION THEREOF FOR ANY REASON), EVEN IF SNAP
+NOTES COLLECTIVE HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
 
-TO THE FULLEST EXTENT PERMITTED BY APPLICABLE LAW, TECH STORE CLUB IS
+TO THE FULLEST EXTENT PERMITTED BY APPLICABLE LAW, Snap Notes Collective IS
 NOT RESPONSIBLE OR LIABLE WHATSOEVER IN ANY MANNER FOR ANY CONTENT
 POSTED ON OR AVAILABLE THROUGH THE SERVICES (INCLUDING CLAIMS OF
 INFRINGEMENT RELATING TO THAT CONTENT), FOR YOUR USE OF THE SERVICES, OR
@@ -319,7 +319,7 @@ ENFORCED TO THE GREATEST EXTENT PERMITTED BY APPLICABLE LAW.
 ------------------
 
 To the extent authorized by law, you agree to indemnify and hold
-harmless Tech Store Club, its employees, officers, directors,
+harmless Snap Notes Collective, its employees, officers, directors,
 affiliates, and agents from and against any and all claims, losses,
 expenses, damages, and costs, including reasonable attorneys fees,
 resulting directly or indirectly from or arising out of (a) your
@@ -334,7 +334,7 @@ the Content you make available on any of the Services.
 12 Privacy Policy
 -----------------
 
-Tech Store Club is committed to responsibly handling the information
+Snap Notes Collective is committed to responsibly handling the information
 and data we collect through our Services in compliance with our Privacy
 Policy, which is incorporated by reference into these Master Terms.
 Please review the Privacy Policy so you are aware of how we collect and
@@ -347,7 +347,7 @@ use your personal information.
 13 Copyright Complaints
 -----------------------
 
-Tech Store Club respects copyright, and we prohibit users of the
+Snap Notes Collective respects copyright, and we prohibit users of the
 Services from submitting, uploading, posting, or otherwise transmitting
 any Content on the Services that violates another person’s proprietary
 rights.
@@ -363,10 +363,10 @@ Procedure.
 14 Termination
 --------------
 
-By Tech Store Club: Tech Store Club may modify, suspend, or terminate
+By Snap Notes Collective: Snap Notes Collective may modify, suspend, or terminate
 the operation of, or access to, all or any portion of the Services at
 any time for any reason. Additionally, your individual access to, and
-use of, the Services may be terminated by Tech Store Club at any time
+use of, the Services may be terminated by Snap Notes Collective at any time
 and for any reason.
 
 By you: If you wish to terminate this agreement, you may immediately
@@ -395,8 +395,8 @@ Choice of law: The Terms are governed by and construed by the laws of
 the State of California in the United States, not including its choice
 of law rules.
 
-Dispute resolution: The parties agree that any disputes between Tech
-Store Club and you concerning these Terms, and/or any of the Services may
+Dispute resolution: The parties agree that any disputes between Snap
+Notes Collective and you concerning these Terms, and/or any of the Services may
 only brought in a federal or state court of competent jurisdiction
 sitting in the Northern District of California, and you hereby consent
 to the personal jurisdiction and venue of such court.
@@ -425,13 +425,13 @@ provisions.
 
 No agency relationship: The parties agree that no joint venture,
 partnership, employment, or agency relationship exists between you and
-Tech Store Club as a result of the Terms or from your use of any of the
+Snap Notes Collective as a result of the Terms or from your use of any of the
 Services.
 
 Integration: These Master Terms and any applicable Additional Terms
-constitute the entire agreement between you and Tech Store Club
+constitute the entire agreement between you and Snap Notes Collective
 relating to this subject matter and supersede any and all prior
-communications and/or agreements between you and Tech Store Club
+communications and/or agreements between you and Snap Notes Collective
 relating to access and use of the Services.
 
 > Human-readable summary of Sec 16: If there is a lawsuit arising from
@@ -446,11 +446,11 @@ relating to access and use of the Services.
 These Terms of Use have been adapted from
 [Creative Common's Terms of Use](https://creativecommons.org/terms).
 
-The Tech Store Club Terms of Use are dedicated to the public domain
-under the [Tech Store Club CC0 Public Domain
+The Snap Notes Collective Terms of Use are dedicated to the public domain
+under the [Snap Notes Collective CC0 Public Domain
 Dedication](https://creativecommons.org/publicdomain/zero/1.0/). You are
 free to use and adapt these Master Terms and any applicable Additional
 Terms for your own purposes. However, please keep in mind that these
 Terms may not be completely suitable for your situation. Creative
-Commons and Tech Store Club strongly encourages you to seek the advice of your own attorney
+Commons and Snap Notes Collective strongly encourages you to seek the advice of your own attorney
 before repurposing these Terms on your own site.
