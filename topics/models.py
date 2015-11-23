@@ -94,7 +94,7 @@ class Topic(models.Model):
 
     @staticmethod
     def clean_name(orig_name):
-        return orig_name.lower().replace(" ", "-")
+        return orig_name.lower().replace(" ", "-").replace("/", "-")
 
     def clean(self):
         self.name = self.clean_name(self.orig_name)
