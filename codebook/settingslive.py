@@ -35,6 +35,8 @@ STATICFILES_DIRS = (
     static_path,
 )
 
+STATICFILES_STORAGE = 'pipeline.storage.PipelineCachedStorage'
+
 # Use cached templates
 if not DEBUG:
     del TEMPLATES[0]['APP_DIRS']

@@ -127,7 +127,7 @@ if os.environ.get('REDIS_URL'):
 else:
     CACHES = {
         'default': {
-            'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+            'BACKEND': 'django.core.cache.backends.dummy.DummyCache',
         }
     }
 
@@ -143,7 +143,7 @@ STATICFILES_FINDERS = (
     'pipeline.finders.PipelineFinder',
 )
 
-STATICFILES_STORAGE = 'pipeline.storage.PipelineCachedStorage'
+STATICFILES_STORAGE = 'pipeline.storage.PipelineStorage'
 
 PIPELINE_CSS = {
     'style': {
@@ -161,7 +161,7 @@ PIPELINE_JS = {
             'js/tab_ajax.coffee',
         ),
         'output_filename': 'js/script.js',
-    }
+    },
 }
 
 PIPELINE_COMPILERS = (
@@ -169,6 +169,7 @@ PIPELINE_COMPILERS = (
     'pipeline.compilers.coffee.CoffeeScriptCompiler'
 )
 
+PIPELINE_DISABLE_WRAPPER = True
 PIPELINE_CSS_COMPRESSOR = 'pipeline.compressors.NoopCompressor'
 PIPELINE_JS_COMPRESSOR = 'pipeline.compressors.NoopCompressor'
 
