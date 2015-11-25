@@ -22,5 +22,6 @@ def settings_context(request):
         'site': site,
         'site_logo': 'logos/' + site_logo,
         'user_can_edit': user_can_edit,
-        'user_is_admin': user_is_admin
+        'user_is_admin': user_is_admin,
+        'html_body_only': request.GET.get('html_body_only', False) == 'true'
     }

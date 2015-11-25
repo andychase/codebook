@@ -158,6 +158,7 @@ PIPELINE_JS = {
     'script': {
         'source_filenames': (
             'js/edit_page.coffee',
+            'js/tab_ajax.coffee',
         ),
         'output_filename': 'js/script.js',
     }

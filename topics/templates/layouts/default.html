@@ -1,10 +1,12 @@
-<!DOCTYPE html>
+{% if not html_body_only %}<!DOCTYPE html>
 <html>
 <title>{{ site.name }}{% block page_title %}{% endblock %}</title>
 {% include 'includes/head.html' %}
 <style>{{ site.css }}</style>
 
 <body>
+{% endif %}
+
 
 {% include 'includes/header.html' %}
 
@@ -23,6 +25,7 @@
 
 {% include 'includes/footer.html' %}
 {% block scripts %}{% endblock %}
+{% if not html_body_only %}
 </body>
 
-</html>
+</html>{% endif %}
