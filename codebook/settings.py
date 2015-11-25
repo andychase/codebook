@@ -157,7 +157,7 @@ PIPELINE_CSS = {
 PIPELINE_JS = {
     'script': {
         'source_filenames': (
-            'js/script.coffee',
+            'js/edit_page.coffee',
         ),
         'output_filename': 'js/script.js',
     }
