@@ -86,6 +86,9 @@
                 border-top-left-radius: 5px;
                 border-top-right-radius: 5px;
             }
+            a.opening, a.opening:hover {
+                cursor: default;
+            }
             input {
                 font-size: 12pt;
                 width: 50px;
