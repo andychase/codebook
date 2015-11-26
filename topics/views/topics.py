@@ -68,6 +68,8 @@ def get_topic(request, topic_name, retry=False):
             version = revisions.get_for_object(topic).filter(revision_id=historical_version).first()
             version = version.field_dict
             version['site_id'] = version['site']
+            if version['parent']:
+                version['parent'] = Topic.objects.filter(parent_id=version['parent']).first()
             del version['site']
             topic = Topic(**version)
     except Topic.DoesNotExist:
