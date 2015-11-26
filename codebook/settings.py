@@ -143,7 +143,7 @@ STATICFILES_FINDERS = (
     'pipeline.finders.PipelineFinder',
 )
 
-STATICFILES_STORAGE = 'pipeline.storage.PipelineStorage'
+STATICFILES_STORAGE = 'pipeline.storage.PipelineCachedStorage'
 
 PIPELINE_CSS = {
     'style': {
