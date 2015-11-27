@@ -28,6 +28,7 @@ def should_cache_response(response):
 
 def clear_topic(site_domain, topic_name):
     cache.delete(make_cache_key(site_domain, topic_name.strip("/")))
+    cache.delete(make_cache_key(site_domain, topic_name.strip("/")) + '/?html_body_only=true')
 
 
 def clear_site(site_domain):
