@@ -97,7 +97,8 @@ def get_topic(request, topic_name, retry=False):
         'historical_version': historical_version,
         'extra_empty_topic': extra_empty_topic,
         'topic_path_is_root': topic_path_is_root,
-        'resources': resources
+        'resources': resources,
+        'page_title': topic.orig_name
     })
     if is_editing and not TopicSite.get_from_request(request).can_user_edit(request.user.id):
         raise PermissionDenied
