@@ -5,6 +5,9 @@
 <style>{{ site.css }}</style>
 
 <body>
+
+
+<div class="ajax-content">
 {% endif %}
 
 
@@ -23,9 +26,11 @@
     </div>
 </div>
 
+{% if not html_body_only %}
+</div>
+
 {% include 'includes/footer.html' %}
 {% block scripts %}{% endblock %}
-{% if not html_body_only %}
 </body>
 
 </html>{% endif %}

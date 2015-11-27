@@ -12,7 +12,8 @@ $ ->
         $.get tab.attr('href'), {html_body_only: 'true'}, (data) ->
             window.clearTimeout(opening_timer)
             history.replaceState({}, "", tab.attr('href'))
-            $("body").html(data)
+            $(".ajax-content").html(data)
+            ajaxify()
 
     ajaxify = ->
         site_navs = $('.site-nav ul li a')
