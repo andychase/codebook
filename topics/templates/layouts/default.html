@@ -1,6 +1,6 @@
 {% if not html_body_only %}<!DOCTYPE html>
 <html>
-<title>{{ page_title }} | {{ site.name }}</title>
+<title>{% if page_title %}{{ page_title }} | {% endif %}{{ site.name }}</title>
 {% include 'includes/head.html' %}
 <style>{{ site.css }}</style>
 
@@ -8,7 +8,7 @@
 
 
 <div class="ajax-content">
-{% else %}{{ page_title }} | {{ site.name }}~~~
+{% else %}{% if page_title %}{{ page_title }} | {% endif %}{{ site.name }}~~~
 {% endif %}
 
 
