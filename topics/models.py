@@ -5,6 +5,7 @@ from django.core.exceptions import ValidationError, ObjectDoesNotExist
 from django.db import models
 from django.utils.datetime_safe import datetime
 import reversion as revisions
+import django.utils.text
 
 
 class BadTopicPath(Exception):
@@ -94,7 +95,7 @@ class Topic(models.Model):
 
     @staticmethod
     def clean_name(orig_name):
-        return orig_name.lower().replace(" ", "-").replace("/", "-")
+        return django.utils.text.slugify(orig_name)
 
     def clean(self):
         self.name = self.clean_name(self.orig_name)
