@@ -5,6 +5,7 @@ from urllib.parse import urlparse
 import markdown
 from django.template.defaultfilters import register
 from django.utils import safestring
+from django.utils.html import escape
 
 
 def setup():
@@ -14,7 +15,7 @@ def setup():
 
     @register.filter(name='un_markdownify')
     def un_markdownify(value):
-        return safestring.mark_safe(value)
+        return escape(safestring.mark_safe(value))
 
     @register.filter(name='get_item')
     def get_item(dictionary, key):
