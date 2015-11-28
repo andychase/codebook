@@ -1,17 +1,29 @@
 import json
 import re
 from urllib.parse import urlparse
-
 import markdown
 from django.template.defaultfilters import register
 from django.utils import safestring
 import html
 
+tag_detector = re.compile("#([a-z]+[a-z0-9]*)")
+tag_markup = """
+<a href="/_search/tag/\g<1>" class="tag"><span class="hash">#</span><span class="name">\g<1></span></a>
+""".strip()
+
+
+def detect_tags(text):
+    return tag_detector.findall(text)
+
+
+def replace_tags(text):
+    return tag_detector.sub(tag_markup, text)
+
 
 def setup():
     @register.filter(name='markdownify')
     def markdownify(value):
-        return safestring.mark_safe(markdown.markdown(value))
+        return safestring.mark_safe(replace_tags(markdown.markdown(value)))
 
     @register.filter(name='un_markdownify')
     def un_markdownify(value):
