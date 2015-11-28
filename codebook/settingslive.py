@@ -37,6 +37,9 @@ STATICFILES_DIRS = (
 
 STATICFILES_STORAGE = 'pipeline.storage.PipelineCachedStorage'
 
+# Set session cookie to work on subdomains
+SESSION_COOKIE_DOMAIN = '.snc.io'
+
 # Use cached templates
 if not DEBUG:
     del TEMPLATES[0]['APP_DIRS']
