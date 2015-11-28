@@ -8,7 +8,7 @@ import html
 
 tag_detector = re.compile("#([a-z]+[a-z0-9]*)")
 tag_markup = """
-<a href="/_search/tag/\g<1>" class="tag"><span class="hash">#</span><span class="name">\g<1></span></a>
+<span class="tag"><span class="hash">#</span><span class="name">\g<1></span></span>
 """.strip()
 
 
