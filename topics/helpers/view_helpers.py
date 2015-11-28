@@ -23,7 +23,7 @@ def replace_tags(text):
 def setup():
     @register.filter(name='markdownify')
     def markdownify(value):
-        return safestring.mark_safe(replace_tags(markdown.markdown(value)))
+        return safestring.mark_safe(markdown.markdown(replace_tags(value)))
 
     @register.filter(name='un_markdownify')
     def un_markdownify(value):
