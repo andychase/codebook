@@ -39,7 +39,11 @@ def setup():
 
     @register.filter(name='un_markdownify')
     def un_markdownify(value):
-        return safestring.mark_safe(html.unescape(value)).replace('"', "&quot;")
+        return safestring.mark_safe(html.unescape(value))
+
+    @register.filter(name='un_markdownify_input')
+    def un_markdownify(value):
+        return safestring.mark_safe(html.unescape(value).replace('"', "&quot;"))
 
     @register.filter(name='get_item')
     def get_item(dictionary, key):

@@ -22,7 +22,7 @@
     {% endif %}
 
     {% if editing %}
-        <input class="link_url" placeholder="Link title" value="{{ link.title | un_markdownify }}"/>
+        <input class="link_url" placeholder="Link title" value="{{ link.title | un_markdownify_input }}"/>
         <label>
             <input class="editing-link-url" name="url" placeholder="https://example.org" value="{{ link.url.2 }}">
         </label>
@@ -32,7 +32,7 @@
         </a>
     {% endif %}
     {% if editing %}
-        <input class="more_link_data" placeholder="Metadata" value="{{ link.metadata | un_markdownify }}"/>
+        <input class="more_link_data" placeholder="Metadata" value="{{ link.metadata | un_markdownify_input }}"/>
     {% else %}
         <div class="more_link_data" {{ editing }}>
             {{ link.metadata | markdownify }}

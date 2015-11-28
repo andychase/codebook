@@ -1,6 +1,4 @@
 import json
-
-import bleach
 import reversion as revisions
 from django.contrib import messages
 from django.contrib.sites.shortcuts import get_current_site
@@ -11,6 +9,7 @@ from django.shortcuts import redirect
 from topics.helpers import caching
 
 from topics.helpers import view_helpers
+from topics.helpers.clean_submission import clean_submission
 from topics.helpers.user_permissions import user_can_edit
 from topics.models import Topic
 
@@ -37,7 +36,7 @@ def handle_topics_sort(topic_being_edited, raw_topic_lists):
 @revisions.create_revision()
 def edit_topic(request, topic):
     if request.POST:
-        schema = json.loads(bleach.clean(request.POST.get('text')))
+        schema = clean_submission(request.POST.get('text'))
         topics_sort = list(json.loads(request.POST.get('topics_sort', '[]')))
         rename_topic_name = request.POST.get('rename_topic_name', '').strip()
         rename_change = any(rename_topic_name) and rename_topic_name != topic.orig_name
