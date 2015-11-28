@@ -35,9 +35,8 @@ a.link_url, h3.link_url {
     }
 
     .tag {
-        border: 1px solid #3aa6ff;
         padding: 2px;
-        .hash {
+        .hash, .name {
             opacity: .3;
             font-weight: bold;
         }
