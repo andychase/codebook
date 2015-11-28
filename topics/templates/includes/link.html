@@ -4,6 +4,11 @@
             <span class='ui-icon ui-icon-minusthick portlet-toggle'></span>
         </div>
     {% endif %}
+    {% if not editing and link.icon %}
+        <div class="icon">
+            <i class="ss-{{ link.icon }}"></i>
+        </div>
+    {% endif %}
     {% if link.commentary or editing %}
         {% if editing %}
             <textarea class="commentary" placeholder="Commentary">{{ link.commentary | un_markdownify }}</textarea>

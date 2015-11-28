@@ -86,6 +86,7 @@ def get_topic(request, topic_name, retry=False):
         template = loader.get_template('topics/show_topic.html')
 
     resources = view_helpers.process(topic.text)
+    view_helpers.add_tags_to_topic_resources(resources)
 
     extra_empty_topic = {'path': topic_path + ("",)}
     view_helpers.add_active_to_topic_path(topics, topic_path)
