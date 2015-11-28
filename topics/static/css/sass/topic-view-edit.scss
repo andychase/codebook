@@ -42,6 +42,8 @@
             height: 30pt;
         }
         .editing-link-url {
+            font-family: monospace;
+            text-decoration: underline;
             width: 95%;
             @extend %edit-visible;
         }
