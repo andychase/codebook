@@ -35,6 +35,8 @@ STATICFILES_DIRS = (
     static_path,
 )
 
+DISCOURSE_SSO_SECRET = os.environ.get("DISCOURSE_SSO_SECRET")
+
 STATICFILES_STORAGE = 'pipeline.storage.PipelineCachedStorage'
 
 # Set session cookie to work on subdomains

@@ -1,5 +1,7 @@
 from django.conf.urls import url
 from django.contrib.auth import views as auth_views
+
+from topics.views import sso
 from .views import users
 from .views import topics
 from .views import topics_new
@@ -11,6 +13,7 @@ password_reset_confirm = \
 urlpatterns = [
     # User authentication
     url(r'^_login/$', users.login_view, name='login'),
+    url(r'^_login/sso$', sso.sso),
     url(r'^_accounts/login/$', users.login_view, name='login'),
     url(r'^_create_account/$', users.create_account_view, name='create_account'),
     url(r'^_logout/$', users.logout_view, name='logout'),
