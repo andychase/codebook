@@ -1,7 +1,7 @@
 typing
 dj-database-url
 whitenoise
-Django
+Django==1.8
 django-pipeline
 django-reversion
 gunicorn
