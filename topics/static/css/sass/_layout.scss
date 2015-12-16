@@ -2,7 +2,6 @@
  * Site header
  */
 .site-header {
-    border-top: 2px solid $brand-color;
     border-bottom: 1px solid $grey-color-light;
     min-height: 56px;
 }
@@ -21,7 +20,7 @@
 }
 
 .site-title {
-    margin-top: 15px;
+    margin-top: 20px;
     margin-bottom: 10px;
     text-align: center;
     a, a.visited {
@@ -69,7 +68,6 @@
             height: 27px;
             overflow: hidden;
             vertical-align: bottom;
-            box-shadow: 0 -1px 2px 0 rgba(0, 0, 0, 0.04) inset;
             &.ui-sortable-helper {
                 box-shadow: 0 5px 17px -4px rgba(0, 0, 0, 0.22);
                 max-height: 27px !important;
@@ -81,10 +79,7 @@
             a, input {
                 display: inline-block;
                 padding: 2px 5px 0 5px;
-                border: 1px solid $brand-color;
-                border-bottom-width: 0;
-                border-top-left-radius: 5px;
-                border-top-right-radius: 5px;
+                border: none;
             }
             a.opening, a.opening:hover {
                 cursor: default;
@@ -99,8 +94,7 @@
         }
         li.active a, li.active input {
             opacity: 1;
-            background-color: $brand-color;
-            color: white;
+            border-bottom: 10px solid $brand-color;
             vertical-align: bottom;
         }
     }
