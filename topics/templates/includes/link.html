@@ -3,4 +3,15 @@
         <a class="link_url" href="{{ link.link }}">
             {{ link.title }}
         </a>
+        <form action="" method="post" class="link-tag">
+    {% csrf_token %}
+        <input type="hidden" name="link_tag" value="{{ link.id }}"/>
+        <input type="text" name="tag_text" class="tag_text" title="Tag" placeholder="#tag"/>
+        <input type="submit"/>
+    </form>
+    <div class="tags">
+        {% for tag in link.tags.all %}
+            <a href="{{ tag.slug }}">{{ tag.text }}</a>
+        {% endfor %}
+    </div>
 </div>
