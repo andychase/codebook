@@ -1,11 +1,12 @@
 {% extends "layouts/default.html" %}
 {% block extra_page_classes %}topic-view {% endblock %}
 {% block content %}
-    {% for link in link %}
-        {% if resource.section %}
-            {% include 'includes/link.html' with link=link %}
-        {% endif %}
+    {% for link in links %}
+        {% include 'includes/link.html' with link=link %}
     {% endfor %}
-    </div>
-
+    <form action="" method="POST">
+    {% csrf_token %}
+        <input type="text" name="url" class="post_link" title="Submit Link" placeholder="http://submit link here"/>
+        <input type="submit"/>
+    </form>
 {% endblock %}

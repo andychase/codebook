@@ -83,17 +83,10 @@ def process(input_string) -> List[Dict[str, Dict[str, str]]]:
         return []
 
 
-def add_active_to_topic_path(topics, nav_active):
-    for i, active, topic_list in zip(range(1, len(topics) + 1), nav_active, topics):
-        for topic in topic_list:
-            if topic['name'] == active:
-                topic['active'] = True
-            if i == len(nav_active):
-                topic['last_nav'] = True
-
-
-def topic_name_to_path(topic_name):
-    topic_name = topic_name[:2000]
-    topic_path = tuple(topic_name.strip("/").split("/"))
-    topic_path_is_root = (topic_path == ("",))
-    return topic_path, topic_path_is_root
+def get_client_ip(request):
+    x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+    if x_forwarded_for:
+        ip = x_forwarded_for.split(',')[0]
+    else:
+        ip = request.META.get('REMOTE_ADDR')
+    return ip

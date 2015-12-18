@@ -74,8 +74,8 @@ class TopicSiteData(Site):
 
 class Link(models.Model):
     user = models.ForeignKey(User)
-    link = models.TextField(blank=True)
-    title = models.TextField(blank=True)
+    link = models.TextField()
+    title = models.TextField()
     site = models.ForeignKey(Site)
     pub_date = models.DateTimeField('date published', default=datetime.now)
 

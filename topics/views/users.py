@@ -8,7 +8,7 @@ from django.template import loader, RequestContext
 from topics.settings_context import settings_context
 
 
-def create_account_view(request, topics):
+def create_account_view(request):
     if request.POST:
         form = UserCreationForm(request.POST)
         if form.is_valid():
@@ -21,15 +21,13 @@ def create_account_view(request, topics):
 
     template = loader.get_template('registration/create_account.html')
     context = RequestContext(request, {
-        'topics': topics,
         'form': form
     })
     return HttpResponse(template.render(context))
 
 
-def login_view(request, topics):
+def login_view(request):
     extra_context = {
-        'topics': topics,
         'next': request.GET.get("next"),
         'fromlink': True if request.GET.get("fromlink") == 'true' else False
     }
@@ -38,17 +36,15 @@ def login_view(request, topics):
     return template_response
 
 
-def password_reset_view(request, topics):
+def password_reset_view(request):
     extra_context = {
-        'topics': topics,
     }
     template_response = views.password_reset(request, extra_context=extra_context)
     return template_response
 
 
-def password_reset_confirm_view(request, topics):
+def password_reset_confirm_view(request):
     extra_context = {
-        'topics': topics,
     }
     template_response = views.password_reset(request, extra_context=extra_context)
     return template_response

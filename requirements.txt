@@ -1,3 +1,5 @@
+lxml
+requests
 typing
 dj-database-url
 whitenoise
