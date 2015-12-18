@@ -72,7 +72,7 @@ class TopicSiteData(Site):
             cls(site_ptr_id=site_id, css_style=stylesheet).save()
 
 
-class Tags(models.Model):
+class Tag(models.Model):
     user = models.ForeignKey(User)
     text = models.TextField()
     slug = models.TextField(unique=True)
@@ -92,7 +92,7 @@ class Link(models.Model):
     icon = models.TextField(blank=True)
     site = models.ForeignKey(Site)
     pub_date = models.DateTimeField('date published', default=datetime.now)
-    tags = models.ManyToManyField(Tags)
+    tags = models.ManyToManyField(Tag)
 
     def __str__(self):
         return self.title
