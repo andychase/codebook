@@ -72,6 +72,18 @@ class TopicSiteData(Site):
             cls(site_ptr_id=site_id, css_style=stylesheet).save()
 
 
+class Tags(models.Model):
+    user = models.ForeignKey(User)
+    text = models.TextField(unique=True)
+    pub_date = models.DateTimeField('date published', default=datetime.now)
+
+    def __str__(self):
+        return self.text
+
+    def clean(self):
+        self.text = django.utils.text.slugify(self.text)
+
+
 class Link(models.Model):
     user = models.ForeignKey(User)
     link = models.TextField(unique=True)
@@ -79,37 +91,11 @@ class Link(models.Model):
     icon = models.TextField(blank=True)
     site = models.ForeignKey(Site)
     pub_date = models.DateTimeField('date published', default=datetime.now)
+    tags = models.ManyToManyField(Tags)
+
+    def __str__(self):
+        return self.title
 
     @staticmethod
     def get_all_links(current_site):
         return Link.objects.filter(site_id=current_site)
-
-
-class Tags(models.Model):
-    ip = models.TextField()
-    user = models.ForeignKey(User)
-    text = models.TextField(unique=True)
-    pub_date = models.DateTimeField('date published', default=datetime.now)
-
-    def clean(self):
-        self.text = django.utils.text.slugify(self.text)
-
-
-class LinkVotes(models.Model):
-    ip = models.TextField()
-    user = models.ForeignKey(User)
-    link = models.ForeignKey(Link)
-    pub_date = models.DateTimeField('date published', default=datetime.now)
-
-    class Meta:
-        unique_together = (("user", "link"),)
-
-
-class TagVotes(models.Model):
-    ip = models.TextField()
-    user = models.ForeignKey(User)
-    tag = models.ForeignKey(Link)
-    pub_date = models.DateTimeField('date published', default=datetime.now)
-
-    class Meta:
-        unique_together = (("user", "tag"),)
