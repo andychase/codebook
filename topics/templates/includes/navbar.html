@@ -1,34 +1,22 @@
 {% for subtopic in topics|slice:"1:" %}
-    {% if subtopic %}
-        <div class="site-header-nav">
-            <div class="wrapper">
-                <div class="site-nav {% if editing_topic %}editing-topic{% endif %}">
-                    <ul>
-                        {% for topic in subtopic %}<li id="topic-{{ topic.id }}"
-                                class="{% if topic.active %}active{% endif %}">
-                                {% if is_editing and topic.active and topic.last_nav %}
-                                    <input class="page-link" name="rename_topic_name"
-                                           value="{{ topic.orig_name }}"/>
-                                {% else %}
-                                    <a class="page-link"
-                                       href="{% url 'topics:get_topic' topic.path|join:"/" %}">{{ topic.orig_name }}</a>
-                                {% endif %}
-                            </li>{% if forloop.last %}
-                            {% include 'includes/new_topic_button.html' with topic=topic %}
-                        {% endif %}{% endfor %}
-                    </ul>
-                </div>
+    <div class="site-header-nav">
+        <div class="wrapper">
+            <div class="site-nav {% if editing_topic %}editing-topic{% endif %}">
+                <ul>
+                    {% for topic in subtopic %}
+                        <li id="topic-{{ topic.id }}"
+                            class="{% if topic.active %}active{% endif %}">
+                            {% if is_editing and topic.active and topic.last_nav %}
+                                <input class="page-link" name="rename_topic_name"
+                                       value="{{ topic.orig_name }}"/>
+                            {% else %}
+                                <a class="page-link"
+                                   href="{% url 'topics:get_topic' topic.path|join:"/" %}">{{ topic.orig_name }}</a>
+                            {% endif %}
+                        </li>
+                    {% endfor %}
+                </ul>
             </div>
         </div>
-    {% elif user_can_edit %}
-        <div class="site-header-nav extra_empty_topic {{ new_topic }}">
-            <div class="wrapper">
-                <div class="site-nav">
-                    <ul>
-                        {% include 'includes/new_topic_button.html' with topic=extra_empty_topic %}
-                    </ul>
-                </div>
-            </div>
-        </div>
-    {% endif %}
+    </div>
 {% endfor %}

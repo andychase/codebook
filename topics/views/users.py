@@ -1,29 +1,13 @@
 from django.contrib.auth import login, logout, authenticate
-from django.contrib.auth.forms import UserCreationForm
-from django.contrib.sites.shortcuts import get_current_site
-from django.core.exceptions import ObjectDoesNotExist
-from django.http import HttpResponse, Http404
 from django.contrib.auth import views
+from django.contrib.auth.forms import UserCreationForm
+from django.http import HttpResponse, Http404
 from django.shortcuts import redirect
 from django.template import loader, RequestContext
 
-from topics.models import Topic
 from topics.settings_context import settings_context
-from topics.views.home_about import site_not_found
 
 
-def catch_site_not_found(func):
-    def protected_func(request):
-        try:
-            topics = [Topic.get_tree_top(get_current_site(request))]
-            return func(request, topics)
-        except ObjectDoesNotExist:
-            return site_not_found(request, "")
-
-    return protected_func
-
-
-@catch_site_not_found
 def create_account_view(request, topics):
     if request.POST:
         form = UserCreationForm(request.POST)
@@ -43,7 +27,6 @@ def create_account_view(request, topics):
     return HttpResponse(template.render(context))
 
 
-@catch_site_not_found
 def login_view(request, topics):
     extra_context = {
         'topics': topics,
@@ -55,7 +38,6 @@ def login_view(request, topics):
     return template_response
 
 
-@catch_site_not_found
 def password_reset_view(request, topics):
     extra_context = {
         'topics': topics,
@@ -64,7 +46,6 @@ def password_reset_view(request, topics):
     return template_response
 
 
-@catch_site_not_found
 def password_reset_confirm_view(request, topics):
     extra_context = {
         'topics': topics,

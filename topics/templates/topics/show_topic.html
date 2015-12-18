@@ -1,30 +1,11 @@
 {% extends "layouts/default.html" %}
 {% block extra_page_classes %}topic-view {% endblock %}
 {% block content %}
-    {% for resource in resources %}
+    {% for link in link %}
         {% if resource.section %}
-            <div class="section_separator"></div>
-            <h1>{{ resource.section | markdownify }}</h1>
-        {% elif resource.subsection %}
-            <h2>{{ resource.subsection | markdownify }}</h2>
-        {% elif resource.text %}
-            {{ resource.text | markdownify }}
-        {% elif resource.link %}
-            {% include 'includes/link.html' with link=resource.link %}
+            {% include 'includes/link.html' with link=link %}
         {% endif %}
     {% endfor %}
-    <div class="topic-actions">
-        {% if historical_version %}
-            <a href="../.." class="topic-edit-link ss-left">back to page</a>
-            <a href=".." class="topic-edit-link ss-clock">back to history</a>
-        {% else %}
-            {% if user_can_edit %}
-                <a href="_edit/" class="topic-edit-link ss-write">edit this page</a>
-            {% endif %}
-            {% if not topic_path_is_root or user_can_edit %}
-                <a href="_history/" class="topic-history-link ss-clock">see page history</a>
-            {% endif %}
-        {% endif %}
     </div>
 
 {% endblock %}

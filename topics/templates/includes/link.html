@@ -1,51 +1,5 @@
-<div class="link_block portlet">
-    {% if editing %}
-        <div class="portlet-header ui-widget-header ui-corner-all">
-            <span class='ui-icon ui-icon-minusthick portlet-toggle'></span>
-        </div>
-    {% endif %}
-    {% if not editing and link.icon %}
-        <div class="icon">
-            <i class="ss-{{ link.icon }}"></i>
-        </div>
-    {% endif %}
-    {% if link.commentary or editing %}
-        {% if editing %}
-            <textarea class="commentary" placeholder="Commentary">{{ link.commentary | un_markdownify }}</textarea>
-        {% else %}
-            <div class="commentary" {{ editing }}>
-        <span>
-                {{ link.commentary | markdownify }}
-        </span>
-            </div>
-        {% endif %}
-    {% endif %}
-
-    {% if editing %}
-        <input class="link_url" placeholder="Link title" value="{{ link.title | un_markdownify_input }}"/>
-        <label>
-            <input class="editing-link-url" name="url" placeholder="https://example.org" value="{{ link.url.2 }}">
-        </label>
-    {% else %}
-        <a class="link_url" href="{{ link.url.2 }}">
-            {{ link.title | markdownify }}
+<div class="link_block">
+        <a class="link_url" href="{{ link.link }}">
+            {{ link.link }}
         </a>
-    {% endif %}
-    {% if editing %}
-        <input class="more_link_data" placeholder="Metadata" value="{{ link.metadata | un_markdownify_input }}"/>
-    {% else %}
-        <div class="more_link_data" {{ editing }}>
-            {{ link.metadata | markdownify }}
-        </div>
-    {% endif %}
-
-    {% if link.desc or editing %}
-        {% if editing %}
-            <textarea class="description" placeholder="Description">{{ link.desc | un_markdownify }}</textarea>
-        {% else %}
-            <div class="description">
-                {{ link.desc | markdownify }}
-            </div>
-        {% endif %}
-    {% endif %}
 </div>

@@ -1,5 +1,0 @@
-{% if user_can_edit %}
-    <li class="new-topic">
-        <a href="{% url 'topics:new_topic' topic.path|slice:":-1"|join:"/" %}" class="ss-plus"></a>
-    </li>
-{% endif %}
