@@ -39,6 +39,16 @@
     }
 }
 
+header .site-header-nav {
+    border-bottom: none;
+}
+
+header .site-header-nav .wrapper {
+    margin: 0;
+    padding: 0;
+}
+
+
 .site-nav {
     position: relative;
     max-width: 525px;
