@@ -135,10 +135,11 @@ class Link(models.Model):
 
     @staticmethod
     def get_all_links(current_site, tags):
+        q = Link.objects.filter(site_id=current_site).select_related()
         if any(tags):
-            return Link.objects.filter(site_id=current_site, tags__slug__in=tags).select_related()
-        else:
-            return Link.objects.filter(site_id=current_site).select_related()
+            for tag in tags:
+                q = q.filter(tags__slug=tag)
+        return q
 
     @staticmethod
     def save_link(url, user, site):
