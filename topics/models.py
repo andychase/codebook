@@ -90,15 +90,17 @@ class Tag(models.Model):
         return self.text
 
     def clean(self):
+        self.text = self.text.strip().lower()
         self.slug = django.utils.text.slugify(self.text)
 
     @staticmethod
-    def save_tag(link_id, tag_text, user):
+    def save_tags(link_id, tag_text_list, user):
         link = Link.objects.get(pk=link_id)
-        tag = Tag(text=tag_text, user=user)
-        tag.clean()
-        tag.save()
-        link.tags.add(tag)
+        for tag_text in tag_text_list:
+            tag = Tag(text=tag_text, user=user)
+            tag.clean()
+            tag.save()
+            link.tags.add(tag)
 
 
 class Link(models.Model):
