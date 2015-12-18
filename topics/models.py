@@ -76,6 +76,7 @@ class Link(models.Model):
     user = models.ForeignKey(User)
     link = models.TextField()
     title = models.TextField()
+    icon = models.TextField(blank=True)
     site = models.ForeignKey(Site)
     pub_date = models.DateTimeField('date published', default=datetime.now)
 
