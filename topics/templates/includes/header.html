@@ -19,9 +19,6 @@
                     <input type="hidden" value="{{ request.path }}" name="next">
                     <input type="submit" value="Log out">
                 </form>
-            {% else %}
-                <a href="{% url 'topics:create_account' %}">Create account</a>
-                <a href="{% url 'topics:login' %}?fromlink=true&next={{ request.path }}">Log in</a>
             {% endif %}
         </div>
         <nav class="site-nav {% if editing_topic %}editing-topic{% endif %}">
