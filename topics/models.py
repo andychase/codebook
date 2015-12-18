@@ -115,10 +115,11 @@ class Tag(models.Model):
                 .values('tag')
                 .annotate(number_of_links=Count('link'))
                 .values('tag', 'number_of_links', 'tag__text', 'tag__slug')
+                .order_by('-number_of_links')
         )
         if any(tags):
             q = q.filter(tag__slug__in=tags)
-        return q
+        return q[:10]
 
 
 class Link(models.Model):
