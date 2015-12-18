@@ -16,7 +16,7 @@
 
 {% include 'includes/header.html' %}
 
-{% include 'includes/navbar.html' %}
+{% include 'includes/navbar.html' with top_tags=top_tags_rest %}
 
 <div class="page-content {% block extra_page_classes %}{% endblock %}">
     <div class="wrapper">

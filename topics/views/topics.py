@@ -20,9 +20,17 @@ def get_topic(request, topic_name):
             return save_link(request, topic_name)
 
     template = loader.get_template('topics/show_topic.html')
-    links = Link.get_all_links(get_current_site(request), topic_name.strip("/").split("/"))
+    selected_tags = topic_name.strip("/")
+    if selected_tags:
+        selected_tags = selected_tags.split("/")
+    else:
+        selected_tags = []
+    links = Link.get_all_links(get_current_site(request), selected_tags)
+    top_tags = list(Tag.get_top_tag_list(selected_tags))
     context = RequestContext(request, {
         'links': links,
+        'top_tags_first': top_tags[:1],
+        'top_tags_rest': top_tags[1:]
     })
     return HttpResponse(template.render(context))
 

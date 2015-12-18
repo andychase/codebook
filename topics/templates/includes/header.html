@@ -25,23 +25,7 @@
             {% endif %}
         </div>
         <nav class="site-nav {% if editing_topic %}editing-topic{% endif %}">
-            <ul>
-                {% for topic in topics.0 %}
-                    {% if topic.orig_name %}
-                        <li
-                                id="topic-{{ topic.id }}"
-                                class="{% if topic.active %} active{% endif %}">
-                            {% if is_editing and topic.active and topic.last_nav %}
-                                <input class="page-link" name="rename_topic_name"
-                                       value="{{ topic.orig_name }}"/>
-                            {% else %}
-                                <a class="page-link"
-                                   href="{% url 'topics:get_topic' topic.name %}">{{ topic.orig_name }}</a>
-                            {% endif %}
-                        </li>
-                    {% endif %}
-                {% endfor %}
-            </ul>
+            {% include 'includes/navbar.html' with top_tags=top_tags_first %}
         </nav>
     </div>
 </header>
