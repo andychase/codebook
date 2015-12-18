@@ -74,7 +74,7 @@ class TopicSiteData(Site):
 
 class Link(models.Model):
     user = models.ForeignKey(User)
-    link = models.TextField()
+    link = models.TextField(unique=True)
     title = models.TextField()
     icon = models.TextField(blank=True)
     site = models.ForeignKey(Site)
