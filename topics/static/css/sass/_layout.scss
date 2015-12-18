@@ -8,8 +8,6 @@
 
 .site-header-nav {
     border-bottom: 1px solid $grey-color-light;
-    min-height: 40px;
-    position: relative;
 }
 
 .extra_empty_topic {
@@ -51,6 +49,7 @@ header .site-header-nav .wrapper {
 
 .site-nav {
     position: relative;
+    margin-top: 20px;
     max-width: 525px;
     .menu-icon {
         display: none;
@@ -84,7 +83,6 @@ header .site-header-nav .wrapper {
                 border: none;
             }
             a:hover {
-                text-decoration: none;
             }
             a.opening, a.opening:hover {
                 cursor: default;
@@ -98,8 +96,9 @@ header .site-header-nav .wrapper {
             }
         }
         li.active a, li.active input {
-            opacity: 1;
-            border-bottom: 10px solid $brand-color;
+            background-color: $brand-color;
+            border-bottom: 1px solid $brand-color;
+            color: white;
             vertical-align: bottom;
         }
     }
@@ -110,9 +109,7 @@ header .site-header-nav .wrapper {
 }
 
 .site-header-nav .site-nav {
-    min-height: 41px;
     ul {
-        min-height: 24px;
     }
 }
 
