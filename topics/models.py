@@ -109,7 +109,7 @@ class Tag(models.Model):
             link.tags.add(tag)
 
     @staticmethod
-    def get_top_tags(tags):
+    def get_top_tags(site, tags):
         q = (
             Link.tags.through.objects
                 .values('tag')
@@ -118,8 +118,37 @@ class Tag(models.Model):
                 .order_by('-number_of_links')
         )
         if any(tags):
-            q = q.filter(tag__slug__in=tags)
+            q = q.filter(link__in=Link.get_all_links(site, tags))
         return q[:10]
+
+    @staticmethod
+    def get_top_tag_list(site, selected_tags):
+        def fix_tags(tags, sel=None):
+            for tag in tags:
+                tag['path'] = [tag['tag__slug']]
+                tag['slug'] = tag['tag__slug']
+                tag['text'] = tag['tag__text']
+                if any(selected_tags) and sel is not None and sel < len(selected_tags):
+                    if selected_tags[sel] == tag['slug']:
+                        tag['active'] = True
+            if any(selected_tags) and sel is not None and sel <= len(selected_tags):
+                tags = [tag for tag in tags if tag['slug'] not in selected_tags[:sel]]
+            return tags
+
+        def add_tag_path(path, tags):
+            for tag in tags:
+                tag['path'] = path + [tag['tag__slug']]
+
+        # Base Nav
+        output_tags = Tag.get_top_tags(site, [])
+        output_tags = fix_tags(output_tags, 0)
+        yield output_tags
+        # noinspection PyArgumentList
+        for i in range(1, len(selected_tags) + 1):
+            output_tags = Tag.get_top_tags(site, selected_tags[:i])
+            output_tags = fix_tags(output_tags, i)
+            add_tag_path(selected_tags[:i], output_tags)
+            yield output_tags
 
 
 class Link(models.Model):
