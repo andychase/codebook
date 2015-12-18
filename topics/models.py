@@ -74,14 +74,15 @@ class TopicSiteData(Site):
 
 class Tags(models.Model):
     user = models.ForeignKey(User)
-    text = models.TextField(unique=True)
+    text = models.TextField()
+    slug = models.TextField(unique=True)
     pub_date = models.DateTimeField('date published', default=datetime.now)
 
     def __str__(self):
         return self.text
 
     def clean(self):
-        self.text = django.utils.text.slugify(self.text)
+        self.slug = django.utils.text.slugify(self.text)
 
 
 class Link(models.Model):
