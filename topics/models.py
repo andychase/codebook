@@ -116,8 +116,11 @@ class Link(models.Model):
         return self.title
 
     @staticmethod
-    def get_all_links(current_site):
-        return Link.objects.filter(site_id=current_site).select_related()
+    def get_all_links(current_site, tags):
+        if any(tags):
+            return Link.objects.filter(site_id=current_site, tags__slug__in=tags).select_related()
+        else:
+            return Link.objects.filter(site_id=current_site).select_related()
 
     @staticmethod
     def save_link(url, user, site):

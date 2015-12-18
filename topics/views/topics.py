@@ -20,7 +20,7 @@ def get_topic(request, topic_name):
             return save_link(request, topic_name)
 
     template = loader.get_template('topics/show_topic.html')
-    links = Link.get_all_links(get_current_site(request))
+    links = Link.get_all_links(get_current_site(request), topic_name.strip("/").split("/"))
     context = RequestContext(request, {
         'links': links,
     })
