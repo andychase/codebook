@@ -1,3 +1,9 @@
+import urllib.parse
+from io import StringIO
+
+import lxml
+import lxml.html
+import requests
 from django.contrib.auth.models import User
 from django.contrib.sites.models import Site
 from django.contrib.sites.shortcuts import get_current_site
@@ -6,6 +12,8 @@ from django.db import models
 from django.utils.datetime_safe import datetime
 import reversion as revisions
 import django.utils.text
+
+from topics.helpers.view_helpers import normalize_url
 
 
 class BadTopicPath(Exception):
@@ -84,6 +92,14 @@ class Tag(models.Model):
     def clean(self):
         self.slug = django.utils.text.slugify(self.text)
 
+    @staticmethod
+    def save_tag(link_id, tag_text, user):
+        link = Link.objects.get(pk=link_id)
+        tag = Tag(text=tag_text, user=user)
+        tag.clean()
+        tag.save()
+        link.tags.add(tag)
+
 
 class Link(models.Model):
     user = models.ForeignKey(User)
@@ -99,4 +115,34 @@ class Link(models.Model):
 
     @staticmethod
     def get_all_links(current_site):
-        return Link.objects.filter(site_id=current_site)
+        return Link.objects.filter(site_id=current_site).select_related()
+
+    @staticmethod
+    def save_link(url, user, site):
+        # Fix url
+        url_raw = url
+        if not url_raw.startswith('http'):
+            url_raw = 'http://' + url_raw
+        url = urllib.parse.urlparse(url_raw)
+        url_full = normalize_url(url)
+
+        # Parse title & icon
+        page = requests.get(url_full)
+        parsed = lxml.html.parse(StringIO(page.text))
+        title = parsed.find(".//title").text
+        icon = None
+        icon_node = parsed.xpath('.//link[contains(@rel, "icon")]')
+        if icon_node:
+            icon = icon_node[0].attrib.get("href")
+            icon = normalize_url(urllib.parse.urlparse(icon), url.netloc)
+        if not icon:
+            icon = "{}://{}/favicon.ico".format(url.scheme, url.netloc)
+
+        link = Link(
+                link=url_full,
+                title=title,
+                icon=icon,
+                user=user,
+                site=site
+        )
+        link.save()
