@@ -4,9 +4,11 @@
     {% for link in links %}
         {% include 'includes/link.html' with link=link %}
     {% endfor %}
-    <form action="" method="post">
-    {% csrf_token %}
-        <input type="text" name="url" class="post_link" title="Submit Link" placeholder="http://submit link here"/>
-        <input type="submit"/>
-    </form>
+    {% if user.is_authenticated %}
+        <form action="" method="post">
+            {% csrf_token %}
+            <input type="text" name="url" class="post_link" title="Submit Link" placeholder="http://submit link here"/>
+            <input type="submit"/>
+        </form>
+    {% endif %}
 {% endblock %}

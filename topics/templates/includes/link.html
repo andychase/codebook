@@ -1,14 +1,16 @@
 <div class="link_block">
-        <img class="icon" src="{{ link.icon }}" />
-        <a class="link_url" href="{{ link.link }}">
-            {{ link.title }}
-        </a>
+    <img class="icon" src="{{ link.icon }}"/>
+    <a class="link_url" href="{{ link.link }}">
+        {{ link.title }}
+    </a>
+    {% if user.is_authenticated %}
         <form action="" method="post" class="link-tag">
-    {% csrf_token %}
-        <input type="hidden" name="link_tag" value="{{ link.id }}"/>
-        <input type="text" name="tag_text" class="tag_text" title="Tag" placeholder="#tag"/>
-        <input type="submit"/>
-    </form>
+            {% csrf_token %}
+            <input type="hidden" name="link_tag" value="{{ link.id }}"/>
+            <input type="text" name="tag_text" class="tag_text" title="Tag" placeholder="#tag"/>
+            <input type="submit"/>
+        </form>
+    {% endif %}
     <div class="tags">
         {% for tag in link.tags.all %}
             <a href="{{ tag.slug }}">{{ tag.text }}</a>
