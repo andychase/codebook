@@ -68,18 +68,13 @@
             height: 27px;
             overflow: hidden;
             vertical-align: bottom;
-            &.ui-sortable-helper {
-                box-shadow: 0 5px 17px -4px rgba(0, 0, 0, 0.22);
-                max-height: 27px !important;
-                overflow: hidden;
-                a {
-                    background-color: white;
-                }
-            }
             a, input {
                 display: inline-block;
                 padding: 2px 5px 0 5px;
                 border: none;
+            }
+            a:hover {
+                text-decoration: none;
             }
             a.opening, a.opening:hover {
                 cursor: default;
