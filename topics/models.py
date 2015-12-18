@@ -9,6 +9,7 @@ from django.contrib.sites.models import Site
 from django.contrib.sites.shortcuts import get_current_site
 from django.core.exceptions import ValidationError, ObjectDoesNotExist
 from django.db import models
+from django.db.models import Count
 from django.utils.datetime_safe import datetime
 import reversion as revisions
 import django.utils.text
@@ -101,6 +102,18 @@ class Tag(models.Model):
             tag.clean()
             tag.save()
             link.tags.add(tag)
+
+    @staticmethod
+    def get_top_tags(tags):
+        q = (
+            Link.tags.through.objects
+                .values('tag')
+                .annotate(number_of_links=Count('link'))
+                .values('tag', 'number_of_links', 'tag__text', 'tag__slug')
+        )
+        if any(tags):
+            q = q.filter(tag__slug__in=tags)
+        return q
 
 
 class Link(models.Model):
