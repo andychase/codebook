@@ -71,6 +71,17 @@ def url_handler(url):
     return domain, domain_link, output_url
 
 
+def normalize_url(url, domain=""):
+    return "{scheme}://{netloc}{path}{params}{query}{fragment}".format(
+            scheme=url.scheme if url.scheme else "http",
+            netloc=url.netloc if url.netloc else domain,
+            path="/" + url.path.lstrip("/") if url.path else "",
+            params=";" + url.params if url.params else "",
+            query="?" + url.query if url.query else "",
+            fragment="#" + url.fragment if url.fragment else ""
+    )
+
+
 def process(input_string) -> List[Dict[str, Dict[str, str]]]:
     if any(input_string.strip()):
         data = json.loads(input_string)
