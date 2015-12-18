@@ -98,9 +98,14 @@ class Tag(models.Model):
     def save_tags(link_id, tag_text_list, user):
         link = Link.objects.get(pk=link_id)
         for tag_text in tag_text_list:
-            tag = Tag(text=tag_text, user=user)
-            tag.clean()
-            tag.save()
+            slug = django.utils.text.slugify(tag_text)
+            previous = Tag.objects.filter(slug=slug).first()
+            if previous:
+                tag = previous
+            else:
+                tag = Tag(text=tag_text, user=user)
+                tag.clean()
+                tag.save()
             link.tags.add(tag)
 
     @staticmethod
