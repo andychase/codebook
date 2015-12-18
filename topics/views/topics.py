@@ -1,12 +1,14 @@
 import urllib
+import urllib.parse
 from io import StringIO
 
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.sites.shortcuts import get_current_site
+from django.db import IntegrityError
 from django.http import HttpResponse
 from django.shortcuts import redirect
 from django.template import loader, RequestContext
-from flask import url_for
 
 from topics.helpers import view_helpers
 from topics.helpers.view_helpers import normalize_url
@@ -57,5 +59,8 @@ def save_link(request, topic_name):
             user=request.user,
             site=get_current_site(request)
     )
-    link.save()
+    try:
+        link.save()
+    except IntegrityError:
+        messages.error(request, 'Link already posted.')
     return redirect("topics:get_topic", topic_name)
