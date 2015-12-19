@@ -17,7 +17,7 @@ $ ->
             result
 
     update_page_click = (tab, new_page) ->
-        $('.site-nav ul li a').addClass "opening"
+        $('.quick-link').addClass "opening"
         tab.parent().siblings().removeClass "active"
         tab.parent().addClass "active"
         update_page_ajax(tab.attr('href'), new_page)
@@ -54,7 +54,7 @@ $ ->
             , new_page_considered_at)
 
     ajaxify = ->
-        site_navs = $('.site-nav ul li a')
+        site_navs = $('.quick-link')
         if site_navs.length
             site_navs.each (tab_index, tab) ->
                 tab = $(tab)

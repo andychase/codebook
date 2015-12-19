@@ -5,7 +5,7 @@
                 <ul>
                     {% for tag in tag_list %}
                         <li class="{% if tag.active %}active{% endif %}">
-                                <a class="page-link"
+                                <a class="page-link quick-link"
                                    href="{% url 'topics:get_topic' tag.path|join:"/" %}">{{ tag.text }}</a>
                         </li>
                     {% endfor %}
