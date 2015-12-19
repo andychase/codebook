@@ -5,11 +5,23 @@ from django.db import IntegrityError
 from django.http import HttpResponse
 from django.shortcuts import redirect
 from django.template import loader, RequestContext
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 from topics.helpers import view_helpers
 from topics.models import Link, Tag
 
 view_helpers.setup()
+
+
+def paginate_links(links, page):
+    paginator = Paginator(links, 25)
+
+    try:
+        return paginator.page(page)
+    except PageNotAnInteger:
+        return paginator.page(1)
+    except EmptyPage:
+        return paginator.page(paginator.num_pages)
 
 
 def get_topic(request, topic_name):
@@ -26,6 +38,8 @@ def get_topic(request, topic_name):
     else:
         selected_tags = []
     links = Link.get_all_links(get_current_site(request), selected_tags)
+    links = paginate_links(links, request.GET.get('page'))
+
     top_tags = list(Tag.get_top_tag_list(get_current_site(request), selected_tags))
     if len(links) == 1:
         top_tags = top_tags[:-1]

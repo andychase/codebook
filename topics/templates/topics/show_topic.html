@@ -4,8 +4,27 @@
     {% for link in links %}
         {% include 'includes/link.html' with link=link %}
     {% endfor %}
+
+    {% if links.has_previous or links.has_next %}
+        <div class="pagination">
+            <span class="step-links">
+                {% if links.has_previous %}
+                    <a class="quick-link" href="?page={{ links.previous_page_number }}">&larr; previous</a>
+                {% endif %}
+
+                <span class="current">
+                    {{ links.number }} / {{ links.paginator.num_pages }}
+                </span>
+
+                {% if links.has_next %}
+                    <a class="quick-link" href="?page={{ links.next_page_number }}">next &rarr;</a>
+                {% endif %}
+            </span>
+        </div>
+    {% endif %}
+
     {% if user.is_authenticated %}
-        <form action="" method="post">
+        <form action="" method="post" class="submit-link">
             {% csrf_token %}
             <input type="text" name="url" class="post_link" title="Submit Link" placeholder="http://submit link here"/>
             <input type="submit"/>
