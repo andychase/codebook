@@ -1,29 +1,15 @@
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth import views
 from django.contrib.auth.forms import UserCreationForm
-from django.http import HttpResponse, Http404
+from django.http import HttpResponse, Http404, HttpResponseForbidden
 from django.shortcuts import redirect
 from django.template import loader, RequestContext
 
 from topics.settings_context import settings_context
 
 
-def create_account_view(request):
-    if request.POST:
-        form = UserCreationForm(request.POST)
-        if form.is_valid():
-            form.save()
-            user = authenticate(username=form.data['username'], password=form.data['password1'])
-            login(request, user)
-            return redirect('topics:get_topic', "")
-    else:
-        form = UserCreationForm()
-
-    template = loader.get_template('registration/create_account.html')
-    context = RequestContext(request, {
-        'form': form
-    })
-    return HttpResponse(template.render(context))
+def create_account_view(_):
+    return HttpResponseForbidden()
 
 
 def login_view(request):
