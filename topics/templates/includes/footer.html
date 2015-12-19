@@ -4,7 +4,8 @@
             <ul>
                 <li><a href="https://techstore.club"><span class="t">Tech</span><span class="s">Store</span><span
                         class="c">Club</span></a></li>
-                <li><a href="https://snc.io/_about/terms">Terms</a> &amp;
+                <li><a href="https://snc.io/_about/terms">Terms</a>
+                    <a href="{% url 'topics:login' %}?fromlink=true&next={{ request.path }}">&amp;</a>
                         <a href="https://snc.io/_about/privacy">Privacy</a></li>
                 <li><a href="https://creativecommons.org/licenses/by/4.0/">(CC BY 4.0)</a></li>
             </ul>
