@@ -180,10 +180,17 @@ class Link(models.Model):
         url = urllib.parse.urlparse(url_raw)
         url_full = normalize_url(url)
 
+        previous_link = Link.objects.filter(link=url_full).first()
+        if previous_link:
+            return
+
         # Parse title & icon
-        page = requests.get(url_full)
+        page = requests.get(url_full, timeout=1)
         parsed = lxml.html.parse(StringIO(page.text))
-        title = parsed.find(".//title").text
+        title = "<UNK>"
+        title_node = parsed.find(".//title")
+        if title_node is not None:
+            title = title_node.text
         icon = None
         icon_node = parsed.xpath('.//link[contains(@rel, "icon")]')
         if icon_node:
@@ -192,6 +199,7 @@ class Link(models.Model):
         if not icon:
             icon = "{}://{}/favicon.ico".format(url.scheme, url.netloc)
 
+        # Save Link
         link = Link(
                 link=url_full,
                 title=title,
