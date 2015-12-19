@@ -71,10 +71,20 @@ def url_handler(url):
     return domain, domain_link, output_url
 
 
+def normalize_netloc(netloc, domain):
+    if netloc:
+        if netloc.startswith("www."):
+            return netloc.split("www.")[1]
+        else:
+            return netloc
+    else:
+        return domain
+
+
 def normalize_url(url, domain=""):
     return "{scheme}://{netloc}{path}{params}{query}{fragment}".format(
             scheme=url.scheme if url.scheme else "http",
-            netloc=url.netloc if url.netloc else domain,
+            netloc=normalize_netloc(url.netloc, domain),
             path="/" + url.path.lstrip("/") if url.path else "",
             params=";" + url.params if url.params else "",
             query="?" + url.query if url.query else "",
