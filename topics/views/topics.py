@@ -27,6 +27,8 @@ def get_topic(request, topic_name):
         selected_tags = []
     links = Link.get_all_links(get_current_site(request), selected_tags)
     top_tags = list(Tag.get_top_tag_list(get_current_site(request), selected_tags))
+    if len(links) == 1:
+        top_tags = top_tags[:-1]
     context = RequestContext(request, {
         'links': links,
         'top_tags_first': top_tags[:1],
