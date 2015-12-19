@@ -42,6 +42,7 @@ $ ->
             # Set page title, update page data
             document.title = title
             $(".ajax-content").html(page_data)
+            window.scrollTo(0, 0)
             # Release updating lock and re-set up page for ajax
             currently_opening = false
             ajaxify()
