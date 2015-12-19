@@ -10,7 +10,7 @@ from django.contrib.sites.shortcuts import get_current_site
 from django.core.exceptions import ValidationError, ObjectDoesNotExist
 from django.db import models
 from django.db.models import Count
-from django.utils.datetime_safe import datetime
+from django.utils import timezone
 import reversion as revisions
 import django.utils.text
 
@@ -33,7 +33,7 @@ class TopicSite(Site):
     header = models.CharField(max_length=120, blank=True)
     description = models.CharField(max_length=120, blank=True)
     allow_anonymous_edits = models.BooleanField(default=True)
-    create_date = models.DateTimeField('date created', default=datetime.now)
+    create_date = models.DateTimeField('date created', default=timezone.now)
     users = models.ManyToManyField(User)
     admin = models.ForeignKey(User, null=True, blank=True, related_name="admin_user")
 
@@ -85,7 +85,7 @@ class Tag(models.Model):
     user = models.ForeignKey(User)
     text = models.TextField()
     slug = models.TextField(unique=True)
-    pub_date = models.DateTimeField('date published', default=datetime.now)
+    pub_date = models.DateTimeField('date published', default=timezone.now)
 
     def __str__(self):
         return self.text
@@ -157,7 +157,7 @@ class Link(models.Model):
     title = models.TextField()
     icon = models.TextField(blank=True)
     site = models.ForeignKey(Site)
-    pub_date = models.DateTimeField('date published', default=datetime.now)
+    pub_date = models.DateTimeField('date published', default=timezone.now)
     tags = models.ManyToManyField(Tag)
 
     def __str__(self):
