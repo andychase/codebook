@@ -32,7 +32,8 @@ def get_topic(request, topic_name):
     context = RequestContext(request, {
         'links': links,
         'top_tags_first': top_tags[:1],
-        'top_tags_rest': top_tags[1:]
+        'top_tags_rest': top_tags[1:],
+        'selected_tags': selected_tags
     })
     return HttpResponse(template.render(context))
 

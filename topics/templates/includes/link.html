@@ -13,7 +13,7 @@
     {% endif %}
     <div class="tags">
         {% for tag in link.tags.all %}
-            <a href="{{ tag.slug }}">{{ tag.text }}</a>
+            <a href="{{ tag.slug }}" class="{% if tag.slug in selected_tags %}active{% endif %}">{{ tag.text }}</a>
         {% endfor %}
     </div>
 </div>

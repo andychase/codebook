@@ -34,5 +34,9 @@
         padding: 2px;
         border: 1px solid #3aa6ff;
         border-radius: 2px;
+        &.active {
+            background-color: $brand-color;
+            color: rgb(250, 250, 253);
+        }
     }
 }
