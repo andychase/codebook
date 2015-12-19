@@ -158,7 +158,7 @@ class Link(models.Model):
     icon = models.TextField(blank=True)
     site = models.ForeignKey(Site)
     pub_date = models.DateTimeField('date published', default=timezone.now)
-    tags = models.ManyToManyField(Tag)
+    tags = models.ManyToManyField(Tag, blank=True)
 
     def __str__(self):
         return self.title
