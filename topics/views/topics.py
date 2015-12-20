@@ -58,8 +58,11 @@ def get_topic(request, topic_name):
 @login_required
 def save_tag(request, topic_name):
     tag_list_raw = request.POST.get("tag_text")
+    link_title = request.POST.get("link_title")
     tag_list = tag_list_raw.lstrip("#").replace("#", ",").split(",")
     link_id = int(request.POST.get("link_tag"))
+    if link_title:
+        Link.rename_link(link_id, link_title)
     Tag.save_tags(link_id, tag_list, request.user)
     return redirect("topics:get_topic", topic_name)
 

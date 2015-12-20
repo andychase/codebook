@@ -104,6 +104,8 @@ class Tag(models.Model):
     def save_tags(link_id, tag_text_list, user):
         link = Link.objects.get(pk=link_id)
         for tag_text in tag_text_list:
+            if not tag_text:
+                continue
             slug = django.utils.text.slugify(tag_text)
             previous = Tag.objects.filter(slug=slug).first()
             if previous:
@@ -176,6 +178,13 @@ class Link(models.Model):
             for tag in tags:
                 q = q.filter(tags__slug=tag)
         return q
+
+    @staticmethod
+    def rename_link(link_id, title):
+        link = Link.objects.get(pk=link_id)
+        link.title = title
+        link.clean()
+        link.save()
 
     @staticmethod
     def save_link(url, user, site):

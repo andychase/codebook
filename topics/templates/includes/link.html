@@ -8,6 +8,7 @@
             {% csrf_token %}
             <input type="hidden" name="link_tag" value="{{ link.id }}"/>
             <input type="text" name="tag_text" class="tag_text" title="Tag" placeholder="#tag"/>
+            <input type="text" name="link_title" class="link_title" title="Link Title" placeholder="Link Title"/>
             <input type="submit"/>
         </form>
     {% endif %}
