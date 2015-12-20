@@ -16,7 +16,7 @@
     {% endif %}
     <div class="tags">
         {% for tag in link.tags.all|slice:":7" %}
-            <a href="/{{ tag.slug }}"
+            <a href="{% url 'topics:get_topic' tag.slug %}"
                class="quick-link {% if tag.slug in selected_tags %}active{% endif %}">{{ tag.text.split|join:"&nbsp;" }}</a>
         {% endfor %}
     </div>
