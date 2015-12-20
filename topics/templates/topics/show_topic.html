@@ -29,5 +29,12 @@
             <input type="text" name="url" class="post_link" title="Submit Link" placeholder="http://submit link here"/>
             <input type="submit"/>
         </form>
+        {% if selected_tags %}
+            <form action="" method="post" class="submit-link">
+                {% csrf_token %}
+                <input type="hidden" name="delete_tag" value="true"/>
+                <input type="submit" value="delete tag"/>
+            </form>
+        {% endif %}
     {% endif %}
 {% endblock %}

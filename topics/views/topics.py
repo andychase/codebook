@@ -25,18 +25,21 @@ def paginate_links(links, page):
 
 
 def get_topic(request, topic_name):
-    if request.POST:
-        if request.POST.get("link_tag"):
-            return save_tag(request, topic_name)
-        else:
-            return save_link(request, topic_name)
-
-    template = loader.get_template('topics/show_topic.html')
     selected_tags = topic_name.strip("/")
     if selected_tags:
         selected_tags = selected_tags.split("/")
     else:
         selected_tags = []
+
+    if request.POST:
+        if request.POST.get("link_tag"):
+            return save_tag(request, topic_name)
+        if request.POST.get("delete_tag"):
+            return delete_tag(request, selected_tags)
+        else:
+            return save_link(request, topic_name)
+
+    template = loader.get_template('topics/show_topic.html')
     links = Link.get_all_links(get_current_site(request), selected_tags)
     links = paginate_links(links, request.GET.get('page'))
 
@@ -59,6 +62,12 @@ def save_tag(request, topic_name):
     link_id = int(request.POST.get("link_tag"))
     Tag.save_tags(link_id, tag_list, request.user)
     return redirect("topics:get_topic", topic_name)
+
+
+@login_required
+def delete_tag(_, selected_tags):
+    Tag.delete_tag(selected_tags[-1])
+    return redirect("topics:get_topic", selected_tags[:-1])
 
 
 @login_required

@@ -95,6 +95,12 @@ class Tag(models.Model):
         self.slug = django.utils.text.slugify(self.text)
 
     @staticmethod
+    def delete_tag(tag_name):
+        tag = Tag.objects.filter(text=tag_name).first()
+        if tag:
+            tag.delete()
+
+    @staticmethod
     def save_tags(link_id, tag_text_list, user):
         link = Link.objects.get(pk=link_id)
         for tag_text in tag_text_list:
