@@ -180,6 +180,11 @@ class Link(models.Model):
         return q
 
     @staticmethod
+    def delete_link(link_id):
+        link = Link.objects.get(pk=link_id)
+        link.delete()
+
+    @staticmethod
     def rename_link(link_id, title):
         link = Link.objects.get(pk=link_id)
         link.title = title

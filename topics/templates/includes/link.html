@@ -9,6 +9,8 @@
             <input type="hidden" name="link_tag" value="{{ link.id }}"/>
             <input type="text" name="tag_text" class="tag_text" title="Tag" placeholder="#tag"/>
             <input type="text" name="link_title" class="link_title" title="Link Title" placeholder="Link Title"/>
+            <label class="link-delete"><input type="checkbox" name="link_delete" value="delete"><span>Delete</span>
+            </label>
             <input type="submit"/>
         </form>
     {% endif %}
