@@ -162,7 +162,7 @@ class Tag(models.Model):
 class Link(models.Model):
     user = models.ForeignKey(User)
     link = models.TextField(unique=True)
-    title = models.TextField()
+    title = models.TextField(blank=True)
     icon = models.TextField(blank=True)
     site = models.ForeignKey(Site)
     pub_date = models.DateTimeField('date published', default=timezone.now)
