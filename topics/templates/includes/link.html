@@ -1,5 +1,7 @@
 <div class="link_block">
-    <img class="icon" src="{{ link.icon }}"/>
+    {% if link.icon %}
+        <img class="icon" src="{{ link.icon }}"/>
+    {% endif %}
     <a class="link_url" href="{{ link.link }}">
         {{ link.title }}
     </a>
