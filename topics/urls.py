@@ -17,6 +17,7 @@ urlpatterns = [
     # About
     url(r'^_about/(about|terms|privacy)$', home_about.about, name='about'),
     # Topics
+    url(r'^_tag/$', topics.tag_topic, name='tag_topic'),
     url(r'^(.*)/$', topics.get_topic, name='get_topic'),
     url(r'^()$', topics.get_topic, name='get_topic'),
 ]

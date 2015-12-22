@@ -181,6 +181,10 @@ class Link(models.Model):
         return q
 
     @staticmethod
+    def get_random_link(current_site):
+        return Link.objects.filter(site_id=current_site).order_by('?').first()
+
+    @staticmethod
     def delete_link(link_id):
         link = Link.objects.get(pk=link_id)
         link.delete()
