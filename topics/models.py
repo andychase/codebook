@@ -13,6 +13,7 @@ from django.db.models import Count
 from django.utils import timezone
 import reversion as revisions
 import django.utils.text
+from requests.exceptions import ReadTimeout
 
 from topics.helpers.view_helpers import normalize_url
 
@@ -202,7 +203,9 @@ class Link(models.Model):
 
         previous_link = Link.objects.filter(link=url_full).first()
         if previous_link:
-            return
+            link = previous_link
+        else:
+            link = Link(link=url_full, user=user, site=site)
 
         # Parse title & icon
         page = requests.get(url_full, timeout=1)
@@ -218,13 +221,14 @@ class Link(models.Model):
             icon = normalize_url(urllib.parse.urlparse(icon), url.netloc)
         if not icon:
             icon = "{}://{}/favicon.ico".format(url.scheme, url.netloc)
+        try:
+            if requests.get(icon, timeout=1).status_code != 200:
+                icon = ""
+        except ReadTimeout:
+            icon = ""
 
         # Save Link
-        link = Link(
-                link=url_full,
-                title=title,
-                icon=icon,
-                user=user,
-                site=site
-        )
+        link.icon = icon
+        if not link.title and title:
+            link.title = title
         link.save()
