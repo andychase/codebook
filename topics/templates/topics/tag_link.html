@@ -7,7 +7,8 @@
 </head>
 <body>
 <div class="tag-link">
-    <a href="{{ link.link }}">{{ link.link }}</a>
+    {% include 'includes/link.html' with link=link %}
+
     <form action="" method="POST" class="page-editor">
         {% csrf_token %}
         <label> Industries: <input type="text" name="tags_1"> </label>
@@ -18,6 +19,7 @@
         <input type="text" name="link_title" class="link_title" title="Link Title" placeholder="Link Title"/>
         <label class="link-delete"><input type="checkbox" name="link_delete" value="delete"><span>Delete</span>
         </label>
+        <input type="submit" />
     </form>
 </div>
 </body>
