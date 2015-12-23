@@ -181,8 +181,13 @@ class Link(models.Model):
         return q
 
     @staticmethod
-    def get_random_link(current_site):
-        return Link.objects.filter(site_id=current_site).order_by('?').first()
+    def get_no_tag_link(current_site):
+        return (
+            Link.objects
+                .annotate(number_of_links=Count('tags'))
+                .filter(site_id=current_site, number_of_links=0)
+                .first()
+        )
 
     @staticmethod
     def delete_link(link_id):

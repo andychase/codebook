@@ -8,19 +8,12 @@
 <body>
 <div class="tag-link">
     {% include 'includes/link.html' with link=link %}
-
-    <form action="" method="POST" class="page-editor">
-        {% csrf_token %}
-        <label> Industries: <input type="text" name="tags_1"> </label>
-        <label> Concepts: <input type="text" name="tags_2"> </label>
-
-        <input type="hidden" name="link_tag" value="{{ link.id }}"/>
-        <input type="text" name="tag_text" class="tag_text" title="Tag" placeholder="#tag"/>
-        <input type="text" name="link_title" class="link_title" title="Link Title" placeholder="Link Title"/>
-        <label class="link-delete"><input type="checkbox" name="link_delete" value="delete"><span>Delete</span>
-        </label>
-        <input type="submit" />
-    </form>
+    <ul>
+        <li>Industry</li>
+        <li>Concepts</li>
+        <li>Technology</li>
+        <li>What are you solving?</li>
+    </ul>
 </div>
 </body>
 </html>

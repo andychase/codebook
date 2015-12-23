@@ -27,12 +27,11 @@ def paginate_links(links, page):
 def tag_topic(request):
     if request.POST:
         if request.POST.get("link_tag"):
-            request.POST['tag_text'] += ',' + request.POST['tags_1'] + ',' + request.POST['tags_2']
             save_tag(request, "")
             return redirect("topics:tag_topic")
     template = loader.get_template('topics/tag_link.html')
     context = RequestContext(request, {
-        'link': Link.get_random_link(current_site=get_current_site(request))
+        'link': Link.get_no_tag_link(current_site=get_current_site(request))
     })
     return HttpResponse(template.render(context))
 
