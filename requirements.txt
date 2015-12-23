@@ -4,8 +4,9 @@ typing
 dj-database-url
 whitenoise
 Django==1.8
-django-pipeline
-django-reversion
+django-pipeline==1.5.4
+reversion==0.2
+django-reversion==1.9.3
 gunicorn
 Markdown
 psycopg2
