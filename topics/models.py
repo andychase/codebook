@@ -82,6 +82,15 @@ class TopicSiteData(Site):
             cls(site_ptr_id=site_id, css_style=stylesheet).save()
 
 
+class Source(models.Model):
+    name = models.TextField()
+    site = models.TextField()
+
+    def clean(self):
+        self.text = self.text.strip()
+        self.slug = django.utils.text.slugify(self.text)
+
+
 class Tag(models.Model):
     user = models.ForeignKey(User)
     text = models.TextField()
@@ -171,6 +180,7 @@ class Link(models.Model):
     site = models.ForeignKey(Site)
     pub_date = models.DateTimeField('date published', default=timezone.now)
     tags = models.ManyToManyField(Tag, blank=True)
+    source = models.ForeignKey(Source, null=True, blank=True)
 
     def __str__(self):
         return self.title
