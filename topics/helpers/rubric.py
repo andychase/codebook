@@ -7,6 +7,7 @@ type:
     - data -- Data
     - tool -- Tool
     - guide -- Guide
+    - demo -- Demo
 
 difficulty:
     - 1 -- Anyone can read
