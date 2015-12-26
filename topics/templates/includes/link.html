@@ -13,6 +13,15 @@
             <input type="text" name="link_title" class="link_title" title="Link Title" placeholder="Link Title"/>
             <label class="link-delete"><input type="checkbox" name="link_delete" value="delete"><span>Delete</span>
             </label>
+            {% if rubric %}
+                {% for list_type, list in rubric.items %}
+                    <ul>
+                        {% for value, item in list %}
+                            <li><label><input type="radio" name="{{ list_type }}" value="{{ value }}">{{ item }}</label></li>
+                        {% endfor %}
+                    </ul>
+                {% endfor %}
+            {% endif %}
             <input type="submit"/>
         </form>
     {% endif %}

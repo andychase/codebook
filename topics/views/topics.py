@@ -8,6 +8,7 @@ from django.template import loader, RequestContext
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 from topics.helpers import view_helpers
+from topics.helpers.rubric import rubric
 from topics.models import Link, Tag
 
 view_helpers.setup()
@@ -31,7 +32,8 @@ def tag_topic(request):
             return redirect("topics:tag_topic")
     template = loader.get_template('topics/tag_link.html')
     context = RequestContext(request, {
-        'link': Link.get_no_tag_link(current_site=get_current_site(request))
+        'link': Link.get_no_tag_link(current_site=get_current_site(request)),
+        'rubric': rubric
     })
     return HttpResponse(template.render(context))
 
@@ -73,8 +75,12 @@ def save_tag(request, topic_name):
     link_title = request.POST.get("link_title")
     link_delete = request.POST.get("link_delete") == "delete"
     link_id = int(request.POST.get("link_tag"))
+    link_type = request.POST.get("type")
+    link_difficulty = request.POST.get("difficulty")
+    link_quality = request.POST.get("quality")
 
     tag_list = tag_list_raw.lstrip("#").replace("#", ",").split(",")
+    Link.save_ratings(link_id, link_type, link_difficulty, link_quality)
     if link_delete:
         Link.delete_link(link_id)
     else:

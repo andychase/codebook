@@ -165,6 +165,9 @@ class Link(models.Model):
     link = models.TextField(unique=True)
     title = models.TextField(blank=True)
     icon = models.TextField(blank=True)
+    type = models.TextField(blank=True)
+    rating_difficulty = models.IntegerField(null=True, blank=True)
+    rating_quality = models.IntegerField(null=True, blank=True)
     site = models.ForeignKey(Site)
     pub_date = models.DateTimeField('date published', default=timezone.now)
     tags = models.ManyToManyField(Tag, blank=True)
@@ -200,6 +203,19 @@ class Link(models.Model):
         link.title = title
         link.clean()
         link.save()
+
+    @staticmethod
+    def save_ratings(link_id, link_type, link_difficulty, link_quality):
+        if (link_type, link_difficulty, link_quality) != (None, None, None):
+            link = Link.objects.get(pk=link_id)
+            if link_type is not None:
+                link.type = link_type
+            if link_difficulty is not None:
+                link.rating_difficulty = int(link_difficulty)
+            if link_quality is not None:
+                link.rating_quality = int(link_quality)
+
+            link.save()
 
     @staticmethod
     def save_link(url, user, site):
