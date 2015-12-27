@@ -24,6 +24,5 @@ quality:
     - 5 -- Brings the topic to life
 
 """)
-for list_type in ['type', 'difficulty', 'quality']:
-    for i, item in enumerate(rubric[list_type]):
-        rubric[list_type][i] = item.split(" -- ")
+for list_type in rubric:
+    rubric[list_type] = [i.split(" -- ") for i in rubric[list_type]]
