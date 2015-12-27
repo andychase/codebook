@@ -15,9 +15,10 @@
             </label>
             {% if rubric %}
                 {% for list_type, list in rubric.items %}
+                    <h2 class="list-type-title">{{ list_type|title }}</h2>
                     <ul>
                         {% for value, item in list %}
-                            <li><label><input type="radio" name="{{ list_type }}" value="{{ value }}">{{ item }}</label></li>
+                            <li><label><input type="radio" name="{{ list_type }}" value="{{ value }}"><span>{{ item }}</span></label></li>
                         {% endfor %}
                     </ul>
                 {% endfor %}

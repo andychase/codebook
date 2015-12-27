@@ -3,4 +3,22 @@
     label {
         display: block;
     }
+    ul {
+        margin-left: 0;
+    }
+    li {
+        list-style: none;
+        span {
+            margin-left: 5px;
+        }
+    }
+    .list-type-title {
+        margin: 10px 0 5px 0;
+        font-size: 12pt;
+        font-weight: bold;
+    }
+}
+
+.link_block .link-tag input {
+    vertical-align: text-bottom;
 }
