@@ -6,6 +6,7 @@ type:
     - opinion -- Essay/Opinion -- A long opinion piece
     - data -- Data
     - tool -- Tool
+    - list -- List
     - guide -- Guide
     - demo -- Demo
 
