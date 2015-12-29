@@ -4,6 +4,7 @@ rubric = yaml.load("""
 type:
     - news -- News
     - opinion -- Essay/Opinion -- A long opinion piece
+    - story -- Essay/Story
     - data -- Data
     - tool -- Tool
     - list -- List
