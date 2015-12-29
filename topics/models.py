@@ -127,6 +127,28 @@ class Tag(models.Model):
             link.tags.add(tag)
 
     @staticmethod
+    def _filter_duplicates(q, site, selected_tags):
+        """
+        This function goes through each tag and re-ranks and filters them,
+        prioritizing tags that contain links that haven't been listed in another tag higher.
+
+        Also filters tags that have all links fully contained in other tags.
+        """
+        q = list(q[:20])
+        seen_links = set()
+        for tag in q:
+            if tag['tag__slug'] not in selected_tags:
+                for link in Link.get_all_links(site, selected_tags + [tag['tag__slug']]).values('link'):
+                    if link['link'] in seen_links:
+                        tag['number_of_links'] -= 1
+                    else:
+                        seen_links.add(link['link'])
+
+        q.sort(key=lambda _: _['number_of_links'], reverse=True)
+        q = [t for t in q if t['number_of_links'] > 0]
+        return q
+
+    @staticmethod
     def get_top_tags(site, tags):
         q = (
             Link.tags.through.objects
@@ -137,6 +159,8 @@ class Tag(models.Model):
         )
         if any(tags):
             q = q.filter(link__in=Link.get_all_links(site, tags))
+            q = Tag._filter_duplicates(q, site, tags)
+
         return q[:10]
 
     @staticmethod
