@@ -14,7 +14,7 @@
             <label class="link-delete"><input type="checkbox" name="link_delete" value="delete"><span>Delete</span>
             </label>
             {% if rubric %}
-                {% for list_type, list in rubric.items %}
+                {% for list_type, list in rubric %}
                     <h2 class="list-type-title">{{ list_type|title }}</h2>
                     <ul>
                         {% for value, item in list %}

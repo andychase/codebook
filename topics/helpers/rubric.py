@@ -1,6 +1,6 @@
 import yaml
 
-rubric = yaml.load("""
+rubric_raw = yaml.load("""
 type:
     - news -- News
     - opinion -- Essay/Opinion -- A long opinion piece
@@ -26,5 +26,6 @@ quality:
     - 5 -- Brings the topic to life
 
 """)
-for list_type in rubric:
-    rubric[list_type] = [i.split(" -- ") for i in rubric[list_type]]
+rubric = []
+for list_type in ['type', 'difficulty', 'quality']:
+        rubric.append((list_type, [item.split(" -- ") for item in rubric_raw[list_type]]))
