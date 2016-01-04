@@ -299,6 +299,8 @@ class Link(models.Model):
         if self.icon and not self.icon_data:
             try:
                 request = requests.get(self.icon)
+                if request.headers.startswith('text/html') or request.headers.startswith('text/plain'):
+                    return
                 self.icon_content_type = request.headers['content-type']
                 self.icon_data = request.content
                 self.save()
