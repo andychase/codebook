@@ -213,7 +213,7 @@ class Link(models.Model):
 
     @staticmethod
     def get_all_links(current_site, tags):
-        q = Link.objects.filter(site_id=current_site).select_related()
+        q = Link.objects.filter(site_id=current_site).defer('icon_data', 'icon_content_type').prefetch_related()
         if any(tags):
             for tag in tags:
                 q = q.filter(tags__slug=tag)
