@@ -198,6 +198,8 @@ class Link(models.Model):
     link = models.TextField(unique=True)
     title = models.TextField(blank=True)
     icon = models.TextField(blank=True)
+    icon_data = models.BinaryField(blank=True, null=True)
+    icon_content_type = models.TextField(blank=True)
     type = models.TextField(blank=True)
     rating_difficulty = models.IntegerField(null=True, blank=True)
     rating_quality = models.IntegerField(null=True, blank=True)
@@ -291,3 +293,10 @@ class Link(models.Model):
         if not link.title and title:
             link.title = title
         link.save()
+
+    @staticmethod
+    def save_icon_data(link):
+        if link.icon:
+            request = requests.get(link.icon)
+            link.icon_content_type = request.headers['content-type']
+            link.icon_data = request.content()
