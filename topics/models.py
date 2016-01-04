@@ -290,13 +290,17 @@ class Link(models.Model):
 
         # Save Link
         link.icon = icon
+        link.save_icon_data()
         if not link.title and title:
             link.title = title
         link.save()
 
-    @staticmethod
-    def save_icon_data(link):
-        if link.icon:
-            request = requests.get(link.icon)
-            link.icon_content_type = request.headers['content-type']
-            link.icon_data = request.content()
+    def save_icon_data(self):
+        if self.icon and not self.icon_data:
+            try:
+                request = requests.get(self.icon)
+                self.icon_content_type = request.headers['content-type']
+                self.icon_data = request.content
+                self.save()
+            except ReadTimeout:
+                pass

@@ -2,7 +2,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.sites.shortcuts import get_current_site
 from django.db import IntegrityError
-from django.http import HttpResponse
+from django.http import HttpResponse, Http404
 from django.shortcuts import redirect
 from django.template import loader, RequestContext
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
@@ -67,6 +67,15 @@ def get_topic(request, topic_name):
         'selected_tags': selected_tags
     })
     return HttpResponse(template.render(context))
+
+
+def get_link_icon(request, link_id):
+    l = Link.objects.filter(id=int(link_id)).values('icon_data', 'icon_content_type').first()
+    if not l:
+        raise Http404()
+    response = HttpResponse(content_type=l['icon_content_type'])
+    response.write(l['icon_data'])
+    return response
 
 
 @login_required

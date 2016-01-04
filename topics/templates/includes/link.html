@@ -1,6 +1,6 @@
 <div class="link_block">
     {% if link.icon %}
-        <img class="icon" src="{{ link.icon }}"/>
+        <img class="icon" src="{% url 'topics:get_link_icon' link.id %}"/>
     {% endif %}
     <a class="link_url" href="{{ link.link }}">
         {{ link.title }}
