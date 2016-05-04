@@ -146,34 +146,33 @@ STATICFILES_FINDERS = (
 
 STATICFILES_STORAGE = 'pipeline.storage.PipelineCachedStorage'
 
-PIPELINE_CSS = {
-    'style': {
-        'source_filenames': (
-            'css/main.scss',
-        ),
-        'output_filename': 'css/style.css',
+PIPELINE = {
+    'STYLESHEETS': {
+        'style': {
+            'source_filenames': (
+                'css/main.scss',
+            ),
+            'output_filename': 'css/style.css',
+        },
     },
-}
-
-PIPELINE_JS = {
-    'script': {
-        'source_filenames': (
-            'js/edit_page.coffee',
-            'js/tab_ajax.coffee',
-            'js/tag_hotkeys.coffee',
-        ),
-        'output_filename': 'js/script.js',
+    'JAVASCRIPT': {
+        'script': {
+            'source_filenames': (
+                'js/edit_page.coffee',
+                'js/tab_ajax.coffee',
+                'js/tag_hotkeys.coffee',
+            ),
+            'output_filename': 'js/script.js',
+        },
     },
+    'COMPILERS': (
+        'pipeline.compilers.sass.SASSCompiler',
+        'pipeline.compilers.coffee.CoffeeScriptCompiler'
+    ),
+    'SASS_BINARY': '/usr/bin/env sassc',
+    'CSS_COMPRESSOR': 'pipeline.compressors.NoopCompressor',
+    'JS_COMPRESSOR': 'pipeline.compressors.NoopCompressor'
 }
-
-PIPELINE_COMPILERS = (
-    'pipeline.compilers.sass.SASSCompiler',
-    'pipeline.compilers.coffee.CoffeeScriptCompiler'
-)
-
-PIPELINE_DISABLE_WRAPPER = True
-PIPELINE_CSS_COMPRESSOR = 'pipeline.compressors.NoopCompressor'
-PIPELINE_JS_COMPRESSOR = 'pipeline.compressors.NoopCompressor'
 
 LOGIN_REDIRECT_URL = '/'
 LOGIN_URL = 'topics:login'
