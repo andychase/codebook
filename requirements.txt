@@ -18,3 +18,4 @@ bleach
 django-redis-cache
 django-clear-cache==0.3
 aiohttp
+libsass
