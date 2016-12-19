@@ -28,12 +28,13 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'django.contrib.sites',
     'pipeline',
-    'reversion',
     'clear_cache',
     'topics',
 )
 
 MIDDLEWARE_CLASSES = (
+    'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -41,7 +42,6 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'django.middleware.security.SecurityMiddleware',
     'django.middleware.gzip.GZipMiddleware',
 )
 
@@ -146,34 +146,36 @@ STATICFILES_FINDERS = (
 
 STATICFILES_STORAGE = 'pipeline.storage.PipelineCachedStorage'
 
-PIPELINE_CSS = {
-    'style': {
-        'source_filenames': (
-            'css/main.scss',
-        ),
-        'output_filename': 'css/style.css',
+PIPELINE = {
+    'STYLESHEETS': {
+        'style': {
+            'source_filenames': (
+                'css/main.scss',
+            ),
+            'output_filename': 'css/style.css',
+        }
     },
-}
 
-PIPELINE_JS = {
-    'script': {
-        'source_filenames': (
-            'js/edit_page.coffee',
-            'js/tab_ajax.coffee',
-            'js/tag_hotkeys.coffee',
-        ),
-        'output_filename': 'js/script.js',
+    'JAVASCRIPT': {
+        'script': {
+            'source_filenames': (
+                'js/edit_page.coffee',
+                'js/tab_ajax.coffee',
+                'js/tag_hotkeys.coffee',
+            ),
+            'output_filename': 'js/script.js',
+        },
     },
+    'COMPILERS': (
+        'pipeline.compilers.sass.SASSCompiler',
+        'pipeline.compilers.coffee.CoffeeScriptCompiler'
+    ),
+    "SASS_BINARY": '/usr/bin/env sassc',
+
+    'DISABLE_WRAPPER': True,
+    'CSS_COMPRESSOR': 'pipeline.compressors.NoopCompressor',
+    'JS_COMPRESSOR': 'pipeline.compressors.NoopCompressor'
 }
-
-PIPELINE_COMPILERS = (
-    'pipeline.compilers.sass.SASSCompiler',
-    'pipeline.compilers.coffee.CoffeeScriptCompiler'
-)
-
-PIPELINE_DISABLE_WRAPPER = True
-PIPELINE_CSS_COMPRESSOR = 'pipeline.compressors.NoopCompressor'
-PIPELINE_JS_COMPRESSOR = 'pipeline.compressors.NoopCompressor'
 
 LOGIN_REDIRECT_URL = '/'
 LOGIN_URL = 'topics:login'

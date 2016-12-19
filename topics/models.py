@@ -11,7 +11,6 @@ from django.core.exceptions import ValidationError, ObjectDoesNotExist
 from django.db import models
 from django.db.models import Count
 from django.utils import timezone
-import reversion as revisions
 import django.utils.text
 from requests.exceptions import ReadTimeout
 
@@ -29,7 +28,6 @@ def validate_topic_name(name):
         raise ValidationError('Topic name cannot start with an underscore')
 
 
-@revisions.register
 class TopicSite(Site):
     header = models.CharField(max_length=120, blank=True)
     description = models.CharField(max_length=120, blank=True)
