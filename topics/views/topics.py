@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.sites.shortcuts import get_current_site
 from django.db import IntegrityError
 from django.http import HttpResponse, Http404
-from django.shortcuts import redirect
+from django.shortcuts import redirect, render
 from django.template import loader, RequestContext
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
@@ -53,20 +53,20 @@ def get_topic(request, topic_name):
         else:
             return save_link(request, topic_name)
 
-    template = loader.get_template('topics/show_topic.html')
+    template = 'topics/show_topic.html'
     links = Link.get_all_links(get_current_site(request), selected_tags)
     links = paginate_links(links, request.GET.get('page'))
 
     top_tags = list(Tag.get_top_tag_list(get_current_site(request), selected_tags))
     if len(links) < 6:
         top_tags = top_tags[:-1]
-    context = RequestContext(request, {
+    context = {
         'links': links,
         'top_tags_first': top_tags[:1],
         'top_tags_rest': top_tags[1:],
         'selected_tags': selected_tags
-    })
-    return HttpResponse(template.render(context))
+    }
+    return render(request, template, context)
 
 
 def get_link_icon(request, link_id):
