@@ -16,7 +16,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='TopicSite',
             fields=[
-                ('site_ptr', models.OneToOneField(parent_link=True, to='sites.Site', auto_created=True, serialize=False, primary_key=True)),
+                ('site_ptr', models.OneToOneField(parent_link=True, to='sites.Site', auto_created=True, serialize=False, primary_key=True, on_delete=models.CASCADE)),
                 ('header', models.CharField(max_length=120)),
                 ('create_date', models.DateTimeField(verbose_name='date created', default=django.utils.datetime_safe.datetime.now)),
             ],
@@ -25,7 +25,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='topic',
             name='site',
-            field=models.ForeignKey(to='sites.Site', default=1),
+            field=models.ForeignKey(to='sites.Site', default=1, on_delete=models.CASCADE),
             preserve_default=False,
         ),
         migrations.AlterUniqueTogether(

@@ -19,7 +19,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='topic',
             name='parent',
-            field=models.ForeignKey(to='topics.Topic', blank=True, null=True),
+            field=models.ForeignKey(to='topics.Topic', blank=True, null=True, on_delete=models.CASCADE),
         ),
         migrations.AlterField(
             model_name='topic',

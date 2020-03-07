@@ -21,7 +21,7 @@ class Migration(migrations.Migration):
                 ('text', models.TextField()),
                 ('slug', models.TextField(unique=True)),
                 ('pub_date', models.DateTimeField(default=django.utils.datetime_safe.datetime.now, verbose_name='date published')),
-                ('user', models.ForeignKey(to=settings.AUTH_USER_MODEL)),
+                ('user', models.ForeignKey(to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE)),
             ],
         ),
         migrations.RemoveField(

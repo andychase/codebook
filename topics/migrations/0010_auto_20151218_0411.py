@@ -22,8 +22,8 @@ class Migration(migrations.Migration):
                 ('link', models.TextField(blank=True)),
                 ('title', models.TextField(blank=True)),
                 ('pub_date', models.DateTimeField(verbose_name='date published', default=django.utils.datetime_safe.datetime.now)),
-                ('site', models.ForeignKey(to='sites.Site')),
-                ('user', models.ForeignKey(to=settings.AUTH_USER_MODEL)),
+                ('site', models.ForeignKey(to='sites.Site', on_delete=models.CASCADE)),
+                ('user', models.ForeignKey(to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE)),
             ],
         ),
         migrations.CreateModel(
@@ -32,8 +32,8 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('ip', models.TextField()),
                 ('pub_date', models.DateTimeField(verbose_name='date published', default=django.utils.datetime_safe.datetime.now)),
-                ('link', models.ForeignKey(to='topics.Link')),
-                ('user', models.ForeignKey(to=settings.AUTH_USER_MODEL)),
+                ('link', models.ForeignKey(to='topics.Link', on_delete=models.CASCADE)),
+                ('user', models.ForeignKey(to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE)),
             ],
         ),
         migrations.CreateModel(
@@ -43,7 +43,7 @@ class Migration(migrations.Migration):
                 ('ip', models.TextField()),
                 ('text', models.TextField(unique=True)),
                 ('pub_date', models.DateTimeField(verbose_name='date published', default=django.utils.datetime_safe.datetime.now)),
-                ('user', models.ForeignKey(to=settings.AUTH_USER_MODEL)),
+                ('user', models.ForeignKey(to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE)),
             ],
         ),
         migrations.CreateModel(
@@ -52,8 +52,8 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('ip', models.TextField()),
                 ('pub_date', models.DateTimeField(verbose_name='date published', default=django.utils.datetime_safe.datetime.now)),
-                ('tag', models.ForeignKey(to='topics.Link')),
-                ('user', models.ForeignKey(to=settings.AUTH_USER_MODEL)),
+                ('tag', models.ForeignKey(to='topics.Link', on_delete=models.CASCADE)),
+                ('user', models.ForeignKey(to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE)),
             ],
         ),
         migrations.AlterUniqueTogether(

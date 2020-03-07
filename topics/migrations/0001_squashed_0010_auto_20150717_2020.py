@@ -21,7 +21,7 @@ class Migration(migrations.Migration):
                 ('pub_date', models.DateTimeField(verbose_name='date published', default=django.utils.datetime_safe.datetime.now)),
                 ('text', models.TextField(blank=True)),
                 ('orig_name', models.CharField(max_length=120)),
-                ('parent', models.ForeignKey(null=True, blank=True, to='topics.Topic')),
+                ('parent', models.ForeignKey(null=True, blank=True, to='topics.Topic', on_delete=models.CASCADE)),
                 ('name', models.CharField(max_length=120, blank=True, validators=[topics.models.validate_topic_name])),
             ],
         ),

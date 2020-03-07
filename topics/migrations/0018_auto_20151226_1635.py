@@ -22,6 +22,6 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='link',
             name='source',
-            field=models.ForeignKey(null=True, blank=True, to='topics.Source'),
+            field=models.ForeignKey(null=True, blank=True, to='topics.Source', on_delete=models.CASCADE),
         ),
     ]

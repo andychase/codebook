@@ -15,7 +15,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='TopicSiteData',
             fields=[
-                ('site_ptr', models.OneToOneField(auto_created=True, primary_key=True, serialize=False, parent_link=True, to='sites.Site')),
+                ('site_ptr', models.OneToOneField(auto_created=True, primary_key=True, serialize=False, parent_link=True, to='sites.Site', on_delete=models.CASCADE)),
                 ('css_style', models.TextField(blank=True)),
             ],
             bases=('sites.site',),

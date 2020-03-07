@@ -16,6 +16,6 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='topicsite',
             name='admin',
-            field=models.ForeignKey(to=settings.AUTH_USER_MODEL, null=True, blank=True, related_name='admin_user'),
+            field=models.ForeignKey(to=settings.AUTH_USER_MODEL, null=True, blank=True, related_name='admin_user', on_delete=models.CASCADE),
         ),
     ]
