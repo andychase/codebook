@@ -34,7 +34,7 @@ class TopicSite(Site):
     allow_anonymous_edits = models.BooleanField(default=True)
     create_date = models.DateTimeField('date created', default=timezone.now)
     users = models.ManyToManyField(User)
-    admin = models.ForeignKey(User, null=True, blank=True, related_name="admin_user")
+    admin = models.ForeignKey(User, null=True, blank=True, related_name="admin_user", on_delete=models.CASCADE)
 
     def __str__(self):
         return self.name
@@ -90,7 +90,7 @@ class Source(models.Model):
 
 
 class Tag(models.Model):
-    user = models.ForeignKey(User)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     text = models.TextField()
     slug = models.TextField(unique=True)
     pub_date = models.DateTimeField('date published', default=timezone.now)
@@ -192,7 +192,7 @@ class Tag(models.Model):
 
 
 class Link(models.Model):
-    user = models.ForeignKey(User)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     link = models.TextField(unique=True)
     title = models.TextField(blank=True)
     icon = models.TextField(blank=True)
@@ -201,10 +201,10 @@ class Link(models.Model):
     type = models.TextField(blank=True)
     rating_difficulty = models.IntegerField(null=True, blank=True)
     rating_quality = models.IntegerField(null=True, blank=True)
-    site = models.ForeignKey(Site)
+    site = models.ForeignKey(Site, on_delete=models.CASCADE)
     pub_date = models.DateTimeField('date published', default=timezone.now)
     tags = models.ManyToManyField(Tag, blank=True)
-    source = models.ForeignKey(Source, null=True, blank=True)
+    source = models.ForeignKey(Source, null=True, blank=True, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.title
