@@ -1,1 +1,1 @@
-web: gunicorn -k gaiohttp codebook.wsgi --log-file -
+web: gunicorn -k gthread codebook.wsgi --log-file -
