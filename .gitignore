@@ -63,3 +63,4 @@ db.sqlite3
 venv/
 staticfiles/
 /static
+/node_modules/
