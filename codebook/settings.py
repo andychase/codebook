@@ -144,6 +144,8 @@ STATICFILES_FINDERS = (
 )
 
 STATICFILES_STORAGE = 'pipeline.storage.ManifestStaticFilesStorage'
+WHITENOISE_MANIFEST_STRICT = False
+
 
 PIPELINE = {
     'STYLESHEETS': {
