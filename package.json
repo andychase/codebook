@@ -2,7 +2,7 @@
   "name": "node-js-codebook",
   "version": "0.1.4",
   "dependencies": {
-    "coffee-script": ""
+    "coffeescript": ""
   },
   "engines": {
     "node": "16.11.1"

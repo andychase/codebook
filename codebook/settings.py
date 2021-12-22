@@ -143,7 +143,7 @@ STATICFILES_FINDERS = (
     'pipeline.finders.PipelineFinder',
 )
 
-STATICFILES_STORAGE = 'pipeline.storage.ManifestStaticFilesStorage'
+STATICFILES_STORAGE = 'pipeline.storage.PipelineManifestStorage'
 WHITENOISE_MANIFEST_STRICT = False
 
 
@@ -171,7 +171,8 @@ PIPELINE = {
         'pipeline.compilers.sass.SASSCompiler',
         'pipeline.compilers.coffee.CoffeeScriptCompiler'
     ),
-    "SASS_BINARY": '/usr/bin/env sassc',
+    "SASS_BINARY": 'pysassc',
+    "COFFEE_SCRIPT_BINARY": 'npx coffee',
 
     'DISABLE_WRAPPER': True,
     'CSS_COMPRESSOR': 'pipeline.compressors.NoopCompressor',
