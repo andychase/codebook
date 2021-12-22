@@ -1,6 +1,6 @@
 import yaml
 
-rubric_raw = yaml.load("""
+rubric_raw = yaml.safe_load("""
 type:
     - news -- News
     - opinion -- Essay/Opinion -- A long opinion piece

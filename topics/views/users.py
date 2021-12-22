@@ -1,9 +1,7 @@
-from django.contrib.auth import login, logout, authenticate
+from django.contrib.auth import logout
 from django.contrib.auth import views
-from django.contrib.auth.forms import UserCreationForm
-from django.http import HttpResponse, Http404, HttpResponseForbidden
+from django.http import Http404, HttpResponseForbidden
 from django.shortcuts import redirect
-from django.template import loader, RequestContext
 
 from topics.settings_context import settings_context
 

@@ -13,10 +13,11 @@ Including another URLconf
     1. Add an import:  from blog import urls as blog_urls
     2. Add a URL to urlpatterns:  url(r'^blog/', include(blog_urls))
 """
-from django.conf.urls import include, url
+from django.conf.urls import include
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.contrib.staticfiles.storage import staticfiles_storage
+from django.urls import re_path
 from django.views.generic import RedirectView
 from codebook import settings
 from topics.views import users
@@ -26,11 +27,11 @@ password_reset_confirm = \
     "^_reset/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$"
 
 urlpatterns = [
-                  url(r'^_admin/', admin.site.urls),
-                  url(r'^_password_reset/$', users.password_reset_view, name='password_reset'),
-                  url(password_reset_confirm, auth_views.PasswordResetConfirmView, name='password_reset_confirm'),
-                  url(r'^_password_reset/done/$', auth_views.PasswordResetCompleteView, name='password_reset_done'),
-                  url(r'^favicon.ico$',
+                  re_path(r'^_admin/', admin.site.urls),
+                  re_path(r'^_password_reset/$', users.password_reset_view, name='password_reset'),
+                  re_path(password_reset_confirm, auth_views.PasswordResetConfirmView, name='password_reset_confirm'),
+                  re_path(r'^_password_reset/done/$', auth_views.PasswordResetCompleteView, name='password_reset_done'),
+                  re_path(r'^favicon.ico$',
                       RedirectView.as_view(url=staticfiles_storage.url('favicon.ico'), permanent=False)),
-                  url(r'', include('topics.urls', namespace='topics')),
+                  re_path(r'', include('topics.urls', namespace='topics')),
               ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

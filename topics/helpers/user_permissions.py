@@ -1,10 +1,9 @@
 from functools import wraps
+from urllib.parse import urlparse
 
 from django.conf import settings
 from django.contrib.auth import REDIRECT_FIELD_NAME
 from django.shortcuts import resolve_url
-from django.utils.decorators import available_attrs
-from django.utils.six.moves.urllib.parse import urlparse
 
 from topics.models import TopicSite
 
@@ -17,7 +16,7 @@ def request_passes_test(test_func, login_url=None, redirect_field_name=REDIRECT_
     """
 
     def decorator(view_func):
-        @wraps(view_func, assigned=available_attrs(view_func))
+        @wraps(view_func)
         def _wrapped_view(request, *args, **kwargs):
             if test_func(request):
                 return view_func(request, *args, **kwargs)
