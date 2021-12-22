@@ -143,7 +143,7 @@ STATICFILES_FINDERS = (
     'pipeline.finders.PipelineFinder',
 )
 
-STATICFILES_STORAGE = 'pipeline.storage.PipelineCachedStorage'
+STATICFILES_STORAGE = 'pipeline.storage.ManifestStaticFilesStorage'
 
 PIPELINE = {
     'STYLESHEETS': {
